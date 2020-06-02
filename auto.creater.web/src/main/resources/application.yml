@@ -32,7 +32,7 @@ db:
       host: 127.0.0.1
       port: 3306
       userName: root
-      passwd: 123456
+      passwd: 1234qwer
 #includList与excludeList二选一
       excludeList:
 #includList:
@@ -84,3 +84,5 @@ example:
    - .metadata
    # other
    - .sts4-cachee
+   #git
+   - .git
