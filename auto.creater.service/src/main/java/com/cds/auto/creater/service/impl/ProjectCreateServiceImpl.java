@@ -159,8 +159,8 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
      * @return String
      */
     private String getOutputPath(String absolutePath, Map<String, String> replaceMap) {
-        String outputPath = "";
-        absolutePath.replaceAll(exampleProjectConfig.getPrefix(), replaceMap.get(exampleProjectConfig.getPrefix()));
+        String outputPath =
+            absolutePath.replaceAll(exampleProjectConfig.getPrefix(), replaceMap.get(exampleProjectConfig.getPrefix()));
         outputPath = outputPath.replaceAll(ProjectCreateUtil.upperFirstLatter(exampleProjectConfig.getPrefix()),
             replaceMap.get(ProjectCreateUtil.upperFirstLatter(exampleProjectConfig.getPrefix())));
         return outputPath.replaceAll("TableName", replaceMap.get("TableName"));
