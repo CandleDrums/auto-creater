@@ -85,4 +85,4 @@ example:
    # other
    - .sts4-cachee
    #git
-   - .git
+   - .git/
