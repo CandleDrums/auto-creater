@@ -1,0 +1,86 @@
+server:
+#配置启动端口
+   port: 80
+   max-http-header-size: 4048576
+   max-http-post-size: 4048576
+   tomcat:
+      max-http-post-size: 4048576
+spring:
+   application:
+      name: auto_creater
+   freemarker:
+      allow-request-override: false
+      allow-session-override: false
+      cache: false
+      charset: UTF-8
+      check-template-location: true
+      content-type: text/html
+      enabled: true
+      expose-request-attributes: false
+      expose-session-attributes: false
+      expose-spring-macro-helpers: true
+      prefer-file-system-access: true
+      settings:
+         classic_compatible: true
+         default_encoding: UTF-8
+         template_update_delay: 0
+      suffix: .ftl
+      template-loader-path: classpath:/html/
+db:
+   config:
+      name: 测试环境
+      host: 127.0.0.1
+      port: 3306
+      userName: root
+      passwd: 123456
+#includList与excludeList二选一
+      excludeList:
+#includList:
+      - swar_boss
+      - xxl_job
+      - zentao
+example:
+   prefix: example
+#项目前缀，一般与数据库同名
+   projects:
+   -  example-dep: https://github.com/CandleDrums/${example.prefix}-dep.git
+   -  example-server: https://github.com/CandleDrums/${example.prefix}-server.git
+   -  example-api: https://github.com/CandleDrums/${example.prefix}-api.git
+#输出目录
+   outputPath: /Users/liming/git_temp
+   #过滤无用文件
+   ignore:
+   # maven ignore
+   - target/
+   - .war
+   - .ear
+   - .zip
+   - .tar
+   - .tar.gz
+   # eclipse ignore
+   - .settings/
+   - .project
+   - .classpath
+   # idea ignore
+   - .idea/
+   - .ipr
+   - .iml
+   - .iws
+   # logs #
+   - logs
+   # temp ignore
+   - .log
+   - .cache
+   - .diff
+   - .patch
+   - .tmp
+   - .java~
+   - .properties~
+   - .xml~
+   # system ignore
+   - .DS_Store
+   - Thumbs.db
+   - Servers
+   - .metadata
+   # other
+   - .sts4-cachee

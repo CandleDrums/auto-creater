@@ -1,0 +1,179 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.candledrums.server</groupId>
+		<artifactId>[module]-server</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>[module]-server-starter</artifactId>
+	<name>[module].server.starter</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.candledrums.dep</groupId>
+			<artifactId>[module]-dep-biz</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.candledrums.starter</groupId>
+			<artifactId>starter-server</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.candledrums.starter</groupId>
+			<artifactId>starter-hikari</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+	<build>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources/bin</directory>
+				<includes>
+					<include>*.sh</include>
+					<include>*.bat</include>
+				</includes>
+				<filtering>true</filtering>
+				<targetPath>${project.build.directory}/temp/bin</targetPath>
+			</resource>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<includes>
+					<include>*.properties</include>
+					<include>*.xml</include>
+					<include>*.yml</include>
+					<include>*.dtd</include>
+				</includes>
+				<filtering>true</filtering>
+				<targetPath>${project.build.directory}/temp/conf</targetPath>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.1,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includeTypes>jar</includeTypes>
+					<overWriteSnapshots>true</overWriteSnapshots>
+					<type>jar</type>
+					<outputDirectory>${project.build.directory}/temp/lib</outputDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>assembly-package</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<mkdir dir="${project.build.directory}" />
+								<zip destfile="${project.build.directory}/${project.artifactId}-uber.jar">
+									<zipfileset dir="${project.build.directory}/temp/lib"
+										includes="**" prefix="lib" />
+									<zipfileset dir="${project.build.directory}"
+										includes="${project.build.finalName}.${project.packaging}"
+										prefix="lib" />
+									<zipfileset dir="${project.build.directory}/temp/conf"
+										prefix="conf" />
+									<zipfileset dir="${project.build.directory}/temp/bin"
+										prefix="bin" />
+								</zip>
+							</tasks>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-package</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<unzip dest="${project.build.directory}/${package.name}"
+									src="${project.build.directory}/${project.artifactId}-uber.jar" />
+								<chmod dir="${project.build.directory}/${package.name}/bin"
+									includes="**" perm="755" />
+							</tasks>
+						</configuration>
+					</execution>
+					<execution>
+						<id>pack-package</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<mkdir dir="${project.build.directory}" />
+								<chmod dir="${project.build.directory}/${package.name}/bin"
+									includes="**" perm="755" />
+								<zip destfile="${project.build.directory}/${package.name}.zip">
+									<zipfileset dir="${project.build.directory}/${package.name}"
+										filemode="755" prefix="${package.name}" />
+								</zip>
+								<chmod file="${project.build.directory}/${package.name}.zip"
+									includes="**" perm="755" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
