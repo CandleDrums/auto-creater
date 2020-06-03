@@ -7,8 +7,6 @@
  */
 package com.cds.app.creater.common.model;
 
-import java.util.List;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +27,6 @@ public class ConnectionConfig {
     private String userName;
     private String passwd;
     private String port;
-    private List<String> excludeList;
-    private List<String> includList;
 
     public ConnectionConfig(String host, String port, String userName, String passwd) {
         super();

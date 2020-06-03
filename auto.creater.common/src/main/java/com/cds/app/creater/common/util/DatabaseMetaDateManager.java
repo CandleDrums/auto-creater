@@ -121,16 +121,8 @@ public class DatabaseMetaDateManager {
                 name[i] = rsmd.getColumnName(i + 1);
             }
             Map<String, List<TableDetail>> map = new LinkedHashMap<String, List<TableDetail>>();
-            List<String> includList = config.getIncludList();
-            List<String> excludeList = config.getExcludeList();
             while (rs.next()) {
                 String dbName = rs.getString("TABLE_CAT"); // 库名
-                if (CheckUtils.isNotEmpty(includList) && !includList.contains(dbName)) {
-                    continue;
-                }
-                if (CheckUtils.isNotEmpty(excludeList) && excludeList.contains(dbName)) {
-                    continue;
-                }
                 String tableName = rs.getString("TABLE_NAME"); // 表名
                 // String tableType = rs.getString("TABLE_TYPE"); // 表类型
                 String remarks = rs.getString("REMARKS"); // 表备注
