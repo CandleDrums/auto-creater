@@ -87,7 +87,9 @@ public class ProjectCreateController {
         projectName = projectName.replaceAll("_", "-");
         for (TableDetail tableDetail : allTablesMap.get(dbName)) {
             if (tableDetail.getDbName().equals(dbName) && tableDetail.getTableName().equals(tableName)) {
-                params.setTableDetail(databaseMetaDateManager.getTableDetail(dbName, tableName));
+                TableDetail td = databaseMetaDateManager.getTableDetail(dbName, tableName);
+                td.setRemark(tableDetail.getRemark());
+                params.setTableDetail(td);
             }
         }
         params.setProjectName(projectName);

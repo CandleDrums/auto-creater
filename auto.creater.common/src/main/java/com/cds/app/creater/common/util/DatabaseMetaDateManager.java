@@ -15,10 +15,12 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import com.cds.app.creater.common.model.ConnectionConfig;
 import com.cds.app.creater.common.model.TableColumn;
@@ -204,7 +206,8 @@ public class DatabaseMetaDateManager {
         }
         try {
             List<TableColumn> columnList = new ArrayList<TableColumn>();
-            ResultSet rs = dbMetaData.getColumns(null, schemaName, tableName, "%");
+            ResultSet rs = dbMetaData.getColumns(null, schemaName, tableName, null);
+            Set<String> columnNameSet = new HashSet<String>();
             while (rs.next()) {
                 String tableCat = rs.getString("TABLE_CAT");// 表目录（库名）
                 // String tableSchemaName = rs.getString("TABLE_SCHEM");// 表的架构（可能为空）
@@ -226,6 +229,10 @@ public class DatabaseMetaDateManager {
                 // String isNullAble = rs.getString("IS_NULLABLE");
                 // 指示此列是否是自动递增 是---如果该列是自动递增 无---如果不是自动递增列 空字串---如果不能确定它是否 列是自动递增的参数是未知
                 String isAutoincrement = rs.getString("IS_AUTOINCREMENT");
+                // 如果已经存在则跳过，主要解决列获取重复问题
+                if (columnNameSet.contains(columnName)) {
+                    continue;
+                }
                 TableColumn column = new TableColumn();
                 column.setDbName(tableCat);
                 column.setTableName(tableName_);
@@ -244,6 +251,7 @@ public class DatabaseMetaDateManager {
                 column.setSqlDataType(sqlDataType);
                 column.setSqlDatetimeSub(sqlDatetimeSub);
                 columnList.add(column);
+                columnNameSet.add(columnName);
             }
             TableDetail tableDetail = new TableDetail();
             tableDetail.setDbName(schemaName);
