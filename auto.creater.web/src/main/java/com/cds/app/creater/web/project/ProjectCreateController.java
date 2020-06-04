@@ -62,6 +62,13 @@ public class ProjectCreateController {
         return view;
     }
 
+    @RequestMapping(value = "/add.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView add(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("addConnection");
+        return view;
+    }
+
     @RequestMapping(value = "/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView create(ProjectCreateParams params, HttpServletRequest request, HttpServletResponse response)
         throws IOException {

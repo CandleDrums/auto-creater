@@ -7,8 +7,6 @@
  */
 package com.cds.app.creater.common.model;
 
-import java.util.Date;
-
 import lombok.Data;
 
 /**
@@ -25,6 +23,5 @@ public class DBConnectionVO {
     private String userName;
     private String passwd;
     private String port;
-    private Date createDate;
 
 }

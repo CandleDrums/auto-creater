@@ -88,3 +88,6 @@ example:
    - .sts4-cachee
    #git
    - .git/
+logging:
+  level:
+    com.cds.app.creater.dal.dao : debug
