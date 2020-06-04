@@ -19,6 +19,7 @@ import lombok.Data;
  */
 @Data
 public class ProjectCreateParams {
+    private Integer connectionConfigId;
     private String projectName;
     private String dbName;
     private String tableName;

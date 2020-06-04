@@ -16,12 +16,9 @@ import org.eclipse.jgit.lib.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cds.app.creater.common.model.ConnectionConfig;
 import com.cds.app.creater.common.model.ExampleProjectConfig;
 import com.cds.app.creater.common.model.ProjectCreateParams;
-import com.cds.app.creater.common.model.TableColumn;
 import com.cds.app.creater.common.model.TableDetail;
-import com.cds.app.creater.common.util.DatabaseMetaDateManager;
 import com.cds.app.creater.common.util.GitUtils;
 import com.cds.app.creater.common.util.ProjectCreateUtil;
 import com.cds.auto.creater.service.ProjectCreateService;
@@ -40,8 +37,6 @@ import com.cds.base.util.file.FileUtils;
 public class ProjectCreateServiceImpl implements ProjectCreateService {
     @Autowired
     private ExampleProjectConfig exampleProjectConfig;
-    @Autowired
-    private ConnectionConfig connectionConfig;
 
     @Override
     public boolean createPorject(ProjectCreateParams params) {
@@ -173,21 +168,6 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
     private boolean isIgnore(String absolutePath) {
         for (String igFile : exampleProjectConfig.getIgnore()) {
             if (absolutePath.contains(igFile)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isGeneral(String dbName, String tableName) {
-        if (tableName == null) {
-            return false;
-        }
-        DatabaseMetaDateManager dmdm = new DatabaseMetaDateManager(connectionConfig);
-        TableDetail tableDetail = dmdm.getTableDetail(dbName, tableName);
-        List<TableColumn> columnList = tableDetail.getColumnList();
-        for (TableColumn tableColumn : columnList) {
-            if (tableColumn.getColumnName().equals("num")) {
                 return true;
             }
         }

@@ -22,7 +22,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import com.cds.app.creater.common.model.ConnectionConfig;
+import org.springframework.stereotype.Component;
+
+import com.cds.app.creater.common.model.DBConnectionVO;
 import com.cds.app.creater.common.model.TableColumn;
 import com.cds.app.creater.common.model.TableDetail;
 import com.cds.base.util.bean.CheckUtils;
@@ -30,49 +32,44 @@ import com.cds.base.util.bean.CheckUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @Description TODO 填写描述信息
+ * @Description 数据库信息
  * @Notes 未填写备注
  * @author liming
  * @Date Apr 5, 2020 11:49:03 AM
  */
 @Slf4j
+@Component
 public class DatabaseMetaDateManager {
 
-    private DatabaseMetaData dbMetaData = null;
-    private Connection con = null;
-    private ConnectionConfig config;
-
-    public DatabaseMetaDateManager(ConnectionConfig config) {
-        this.config = config;
-        this.initDatabaseMetaData(config.getHost(), config.getPort(), config.getUserName(), config.getPasswd());
+    public DatabaseMetaData getDatabaseMetaData(DBConnectionVO config) {
+        return this.initDatabaseMetaData(config.getHost(), config.getPort(), config.getUserName(), config.getPasswd());
     }
 
-    private void initDatabaseMetaData(String host, String port, String userName, String passwd) {
+    private DatabaseMetaData initDatabaseMetaData(String host, String port, String userName, String passwd) {
         Properties props = new Properties();
 
         try {
-            if (dbMetaData == null) {
-                Class.forName("com.mysql.jdbc.Driver");
-                String url = "jdbc:mysql://" + host + ":" + port;
-                props.setProperty("user", userName);
-                props.setProperty("password", passwd);
-                props.setProperty("remarks", "true"); // 设置可以获取remarks信息
-                props.setProperty("useInformationSchema", "true");// 设置可以获取tables remarks信息
+            Class.forName("com.mysql.jdbc.Driver");
+            String url = "jdbc:mysql://" + host + ":" + port;
+            props.setProperty("user", userName);
+            props.setProperty("password", passwd);
+            props.setProperty("remarks", "true"); // 设置可以获取remarks信息
+            props.setProperty("useInformationSchema", "true");// 设置可以获取tables remarks信息
 
-                con = DriverManager.getConnection(url, props);
-                dbMetaData = con.getMetaData();
-            }
+            Connection con = DriverManager.getConnection(url, props);
+            return con.getMetaData();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
      * 获得数据库的一些相关信息
      */
-    public void getDataBaseInformations() {
+    public void getDataBaseInformations(DatabaseMetaData dbMetaData) {
         try {
             log.info("数据库已知的用户: " + dbMetaData.getUserName());
             log.info("数据库的系统函数的逗号分隔列表: " + dbMetaData.getSystemFunctions());
@@ -96,15 +93,15 @@ public class DatabaseMetaDateManager {
         }
     }
 
-    public Map<String, List<TableDetail>> getAllTables() {
+    public Map<String, List<TableDetail>> getAllTables(DatabaseMetaData dbMetaData) {
 
-        return this.getTableList(null);
+        return this.getTableList(dbMetaData, null);
     }
 
     /**
      * 获得该用户下面的所有表
      */
-    public Map<String, List<TableDetail>> getTableList(String schemaName) {
+    public Map<String, List<TableDetail>> getTableList(DatabaseMetaData dbMetaData, String schemaName) {
         try {
             // table type. Typical types are "TABLE", "VIEW", "SYSTEM TABLE", "GLOBAL TEMPORARY", "LOCAL TEMPORARY",
             // "ALIAS", "SYNONYM".
@@ -148,7 +145,7 @@ public class DatabaseMetaDateManager {
     /**
      * 获得该用户下面的所有视图
      */
-    public void getAllViewList(String schemaName) {
+    public void getAllViewList(DatabaseMetaData dbMetaData, String schemaName) {
         try {
             String[] types = {"VIEW"};
             ResultSet rs = dbMetaData.getTables(null, schemaName, "%", types);
@@ -166,7 +163,7 @@ public class DatabaseMetaDateManager {
     /**
      * 获得数据库中所有方案名称
      */
-    public void getAllSchemas() {
+    public void getAllSchemas(DatabaseMetaData dbMetaData) {
         try {
             ResultSet rs = dbMetaData.getSchemas();
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -192,7 +189,7 @@ public class DatabaseMetaDateManager {
     /**
      * 获得表或视图中的所有列信息
      */
-    public TableDetail getTableDetail(String schemaName, String tableName) {
+    public TableDetail getTableDetail(DatabaseMetaData dbMetaData, String schemaName, String tableName) {
         if (schemaName == null) {
             return null;
         }
@@ -284,7 +281,7 @@ public class DatabaseMetaDateManager {
     /**
      * 获得一个表的索引信息
      */
-    public void getIndexInfo(String schemaName, String tableName) {
+    public void getIndexInfo(DatabaseMetaData dbMetaData, String schemaName, String tableName) {
         try {
             ResultSet rs = dbMetaData.getIndexInfo(null, schemaName, tableName, true, true);
             while (rs.next()) {
@@ -308,7 +305,7 @@ public class DatabaseMetaDateManager {
     /**
      * 获得一个表的主键信息
      */
-    public void getAllPrimaryKeys(String schemaName, String tableName) {
+    public void getAllPrimaryKeys(DatabaseMetaData dbMetaData, String schemaName, String tableName) {
         try {
             ResultSet rs = dbMetaData.getPrimaryKeys(null, schemaName, tableName);
             while (rs.next()) {
@@ -325,7 +322,7 @@ public class DatabaseMetaDateManager {
     /**
      * 获得一个表的外键信息
      */
-    public void getAllExportedKeys(String schemaName, String tableName) {
+    public void getAllExportedKeys(DatabaseMetaData dbMetaData, String schemaName, String tableName) {
 
         try {
             ResultSet rs = dbMetaData.getExportedKeys(null, schemaName, tableName);
@@ -376,7 +373,7 @@ public class DatabaseMetaDateManager {
         }
     }
 
-    public void colseCon() {
+    public void colseCon(Connection con) {
         try {
             if (con != null) {
                 con.close();

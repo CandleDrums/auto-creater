@@ -8,6 +8,7 @@
 package com.cds.app.creater.web.project;
 
 import java.io.IOException;
+import java.sql.DatabaseMetaData;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cds.app.creater.common.model.ConnectionConfig;
+import com.cds.app.creater.common.model.DBConnectionVO;
 import com.cds.app.creater.common.model.ExampleProjectConfig;
 import com.cds.app.creater.common.model.ProjectCreateParams;
 import com.cds.app.creater.common.model.TableDetail;
 import com.cds.app.creater.common.util.DatabaseMetaDateManager;
+import com.cds.auto.creater.service.DBConnectionService;
 import com.cds.auto.creater.service.ProjectCreateService;
 import com.cds.base.util.bean.CheckUtils;
 
@@ -43,16 +45,32 @@ public class ProjectCreateController {
     @Autowired
     private ProjectCreateService projectCreateService;
     @Autowired
-    private ConnectionConfig connectionConfig;
-    @Autowired
     private ExampleProjectConfig exampleProjectConfig;
+    @Autowired
+    private DBConnectionService dbConnectionService;
+    @Autowired
+    private DatabaseMetaDateManager databaseMetaDateManager;
 
     @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView projectIndex(ProjectCreateParams params, HttpServletRequest request,
-        HttpServletResponse response) throws IOException {
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        DatabaseMetaDateManager databaseMetaDateManager = new DatabaseMetaDateManager(connectionConfig);
-        Map<String, List<TableDetail>> allTablesMap = databaseMetaDateManager.getAllTables();
+        List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
+
+        ModelAndView view = new ModelAndView();
+        view.addObject("connectionList", connectionList);
+        view.setViewName("index");
+        return view;
+    }
+
+    @RequestMapping(value = "/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView create(ProjectCreateParams params, HttpServletRequest request, HttpServletResponse response)
+        throws IOException {
+        if (CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getConnectionConfigId())) {
+            return index(request, response);
+        }
+        DBConnectionVO connectionConfig = dbConnectionService.detail(params.getConnectionConfigId());
+        DatabaseMetaData databaseMetaData = databaseMetaDateManager.getDatabaseMetaData(connectionConfig);
+        Map<String, List<TableDetail>> allTablesMap = databaseMetaDateManager.getAllTables(databaseMetaData);
         String outputPath = exampleProjectConfig.getOutputPath();
         ModelAndView view = new ModelAndView();
         view.addObject("allTablesMap", allTablesMap);
@@ -87,7 +105,7 @@ public class ProjectCreateController {
         projectName = projectName.replaceAll("_", "-");
         for (TableDetail tableDetail : allTablesMap.get(dbName)) {
             if (tableDetail.getDbName().equals(dbName) && tableDetail.getTableName().equals(tableName)) {
-                TableDetail td = databaseMetaDateManager.getTableDetail(dbName, tableName);
+                TableDetail td = databaseMetaDateManager.getTableDetail(databaseMetaData, dbName, tableName);
                 td.setRemark(tableDetail.getRemark());
                 params.setTableDetail(td);
             }

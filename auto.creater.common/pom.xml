@@ -8,7 +8,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>auto-creater-common</artifactId>
-	<name>auto.creater.common</name>
+	<name>auto-creater-common</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.candledrums.base</groupId>
@@ -34,6 +34,10 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.candledrums.base</groupId>
+			<artifactId>base-common</artifactId>
 		</dependency>
 	</dependencies>
 </project>

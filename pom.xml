@@ -8,10 +8,10 @@
 	<packaging>pom</packaging>
 	<name>auto.creater</name>
 	<modules>
-		<module>auto.creater.web</module>
-		<module>auto.creater.service</module>
-		<module>auto.creater.common</module>
-		<module>auto.creater.dal</module>
+		<module>auto-creater-web</module>
+		<module>auto-creater-service</module>
+		<module>auto-creater-common</module>
+		<module>auto-creater-dal</module>
 	</modules>
 	<!-- 配置参数 -->
 	<properties>
@@ -67,9 +67,11 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.candledrums.starter</groupId>
-				<artifactId>starter-web</artifactId>
-				<version>${starter.version}</version>
+				<groupId>com.candledrums.maven</groupId>
+				<artifactId>configure-maven-sqllite</artifactId>
+				<version>${configure.maven.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.candledrums.app</groupId>
@@ -84,6 +86,11 @@
 			<dependency>
 				<groupId>com.candledrums.app</groupId>
 				<artifactId>auto-creater-web</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.candledrums.app</groupId>
+				<artifactId>auto-creater-dal</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

@@ -8,6 +8,11 @@ server:
 spring:
    application:
       name: auto_creater
+   datasource:
+      driver-class-name: org.sqlite.JDBC
+      url: jdbc:sqlite:classpath:/db/connection.db
+      username: root
+      password: 123456
    freemarker:
       allow-request-override: false
       allow-session-override: false
@@ -26,19 +31,16 @@ spring:
          template_update_delay: 0
       suffix: .ftl
       template-loader-path: classpath:/html/
-db:
-   config:
-      name: 测试环境
-      host: 127.0.0.1
-      port: 3306
-      userName: root
-      passwd: 1234qwer
-#includList与excludeList二选一
-      excludeList:
-#includList:
-      - swar_boss
-      - xxl_job
-      - zentao
+mybatis-plus:
+   mapper-locations: classpath:mapper/*.xml
+   typeAliasesPackage: com.cds.app.creater.dal.model
+#数据库大写下划线转换
+   configuration:
+      map-underscore-to-camel-case: true
+#capital-mode: true
+      cache-enabled: true
+
+
 example:
    prefix: example
 #项目前缀，一般与数据库同名

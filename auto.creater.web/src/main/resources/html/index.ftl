@@ -31,7 +31,26 @@
 		<div class="layui-container">
 			<fieldset class="layui-elem-field layui-field-title"
 				style="margin-top: 20px;">
-				<legend>项目自动创建</legend>
+				<legend>数据库信息</legend>
+			</fieldset>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">选择表*</label>
+					<div class="layui-input-inline">
+						<select name="connectionConfigId">
+							<option selected="selected">请选择</option>
+							<#list connectionConfigList as detail>
+								<optgroup label="${detail.name}">
+									<option value="${detail.id}">${detail.name}:(${detail.remark})</option>
+								</optgroup>
+							</#list>
+						</select>
+					</div>
+				</div>
+			</div>
+			<fieldset class="layui-elem-field layui-field-title"
+				style="margin-top: 10px;">
+				<legend>项目信息</legend>
 			</fieldset>
 
 			<div class="layui-form-item">

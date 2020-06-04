@@ -8,7 +8,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>auto-creater-web</artifactId>
-	<name>auto.creater.web</name>
+	<name>auto-create-web</name>
 	<packaging>war</packaging>
 	<dependencies>
 		<dependency>
