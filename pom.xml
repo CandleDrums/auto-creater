@@ -68,7 +68,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.candledrums.maven</groupId>
-				<artifactId>configure-maven-sqllite</artifactId>
+				<artifactId>configure-maven-sqlite</artifactId>
 				<version>${configure.maven.version}</version>
 				<type>pom</type>
 				<scope>import</scope>

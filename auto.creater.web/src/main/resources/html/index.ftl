@@ -31,17 +31,17 @@
 		<div class="layui-container">
 			<fieldset class="layui-elem-field layui-field-title"
 				style="margin-top: 20px;">
-				<legend>数据库信息</legend>
+				<legend>第一步，选择数据库</legend>
 			</fieldset>
 			<div class="layui-form-item">
 				<div class="layui-inline">
-					<label class="layui-form-label">选择表*</label>
+					<label class="layui-form-label">数据库列表*</label>
 					<div class="layui-input-inline">
 						<select name="connectionConfigId">
 							<option selected="selected">请选择</option>
-							<#list connectionConfigList as detail>
+							<#list connectionList as detail>
 								<optgroup label="${detail.name}">
-									<option value="${detail.id}">${detail.name}:(${detail.remark})</option>
+									<option value="${detail.id}">${detail.host}:${detail.port}</option>
 								</optgroup>
 							</#list>
 						</select>
