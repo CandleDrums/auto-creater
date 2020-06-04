@@ -10,7 +10,7 @@ spring:
       name: auto_creater
    datasource:
       driver-class-name: org.sqlite.JDBC
-      url: jdbc:sqlite:classpath:/db/connection.db
+      url: jdbc:sqlite::resource:sqlite3.db
       username: 
       password: 
    freemarker:

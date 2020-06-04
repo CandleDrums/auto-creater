@@ -8,28 +8,27 @@
     <result column="user_name" property="userName" jdbcType="VARCHAR" javaType="java.lang.String" />
     <result column="name" property="name" jdbcType="VARCHAR" javaType="java.lang.String" />
     <result column="host" property="host" jdbcType="VARCHAR" javaType="java.lang.String" />
-    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
   </resultMap>
-  <sql id="DBConnectionDOColumns">id,passwd,port,user_name,name,host,create_date</sql>
+  <sql id="DBConnectionDOColumns">id,passwd,port,user_name,name,host</sql>
   <insert id="save" keyProperty="id" useGeneratedKeys="true" parameterType="com.cds.app.creater.dal.model.DBConnectionDO">insert into db_connection
- 	(passwd,port,user_name,name,host,create_date) 
+ 	(passwd,port,user_name,name,host) 
  	values 
  	 (#{passwd, jdbcType=VARCHAR, javaType=java.lang.String},
 	 #{port, jdbcType=VARCHAR, javaType=java.lang.String},
 	 #{userName, jdbcType=VARCHAR, javaType=java.lang.String},
 	 #{name, jdbcType=VARCHAR, javaType=java.lang.String},
-	 #{host, jdbcType=VARCHAR, javaType=java.lang.String},
-	 current_timestamp	)</insert>
+	 #{host, jdbcType=VARCHAR, javaType=java.lang.String}
+	 	)</insert>
   <insert id="saveAll" parameterType="java.util.List">
     insert into db_connection
- 	(passwd,port,user_name,name,host,create_date) 
+ 	(passwd,port,user_name,name,host) 
  	 values
-    <foreach collection="list" item="item" index="index" separator=",">(	 #{item.passwd, jdbcType=VARCHAR, javaType=java.lang.String},
+    <foreach collection="list" item="item" index="index" separator=",">(	 
+     #{item.passwd, jdbcType=VARCHAR, javaType=java.lang.String},
 	 #{item.port, jdbcType=VARCHAR, javaType=java.lang.String},
 	 #{item.userName, jdbcType=VARCHAR, javaType=java.lang.String},
 	 #{item.name, jdbcType=VARCHAR, javaType=java.lang.String},
 	 #{item.host, jdbcType=VARCHAR, javaType=java.lang.String},
-	 current_timestamp,
 	)</foreach>
   </insert>
   <delete id="delete" parameterType="java.lang.Integer">delete from db_connection 

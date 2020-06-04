@@ -8,6 +8,7 @@
 package com.cds.auto.creater.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cds.app.creater.common.model.DBConnectionVO;
 import com.cds.app.creater.dal.dao.DBConnectionDAO;
@@ -22,6 +23,7 @@ import com.cds.base.dal.dao.BasicDAO;
  * @author liming
  * @Date Jun 4, 2020 10:51:26 AM
  */
+@Service
 public class DBConnectionServiceImpl extends BasicServiceImpl<DBConnectionVO, DBConnectionDO>
     implements DBConnectionService {
     @Autowired

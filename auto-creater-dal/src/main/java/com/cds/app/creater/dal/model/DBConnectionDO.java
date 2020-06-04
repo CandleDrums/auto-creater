@@ -7,12 +7,10 @@
  */
 package com.cds.app.creater.dal.model;
 
-import com.cds.base.dal.model.BasicModel;
 import com.cds.base.util.generator.mybatis.MybatisMapperGenerator;
 import com.cds.base.util.generator.mybatis.annotaion.TableAnnotation;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -23,11 +21,10 @@ import lombok.ToString;
  */
 @Data
 @ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @TableAnnotation(value = "db_connection")
-public class DBConnectionDO extends BasicModel {
+public class DBConnectionDO {
 
-    private static final long serialVersionUID = 1L;
+    private Integer id;
     private String name;
     private String host;
     private String userName;

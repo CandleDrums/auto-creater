@@ -35,6 +35,7 @@
 		<mysql.connector.java.version>8.0.12</mysql.connector.java.version>
 		<starter.version>1.0.0-SNAPSHOT</starter.version>
 		<spring.boot.maven.plugin.version>2.2.6.RELEASE</spring.boot.maven.plugin.version>
+		<mybatis.plus.spring.boot.starter.verson>3.3.2</mybatis.plus.spring.boot.starter.verson>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -117,6 +118,12 @@
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>${mysql.connector.java.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis.plus.spring.boot.starter.verson}</version>
 			</dependency>
 
 		</dependencies>
