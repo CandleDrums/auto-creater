@@ -50,6 +50,8 @@ example:
    -  example-api: https://github.com/CandleDrums/${example.prefix}-api.git
 #输出目录
    outputPath: /Users/liming/git_temp
+   port: 10000
+   author: 自动创建
    #过滤无用文件
    ignore:
    # maven ignore
@@ -88,6 +90,3 @@ example:
    - .sts4-cachee
    #git
    - .git/
-logging:
-  level:
-    com.cds.app.creater.dal.dao : debug

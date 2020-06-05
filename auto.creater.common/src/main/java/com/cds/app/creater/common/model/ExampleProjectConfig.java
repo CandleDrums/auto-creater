@@ -30,6 +30,8 @@ public class ExampleProjectConfig {
     private String passwd;
     private String outputPath;
     private String prefix;
+    private String port;
+    private String author;
     private List<String> ignore;
 
 }

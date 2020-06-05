@@ -30,6 +30,7 @@ import com.cds.app.creater.common.model.TableDetail;
 import com.cds.app.creater.common.util.DatabaseMetaDateManager;
 import com.cds.auto.creater.service.DBConnectionService;
 import com.cds.auto.creater.service.ProjectCreateService;
+import com.cds.base.common.result.ResponseResult;
 import com.cds.base.util.bean.CheckUtils;
 
 /**
@@ -67,16 +68,21 @@ public class ProjectCreateController {
         if (CheckUtils.isEmpty(connectionConfigId)) {
             return view;
         }
-        view.addObject("connectionConfigId", connectionConfigId);
-
         DBConnectionVO connectionConfig = dbConnectionService.detail(connectionConfigId);
+        if (connectionConfig == null) {
+            return view;
+        }
+        view.addObject("connectionConfigId", connectionConfigId);
         DatabaseMetaData databaseMetaData = databaseMetaDateManager.getDatabaseMetaData(connectionConfig);
         if (databaseMetaData == null) {
             view.addObject("error", "连接失败，请确认数据库连接是否配置正确！");
             return view;
         }
         Map<String, List<TableDetail>> allTablesMap = databaseMetaDateManager.getAllTables(databaseMetaData);
-
+        view.addObject("outputPath", exampleProjectConfig.getOutputPath());
+        view.addObject("author", exampleProjectConfig.getAuthor());
+        view.addObject("port", exampleProjectConfig.getPort());
+        view.setViewName("index");
         view.addObject("allTablesMap", allTablesMap);
         return view;
     }
@@ -87,41 +93,29 @@ public class ProjectCreateController {
      */
     @ResponseBody
     @RequestMapping(value = "/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView create(ProjectCreateParams params, HttpServletRequest request, HttpServletResponse response)
-        throws IOException {
-        if (CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getConnectionConfigId())) {
-            return index(params.getConnectionConfigId(), request, response);
+    public ResponseResult<Boolean> create(ProjectCreateParams params, HttpServletRequest request,
+        HttpServletResponse response) throws IOException {
+        if (CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getConnectionConfigId())
+            || CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getDbName())
+            || CheckUtils.isEmpty(params.getTableName())) {
+            return ResponseResult.returnFail(false, "必填项必须填写！");
         }
         DBConnectionVO connectionConfig = dbConnectionService.detail(params.getConnectionConfigId());
+        if (CheckUtils.isEmpty(params)) {
+            return ResponseResult.returnFail(false, "数据库连接失败，请重试！");
+        }
         DatabaseMetaData databaseMetaData = databaseMetaDateManager.getDatabaseMetaData(connectionConfig);
+        if (CheckUtils.isEmpty(params)) {
+            return ResponseResult.returnFail(false, "数据库连接失败，请重试！");
+        }
         Map<String, List<TableDetail>> allTablesMap = databaseMetaDateManager.getAllTables(databaseMetaData);
-        String outputPath = exampleProjectConfig.getOutputPath();
-        ModelAndView view = new ModelAndView();
-        view.addObject("allTablesMap", allTablesMap);
-        view.addObject("outputPath", outputPath);
-        view.addObject("author", "自动创建");
-        view.addObject("port", "10000");
-        view.setViewName("index");
-        if (CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getDbName())
-            || CheckUtils.isEmpty(params.getTableName())) {
-            return view;
+        if (CheckUtils.isEmpty(allTablesMap)) {
+            return ResponseResult.returnFail(false, "数据库连接失败，请重试！");
         }
         String dbName = params.getDbName();
         String tableName = params.getTableName();
         // 默认与数据库名相同
         String projectName = dbName;
-        if (CheckUtils.isNotEmpty(params.getOutputPath())) {
-            view.addObject("outputPath", params.getOutputPath());
-        }
-        if (CheckUtils.isNotEmpty(params.getAuthor())) {
-            view.addObject("author", params.getAuthor());
-        }
-        if (CheckUtils.isNotEmpty(params.getPort())) {
-            view.addObject("port", params.getPort());
-        }
-        if (CheckUtils.isNotEmpty(params.getProjectName())) {
-            view.addObject("projectName", params.getProjectName());
-        }
 
         if (CheckUtils.isNotEmpty(params.getProjectName())) {
             projectName = params.getProjectName();
@@ -135,9 +129,13 @@ public class ProjectCreateController {
             }
         }
         params.setProjectName(projectName);
-        projectCreateService.createPorject(params);
+        try {
+            projectCreateService.createPorject(params);
+        } catch (Exception e) {
+            return ResponseResult.returnFail(false, e.getMessage());
+        }
 
-        return view;
+        return ResponseResult.returnSuccess(true);
     }
 
 }

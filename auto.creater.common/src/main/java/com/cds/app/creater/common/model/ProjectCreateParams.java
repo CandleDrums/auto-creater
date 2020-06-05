@@ -7,6 +7,8 @@
  */
 package com.cds.app.creater.common.model;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 /**
@@ -19,13 +21,20 @@ import lombok.Data;
  */
 @Data
 public class ProjectCreateParams {
+    @NotNull
     private Integer connectionConfigId;
     private String projectName;
+    @NotNull
     private String dbName;
+    @NotNull
     private String tableName;
+    @NotNull
     private boolean pomCreate;
+    @NotNull
     private String outputPath;
+    @NotNull
     private String port;
+    @NotNull
     private String author;
     private TableDetail tableDetail;
 

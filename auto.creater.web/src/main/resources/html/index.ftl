@@ -148,12 +148,18 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="${rc.contextPath}/layui/layui.all.js" charset="utf-8"></script>
 	<script type="text/javascript">
+		function sleep (time) {
+		  return new Promise((resolve) => setTimeout(resolve, time));
+		}
+	</script>
+	<script type="text/javascript">
 		$('#addConnection').on('click', function() {
 			layer.open({
 				type : 2,
 				title : '添加数据库连接',
 				anim : 0,
 				closeBtn : 1,
+				shade : 0,
 				shadeClose : true,
 				area : [ '480px', '312px' ],
 				shadeClose : true, //点击遮罩关闭
@@ -164,24 +170,36 @@
 				}
 			});
 		});
+	</script>
+	<script type="text/javascript">
 		$('#deleteConnection').on('click', function() {
 			var value = $("#connectionConfigId").val();
 			if (value == '') {
-				alert('请选择一个连接！');
+				layer.alert('请选择一个连接！',{icon: 5, title:'删除'});
 			} else {
-				if(confirm('是否确认删除？')){ //只有当点击confirm框的确定时，该层才会关闭
-					$.ajax({
+				
+				layer.confirm('是否确认删除该连接？', {icon: 2, title:'删除'}, function(index){
+					  //do something
+					  $.ajax({
 						url : "${rc.contextPath}/db/delete.htm",
 						type : 'post',
 						data : {
 							id : value
 						},
 						success : function(data) {
-							alert(data.message);
-							window.location.reload();
+							if(data.result=='SUCCESS'){
+								layer.alert(data.message,{icon: 1, title:'删除成功'});
+								sleep(1000).then(() => {
+									window.location.reload();
+								})
+								
+							}else{
+								layer.alert(data.message,{icon: 2, title:'删除失败'});
+							}
 						}
-					})
-				}
+					});
+					layer.close(index);
+				});
 			}
 		});
 	</script>

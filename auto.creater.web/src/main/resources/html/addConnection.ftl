@@ -75,7 +75,12 @@
 					  passwd:$("#passwd").val(),
 					 },
 				success:function(data){
-					alert(data.message);
+					if(data.result=='SUCCESS'){
+						layer.alert(data.message,{icon: 1, title:'测试成功'});
+					}else{
+						layer.alert(data.message,{icon: 2, title:'测试失败'});
+					}
+					
 				}
 			})
 		});
