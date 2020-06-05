@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cds.app.creater.common.model.DBConnectionVO;
@@ -51,47 +52,45 @@ public class ProjectCreateController {
     @Autowired
     private DatabaseMetaDateManager databaseMetaDateManager;
 
-    @RequestMapping(value = "/index.htm", method = {RequestMethod.GET})
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+    /**
+     * @description 首页
+     * @return ModelAndView
+     */
+    @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView index(@RequestParam(value = "connectionConfigId", required = false) Integer connectionConfigId,
+        HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
-
         ModelAndView view = new ModelAndView();
         view.addObject("connectionList", connectionList);
         view.setViewName("index");
-        return view;
-    }
-
-    @RequestMapping(value = "/projectIndex.htm", method = {RequestMethod.POST})
-    public ModelAndView projectIndex(
-        @RequestParam(value = "connectionConfigId", required = true) Integer connectionConfigId,
-        HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
+        // 如果第一次进入
+        if (CheckUtils.isEmpty(connectionConfigId)) {
+            return view;
+        }
+        view.addObject("connectionConfigId", connectionConfigId);
 
         DBConnectionVO connectionConfig = dbConnectionService.detail(connectionConfigId);
         DatabaseMetaData databaseMetaData = databaseMetaDateManager.getDatabaseMetaData(connectionConfig);
+        if (databaseMetaData == null) {
+            view.addObject("error", "连接失败，请确认数据库连接是否配置正确！");
+            return view;
+        }
         Map<String, List<TableDetail>> allTablesMap = databaseMetaDateManager.getAllTables(databaseMetaData);
 
-        ModelAndView view = new ModelAndView();
         view.addObject("allTablesMap", allTablesMap);
-        view.addObject("connectionConfigId", connectionConfigId);
-        view.addObject("connectionList", connectionList);
-        view.setViewName("index");
         return view;
     }
 
-    @RequestMapping(value = "/add.htm", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView add(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ModelAndView view = new ModelAndView();
-        view.setViewName("addConnection");
-        return view;
-    }
-
+    /**
+     * @description 项目创建
+     * @return ModelAndView
+     */
+    @ResponseBody
     @RequestMapping(value = "/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView create(ProjectCreateParams params, HttpServletRequest request, HttpServletResponse response)
         throws IOException {
         if (CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getConnectionConfigId())) {
-            return index(request, response);
+            return index(params.getConnectionConfigId(), request, response);
         }
         DBConnectionVO connectionConfig = dbConnectionService.detail(params.getConnectionConfigId());
         DatabaseMetaData databaseMetaData = databaseMetaDateManager.getDatabaseMetaData(connectionConfig);

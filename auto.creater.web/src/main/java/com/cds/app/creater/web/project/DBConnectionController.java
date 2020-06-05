@@ -8,6 +8,7 @@
 package com.cds.app.creater.web.project;
 
 import java.io.IOException;
+import java.sql.DatabaseMetaData;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cds.app.creater.common.model.DBConnectionVO;
+import com.cds.app.creater.common.util.DatabaseMetaDateManager;
 import com.cds.auto.creater.service.DBConnectionService;
 import com.cds.base.common.result.ResponseResult;
 
@@ -34,21 +38,46 @@ import com.cds.base.common.result.ResponseResult;
 public class DBConnectionController {
     @Autowired
     private DBConnectionService dbConnectionService;
+    @Autowired
+    private DatabaseMetaDateManager databaseMetaDateManager;
+
+    @RequestMapping(value = "/toadd.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView add(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("addConnection");
+        return view;
+    }
 
     @PostMapping(value = "/add.htm")
-    @ResponseBody
-    public ResponseResult<DBConnectionVO> add(DBConnectionVO connection, HttpServletRequest request,
-        HttpServletResponse response) throws IOException {
+    public ModelAndView add(DBConnectionVO connection, HttpServletRequest request, HttpServletResponse response)
+        throws IOException {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("addConnection");
         DBConnectionVO param = new DBConnectionVO();
         param.setHost(connection.getHost());
         param.setPort(connection.getPasswd());
         param.setUserName(connection.getUserName());
         boolean contains = dbConnectionService.contains(param);
         if (contains) {
-            return ResponseResult.returnFail(connection, "该配置已存在，请确认");
+            view.addObject("error", "该配置已存在，请确认");
+            view.addObject("connection", connection);
+            return view;
         }
-        DBConnectionVO result = dbConnectionService.save(connection);
-        return ResponseResult.returnSuccess(result);
+        dbConnectionService.save(connection);
+        view.addObject("info", "添加成功");
+        return view;
+    }
+
+    @PostMapping(value = "/test.htm")
+    @ResponseBody
+    public ResponseResult<Boolean> test(DBConnectionVO connection, HttpServletRequest request,
+        HttpServletResponse response) throws IOException {
+
+        DatabaseMetaData databaseMetaData = databaseMetaDateManager.getDatabaseMetaData(connection);
+        if (databaseMetaData == null) {
+            return ResponseResult.returnFail(false, "连接失败，请检查配置信息！");
+        }
+        return ResponseResult.returnSuccess(true);
     }
 
     @PostMapping(value = "/delete.htm")

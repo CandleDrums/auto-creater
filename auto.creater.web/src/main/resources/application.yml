@@ -10,7 +10,7 @@ spring:
       name: auto_creater
    datasource:
       driver-class-name: org.sqlite.JDBC
-      url: jdbc:sqlite::resource:sqlite3.db
+      url: jdbc:sqlite:/Users/liming/git_cds/auto-creater/auto.creater.web/src/main/resources/sqlite3.db
       username: 
       password: 
    freemarker:
