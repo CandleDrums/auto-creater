@@ -6,21 +6,6 @@
 <title>首页</title>
 <link rel="stylesheet" href="${rc.contextPath}/layui/css/layui.css"
 	media="all" />
-<script type="text/javascript">
-	function check() {
-		var myselect = document.getElementById("tableSelect");
-		var index = myselect.selectedIndex;
-		var value = myselect.options[index].value;
-		if (value == "") {
-			return false;
-		}
-
-		var values = value.split(",");
-		document.getElementById("dbName").value = values[0];
-		document.getElementById("tableName").value = values[1];
-		return true;
-	}
-</script>
 </head>
 <body class="layui-layout-body">
 	<!-- 内容主体区域 -->
@@ -75,8 +60,9 @@
 			style="margin-top: 10px;">
 			<legend>第二步，填写项目信息</legend>
 		</fieldset>
-		<form class="layui-form" action="${rc.contextPath}/create.htm"
-			method="post" onsubmit="return check()">
+		<form class="layui-form">
+			<input type="hidden" name="connectionConfigId"
+				id="connectionConfigId" value="${connectionConfigId}">
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">选择表*</label>
@@ -136,13 +122,12 @@
 
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button type="submit" class="layui-btn" lay-submit="">
+					<button type="button" id="projectCreate" class="layui-btn"
+						lay-submit="">
 						<i class="layui-icon">&#xe609;</i> 创建
 					</button>
-					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>
-		</form>
 		</#if>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -203,5 +188,33 @@
 			}
 		});
 	</script>
+	<script type="text/javascript">
+		$('#projectCreate').on('click', function() {
+			var selectValues=$("#tableSelect").val().split(",");
+			$.ajax({
+				url:"${rc.contextPath}/create.htm",
+				type:'post',
+				data:{connectionConfigId:$("#connectionConfigId").val(),
+					projectName:$("#projectName").val(),
+					dbName:selectValues[0],
+					tableName:selectValues[1],
+					pomCreate:$("#pomCreate").val(),
+					outputPath:$("#outputPath").val(),
+					port:$("#port").val(),
+					author:$("#author").val(),
+					 },
+				success:function(data){
+					if(data.result=='SUCCESS'){
+						layer.alert(data.message,{icon: 1, title:'测试成功'});
+					}else{
+						layer.alert(data.message,{icon: 2, title:'测试失败'});
+					}
+					
+				}
+			})
+		});
+	</script>
+
+
 </body>
 </html>
