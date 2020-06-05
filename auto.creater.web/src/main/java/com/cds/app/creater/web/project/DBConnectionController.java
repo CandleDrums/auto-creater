@@ -30,7 +30,7 @@ import com.cds.base.common.result.ResponseResult;
  * @Date Jun 4, 2020 4:29:40 PM
  */
 @Controller
-@RequestMapping("/db/connection")
+@RequestMapping("/db/")
 public class DBConnectionController {
     @Autowired
     private DBConnectionService dbConnectionService;

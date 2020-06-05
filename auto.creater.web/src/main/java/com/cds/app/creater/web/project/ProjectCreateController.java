@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cds.app.creater.common.model.DBConnectionVO;
@@ -39,7 +40,6 @@ import com.cds.base.util.bean.CheckUtils;
  * @since JDK 1.8
  */
 @Controller
-@RequestMapping("/project")
 public class ProjectCreateController {
 
     @Autowired
@@ -51,12 +51,30 @@ public class ProjectCreateController {
     @Autowired
     private DatabaseMetaDateManager databaseMetaDateManager;
 
-    @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/index.htm", method = {RequestMethod.GET})
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
 
         ModelAndView view = new ModelAndView();
+        view.addObject("connectionList", connectionList);
+        view.setViewName("index");
+        return view;
+    }
+
+    @RequestMapping(value = "/projectIndex.htm", method = {RequestMethod.POST})
+    public ModelAndView projectIndex(
+        @RequestParam(value = "connectionConfigId", required = true) Integer connectionConfigId,
+        HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
+
+        DBConnectionVO connectionConfig = dbConnectionService.detail(connectionConfigId);
+        DatabaseMetaData databaseMetaData = databaseMetaDateManager.getDatabaseMetaData(connectionConfig);
+        Map<String, List<TableDetail>> allTablesMap = databaseMetaDateManager.getAllTables(databaseMetaData);
+
+        ModelAndView view = new ModelAndView();
+        view.addObject("allTablesMap", allTablesMap);
+        view.addObject("connectionConfigId", connectionConfigId);
         view.addObject("connectionList", connectionList);
         view.setViewName("index");
         return view;

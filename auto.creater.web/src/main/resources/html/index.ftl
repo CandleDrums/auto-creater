@@ -31,22 +31,22 @@
 				style="margin-top: 20px;">
 				<legend>第一步，选择数据库</legend>
 			</fieldset>
-			<form class="layui-form" action="${rc.contextPath}/project/index.htm" method="post">
+			<form class="layui-form" action="${rc.contextPath}/projectIndex.htm" method="post">
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">数据库列表*</label>
 					<div class="layui-input-inline">
-						<select name="connectionConfigId" lay-verify="required">
+						<select name="connectionConfigId" id="connectionConfigId" lay-verify="required">
 							<option selected="selected" value="">请选择</option>
 							<#list connectionList as detail>
 							<optgroup label="${detail.name}">
-								<option value="${detail.id}">${detail.host}:${detail.port}</option>
+								<option value="${detail.id}" <#if connectionConfigId?? && connectionConfigId == detail.id>selected="selected"</#if>>${detail.host}:${detail.port}</option>
 							</optgroup>
 							</#list>
 						</select>
 					</div>
 					<div class="layui-input-inline">
-						<button type="button" class="layui-btn layui-btn-danger">
+						<button type="button" class="layui-btn layui-btn-danger" href="javascript:;" id="deleteConnection">
 							<i class="layui-icon layui-icon-delete"></i>
 						</button>
 						<button type="button" class="layui-btn"  href="javascript:;" id="addConnection">
@@ -58,43 +58,7 @@
 			<div class="layui-form-item">
 				<div class="layui-input-block">
 					<button type="submit" class="layui-btn" lay-submit=""
-						lay-filter="demo1">确认</button>
-				</div>
-			</div>
-			</form>
-			<form class="layui-form" action="${rc.contextPath}/project/index.htm" method="post">
-			<div class="layui-form-item">
-				<label class="layui-form-label">名称*</label>
-				<div class="layui-input-inline">
-					<input type="text" name="name" placeholder="名称" class="layui-input" required lay-verify="required" placeholder="请输入名称" autocomplete="off" >
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">IP与端口*</label>
-				<div class="layui-input-inline">
-					<input type="text" name="ip" placeholder="IP地址" class="layui-input" required lay-verify="required" placeholder="请输入IP地址" autocomplete="off" >
-				</div>
-				<div class="layui-input-inline" style="width: 128px;">
-					<input type="text" name="port" placeholder="端口地址" class="layui-input" required lay-verify="required" placeholder="请输入端口地址" autocomplete="off" >
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">用户名*</label>
-				<div class="layui-input-inline">
-					<input type="text" name="userName" placeholder="用户名" class="layui-input" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" >
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">密码*</label>
-				<div class="layui-input-inline">
-					<input type="text" name="passwd" placeholder="密码" class="layui-input" required lay-verify="required" placeholder="请输入密码" autocomplete="off" >
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<div class="layui-input-block">
-					<button type="submit" class="layui-btn" lay-submit=""
-						lay-filter="demo1">创建</button>
-					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						lay-filter="demo1">下一步</button>
 				</div>
 			</div>
 		</form>
@@ -105,7 +69,7 @@
 				type="hidden" name="dbName" id="dbName" />
 			<fieldset class="layui-elem-field layui-field-title"
 				style="margin-top: 10px;">
-				<legend>项目信息</legend>
+				<legend>第二步，填写项目信息</legend>
 			</fieldset>
 			<div class="layui-form-item">
 				<div class="layui-inline">
@@ -179,11 +143,28 @@
 	<script type="text/javascript">
 	  $('#addConnection').on('click', function(){
 	    layer.open({
-	      type: 1,
-	      area: ['600px', '360px'],
+	      type: 2,
+	      title:'添加数据库连接',
+	      area: ['480px', '312px'],
 	      shadeClose: true, //点击遮罩关闭
-	      content: '\<\div style="padding:20px;">自定义内容\<\/div>'
+	      content: '${rc.contextPath}/project/add.htm'
 	    });
+	  });
+	  $('#deleteConnection').on('click', function(){
+		 var value= $("#connectionConfigId").val();
+		  if(value==''){
+			  alert('请选择一个连接！');
+		  }else{
+			  $.post(
+			        "{{ url_for('greet') }}",
+			        {name: 'Brad'},
+			        function(data) {
+			            $('#ret').text(data.result);
+			        },
+			        "json"
+			    );
+		  }
+		  
 	  });
 	</script>
 </body>
