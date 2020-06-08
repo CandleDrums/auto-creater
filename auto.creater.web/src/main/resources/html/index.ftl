@@ -9,17 +9,9 @@
 </head>
 <body class="layui-layout-body">
 
-<ul class="layui-nav layui-bg-green" lay-filter="">
-  <li class="layui-nav-item"><a href="">项目创建</a></li>
-</ul>
- 
-<script>
-//注意：导航 依赖 element 模块，否则无法进行功能性操作
-layui.use('element', function(){
-  var element = layui.element;
-  
-});
-</script>
+	<ul class="layui-nav layui-bg-green" lay-filter="">
+		<li class="layui-nav-item"><a href="">项目创建</a></li>
+	</ul>
 	<!-- 内容主体区域 -->
 	<div class="layui-container">
 		<fieldset class="layui-elem-field layui-field-title"
@@ -231,7 +223,5 @@ layui.use('element', function(){
 			})
 		});
 	</script>
-
-
 </body>
 </html>
