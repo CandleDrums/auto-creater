@@ -115,6 +115,11 @@
 				<version>${base.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.candledrums.base</groupId>
+				<artifactId>base-module</artifactId>
+				<version>${base.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>${mysql.connector.java.version}</version>

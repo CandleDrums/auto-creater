@@ -22,5 +22,9 @@
 			<groupId>com.candledrums.base</groupId>
 			<artifactId>base-biz</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.candledrums.base</groupId>
+			<artifactId>base-module</artifactId>
+		</dependency>
 	</dependencies>
 </project>

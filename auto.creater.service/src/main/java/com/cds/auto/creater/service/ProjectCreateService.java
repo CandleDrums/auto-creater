@@ -7,6 +7,8 @@
  */
 package com.cds.auto.creater.service;
 
+import javax.servlet.http.HttpSession;
+
 import com.cds.app.creater.common.model.ProjectCreateParams;
 
 /**
@@ -26,5 +28,5 @@ public interface ProjectCreateService {
      * @returnType boolean
      * @author ming.li
      */
-    boolean createPorject(ProjectCreateParams params);
+    boolean createPorject(ProjectCreateParams params, HttpSession session);
 }

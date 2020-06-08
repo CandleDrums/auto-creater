@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -94,7 +95,7 @@ public class ProjectCreateController {
     @ResponseBody
     @RequestMapping(value = "/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseResult<Boolean> create(ProjectCreateParams params, HttpServletRequest request,
-        HttpServletResponse response) throws IOException {
+        HttpServletResponse response, HttpSession session) throws IOException {
         if (CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getConnectionConfigId())
             || CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getDbName())
             || CheckUtils.isEmpty(params.getTableName())) {
@@ -130,7 +131,7 @@ public class ProjectCreateController {
         }
         params.setProjectName(projectName);
         try {
-            projectCreateService.createPorject(params);
+            projectCreateService.createPorject(params, session);
         } catch (Exception e) {
             return ResponseResult.returnFail(false, e.getMessage());
         }

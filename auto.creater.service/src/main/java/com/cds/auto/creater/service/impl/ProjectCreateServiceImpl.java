@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.eclipse.jgit.lib.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import com.cds.app.creater.common.model.TableDetail;
 import com.cds.app.creater.common.util.GitUtils;
 import com.cds.app.creater.common.util.ProjectCreateUtil;
 import com.cds.auto.creater.service.ProjectCreateService;
+import com.cds.base.module.progress.listener.ProgressListener;
 import com.cds.base.util.bean.CheckUtils;
 import com.cds.base.util.file.FileUtils;
 
@@ -38,18 +41,25 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
     @Autowired
     private ExampleProjectConfig exampleProjectConfig;
 
+    @Autowired
+    private ProgressListener progressListener;
+
     @Override
-    public boolean createPorject(ProjectCreateParams params) {
+    public boolean createPorject(ProjectCreateParams params, HttpSession session) {
         // 获取模板项目列表
         Map<String, String> exampleprojectsMap = getExampleProjectMap();
         if (CheckUtils.isEmpty(exampleprojectsMap)) {
             return false;
         }
+        // 开启进度条
+        progressListener.startProgress(session, 1, 100);
+        progressListener.update(10);
         // clone模板项目
         Map<String, String> exampleProjectsPathMap = getExampleProjectsPathMap(params, exampleprojectsMap);
         if (CheckUtils.isEmpty(exampleProjectsPathMap)) {
             return false;
         }
+        progressListener.update(30);
         // 获取要创建的表信息
         TableDetail tableDetail = params.getTableDetail();
         if (CheckUtils.isEmpty(tableDetail)) {
@@ -61,8 +71,10 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
         if (CheckUtils.isEmpty(replaceMap)) {
             return false;
         }
+        progressListener.update(50);
         // 开始创建文件
         createFile(exampleProjectsPathMap, tableDetail, replaceMap);
+        progressListener.finish();
 
         return true;
     }
@@ -130,6 +142,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
                 ProjectCreateUtil.writeFile(replaceMap, extraAttributes, absolutePath,
                     getOutputPath(absolutePath, replaceMap));
             }
+            progressListener.stepTimes(10);
         }
     }
 
