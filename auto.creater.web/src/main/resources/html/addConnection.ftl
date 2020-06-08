@@ -16,9 +16,9 @@
 			<div class="layui-form-item" style="margin-top: 10px;">
 				<label class="layui-form-label">名称*</label>
 				<div class="layui-input-inline">
-					<input type="text" name="name" id="name" placeholder="名称" class="layui-input"
-						required lay-verify="required" placeholder="请输入名称"
-						value="${connection.name}" autocomplete="off">
+					<input type="text" name="name" id="name" placeholder="名称"
+						class="layui-input" required lay-verify="required"
+						placeholder="请输入名称" value="${connection.name}" autocomplete="off">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -65,24 +65,31 @@
 	<script src="${rc.contextPath}/layui/layui.all.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		$('#test').on('click', function() {
-			$.ajax({
-				url:"${rc.contextPath}/db/test.htm",
-				type:'post',
-				data:{name:$("#name").val(),
-					  host:$("#host").val(),
-					  port:$("#port").val(),
-					  userName:$("#userName").val(),
-					  passwd:$("#passwd").val(),
-					 },
-				success:function(data){
-					if(data.result=='SUCCESS'){
-						layer.alert(data.message,{icon: 1, title:'测试成功'});
-					}else{
-						layer.alert(data.message,{icon: 2, title:'测试失败'});
+		var	host=$("#host").val();
+			var  port=$("#port").val();
+			 var userName=$("#userName").val();
+			 var passwd=$("#passwd").val();
+			if(host==""||port==""||userName==""||passwd==""){
+				layer.alert("请填写配置信息",{icon: 2, title:'测试失败'});
+			}else{
+				$.ajax({
+					url:"${rc.contextPath}/db/test.htm",
+					type:'post',
+					data:{host:host,
+						  port:port,
+						  userName:userName,
+						  passwd:passwd
+						 },
+					success:function(data){
+						if(data.result=='SUCCESS'){
+							layer.alert(data.message,{icon: 1, title:'测试成功'});
+						}else{
+							layer.alert(data.message,{icon: 2, title:'测试失败'});
+						}
+						
 					}
-					
-				}
-			})
+				})
+			}
 		});
 	</script>
 </body>

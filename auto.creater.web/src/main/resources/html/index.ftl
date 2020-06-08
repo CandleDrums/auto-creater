@@ -18,7 +18,7 @@
 			method="post">
 			<div class="layui-form-item">
 				<div class="layui-inline">
-					<label class="layui-form-label">数据库列表*</label>
+					<label class="layui-form-label">数据库列表</label>
 					<div class="layui-input-inline">
 						<select name="connectionConfigId" id="connectionConfigId"
 							lay-verify="required">
@@ -65,7 +65,7 @@
 				id="connectionConfigId" value="${connectionConfigId}">
 			<div class="layui-form-item">
 				<div class="layui-inline">
-					<label class="layui-form-label">选择表*</label>
+					<label class="layui-form-label">选择表</label>
 					<div class="layui-input-inline">
 						<select id="tableSelect" lay-verify="required">
 							<option selected="selected" value="">请选择</option>
@@ -78,44 +78,48 @@
 							</#list>
 						</select>
 					</div>
+					<div class="layui-form-mid layui-word-aux">*必填</div>
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">项目名</label>
-				<div class="layui-input-block">
-					<input type="text" name="projectName" lay-verify="title"
-						autocomplete="off" placeholder="默认不填写" class="layui-input"
-						value="${projectName}">
+				<div class="layui-input-inline">
+					<input type="text" name="projectName" id="projectName"
+						lay-verify="title" autocomplete="off" placeholder="默认不填写"
+						class="layui-input" value="${projectName}">
 				</div>
+				<div class="layui-form-mid layui-word-aux">*必填，默认与库名相同</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">作者</label>
-				<div class="layui-input-block">
-					<input type="text" name="author" lay-verify="title"
+				<div class="layui-input-inline">
+					<input type="text" name="author" id="author" lay-verify="title"
 						autocomplete="off" placeholder="必须填写" class="layui-input"
 						value="${author}">
 				</div>
+				<div class="layui-form-mid layui-word-aux">*必填</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">生成路径</label>
 				<div class="layui-input-block">
-					<input type="text" name="outputPath" lay-verify="title"
-						autocomplete="off" placeholder="自定义生成路径" class="layui-input"
-						value="${outputPath}">
+					<input type="text" name="outputPath" id="outputPath"
+						lay-verify="title" autocomplete="off" placeholder="自定义生成路径"
+						class="layui-input" value="${outputPath}">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">端口号</label>
-				<div class="layui-input-block">
-					<input type="text" name="port" lay-verify="title"
+				<div class="layui-input-inline">
+					<input type="text" name="port" id="port" lay-verify="title"
 						autocomplete="off" placeholder="必须填写" class="layui-input"
 						value="${port}">
 				</div>
+				<div class="layui-form-mid layui-word-aux">*必填</div>
 			</div>
 			<div class="layui-form-item" pane="">
-				<label class="layui-form-label">创建pom文件</label>
+				<label class="layui-form-label">创建pom</label>
 				<div class="layui-input-block">
-					<input type="checkbox" checked="" name="pomCreate"
+					<input type="checkbox" checked="" name="pomCreate" id="pomCreate"
 						lay-skin="switch" lay-filter="switchTest" title="选择是否创建pom.xml">
 				</div>
 			</div>
@@ -125,6 +129,10 @@
 					<button type="button" id="projectCreate" class="layui-btn"
 						lay-submit="">
 						<i class="layui-icon">&#xe609;</i> 创建
+					</button>
+					<button type="button" id="outputPath" class="layui-btn"
+						lay-submit="">
+						<i class="layui-icon">&#xe67d;</i> 显示目录
 					</button>
 				</div>
 			</div>
@@ -139,6 +147,7 @@
 	</script>
 	<script type="text/javascript">
 		$('#addConnection').on('click', function() {
+			$('#addConnection').attr("disabled",true); 
 			layer.open({
 				type : 2,
 				title : '添加数据库连接',
@@ -205,9 +214,9 @@
 					 },
 				success:function(data){
 					if(data.result=='SUCCESS'){
-						layer.alert(data.message,{icon: 1, title:'测试成功'});
+						layer.alert(data.message,{icon: 1, title:'创建成功'});
 					}else{
-						layer.alert(data.message,{icon: 2, title:'测试失败'});
+						layer.alert(data.message,{icon: 2, title:'创建失败'});
 					}
 					
 				}
