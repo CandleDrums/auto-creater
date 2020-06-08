@@ -8,6 +8,18 @@
 	media="all" />
 </head>
 <body class="layui-layout-body">
+
+<ul class="layui-nav layui-bg-green" lay-filter="">
+  <li class="layui-nav-item"><a href="">项目创建</a></li>
+</ul>
+ 
+<script>
+//注意：导航 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+</script>
 	<!-- 内容主体区域 -->
 	<div class="layui-container">
 		<fieldset class="layui-elem-field layui-field-title"
@@ -129,10 +141,6 @@
 					<button type="button" id="projectCreate" class="layui-btn"
 						lay-submit="">
 						<i class="layui-icon">&#xe609;</i> 创建
-					</button>
-					<button type="button" id="outputPath" class="layui-btn"
-						lay-submit="">
-						<i class="layui-icon">&#xe67d;</i> 显示目录
 					</button>
 				</div>
 			</div>
