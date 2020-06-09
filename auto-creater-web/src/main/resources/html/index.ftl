@@ -9,10 +9,11 @@
 </head>
 <body class="layui-layout-body">
 	<ul class="layui-nav layui-bg-green" lay-filter="">
-		<li class="layui-nav-item"><a href="">项目创建</a></li>
+		<li class="layui-nav-item"><a href="${rc.contextPath}/index.htm"><img
+				src="${rc.contextPath}/img/file.png" width="36px">项目创建</a></li>
 	</ul>
 	<!-- 内容主体区域 -->
-	<div class="layui-container" style="width:800px;">
+	<div class="layui-container" style="width: 800px;">
 		<fieldset class="layui-elem-field layui-field-title"
 			style="margin-top: 20px;">
 			<legend>第一步 选择数据库</legend>
@@ -38,11 +39,11 @@
 					<div class="layui-input-inline">
 						<button type="button" class="layui-btn layui-btn-danger"
 							href="javascript:;" id="deleteConnection">
-							<i class="layui-icon layui-icon-delete"></i>
+							<i class="layui-icon layui-icon-delete" style="font-size: 20px;"></i>
 						</button>
 						<button type="button" class="layui-btn layui-btn-normal"
 							href="javascript:;" id="addConnection">
-							<i class="layui-icon layui-icon-add-1"></i>
+							<i class="layui-icon layui-icon-add-1" style="font-size: 20px;"></i>
 						</button>
 					</div>
 				</div>
@@ -50,7 +51,7 @@
 			<div class="layui-form-item">
 				<div class="layui-input-block">
 					<button type="submit" class="layui-btn" lay-submit="">
-						<i class="layui-icon">&#xe615;</i> 查询
+						<i class="layui-icon" style="font-size: 20px;">&#xe615;</i> 查询
 					</button>
 					&nbsp;&nbsp;<font color="#FF5722">${error}</font>
 				</div>
@@ -104,7 +105,7 @@
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">生成路径</label>
-				<div class="layui-input-block">
+				<div class="layui-input-inline" style="width: 264px">
 					<input type="text" name="outputPath" id="outputPath"
 						lay-verify="title" autocomplete="off" placeholder="自定义生成路径"
 						class="layui-input" value="${outputPath}">
@@ -131,13 +132,13 @@
 				<div class="layui-input-block">
 					<button type="button" id="projectCreate" class="layui-btn"
 						lay-submit="">
-						<i class="layui-icon">&#xe609;</i> 创建
+						<i class="layui-icon" style="font-size: 20px;">&#xe609;</i> 创建
 					</button>
 				</div>
 			</div>
 		</#if>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="${rc.contextPath}/js/jquery-3.5.1.min.js"></script>
 	<script src="${rc.contextPath}/layui/layui.all.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		function sleep (time) {
