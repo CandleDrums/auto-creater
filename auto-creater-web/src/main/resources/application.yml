@@ -7,12 +7,13 @@ server:
       max-http-post-size: 4048576
 spring:
    application:
-      name: auto_creater
+      name: auto-creater
    datasource:
       driver-class-name: org.sqlite.JDBC
-      url: jdbc:sqlite:/Users/liming/git_cds/auto-creater/auto.creater.web/src/main/resources/sqlite3.db
-      username: 
-      password: 
+      url: jdbc:sqlite:/Users/liming/git_cds/auto-creater/auto-creater-web/src/main/resources/sqlite3.db
+      username: null
+      password: null、
+#freemarker配置
    freemarker:
       allow-request-override: false
       allow-session-override: false
@@ -31,6 +32,17 @@ spring:
          template_update_delay: 0
       suffix: .ftl
       template-loader-path: classpath:/html/
+#redis 配置
+   redis:
+      remote: false #cachecloud 获取
+      host: 172.17.7.36
+      port: 6614
+      database: 1
+      password: AH2u64OX[K-/N91Ms
+      pool:
+         max-active: 8
+         max-idle: 8
+         max-wait: 10000
 mybatis-plus:
    mapper-locations: classpath:mapper/*.xml
    typeAliasesPackage: com.cds.app.creater.dal.model
@@ -39,8 +51,6 @@ mybatis-plus:
       map-underscore-to-camel-case: true
 #capital-mode: true
       cache-enabled: true
-
-
 example:
    prefix: example
 #项目前缀，一般与数据库同名
@@ -52,27 +62,27 @@ example:
    outputPath: /Users/liming/git_temp
    port: 10000
    author: 自动创建
-   #过滤无用文件
+#过滤无用文件
    ignore:
-   # maven ignore
+# maven ignore
    - target/
    - .war
    - .ear
    - .zip
    - .tar
    - .tar.gz
-   # eclipse ignore
+# eclipse ignore
    - .settings/
    - .project
    - .classpath
-   # idea ignore
+# idea ignore
    - .idea/
    - .ipr
    - .iml
    - .iws
-   # logs #
+# logs #
    - logs
-   # temp ignore
+# temp ignore
    - .log
    - .cache
    - .diff
@@ -81,12 +91,12 @@ example:
    - .java~
    - .properties~
    - .xml~
-   # system ignore
+# system ignore
    - .DS_Store
    - Thumbs.db
    - Servers
    - .metadata
-   # other
+# other
    - .sts4-cachee
-   #git
+#git
    - .git/
