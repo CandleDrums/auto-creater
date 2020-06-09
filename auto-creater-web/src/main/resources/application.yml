@@ -34,11 +34,10 @@ spring:
       template-loader-path: classpath:/html/
 #redis 配置
    redis:
-      remote: false #cachecloud 获取
-      host: 172.17.7.36
-      port: 6614
+      host: 127.0.0.1
+      port: 6613
       database: 1
-      password: AH2u64OX[K-/N91Ms
+      password: 123456
       pool:
          max-active: 8
          max-idle: 8
