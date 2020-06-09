@@ -89,10 +89,10 @@
 				<label class="layui-form-label">项目名</label>
 				<div class="layui-input-inline">
 					<input type="text" name="projectName" id="projectName"
-						lay-verify="title" autocomplete="off" placeholder="默认不填写"
+						lay-verify="title" autocomplete="off" placeholder="默认与库名相同"
 						class="layui-input" value="${projectName}">
 				</div>
-				<div class="layui-form-mid layui-word-aux">默认与库名相同</div>
+				<div class="layui-form-mid layui-word-aux">当库名特殊时，可单独指定</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">作者</label>
@@ -105,11 +105,12 @@
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">生成路径</label>
-				<div class="layui-input-inline" style="width: 264px">
+				<div class="layui-input-inline" style="width: 400px">
 					<input type="text" name="outputPath" id="outputPath"
 						lay-verify="title" autocomplete="off" placeholder="自定义生成路径"
 						class="layui-input" value="${outputPath}">
 				</div>
+				<div class="layui-form-mid layui-word-aux">*必填</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">端口号</label>

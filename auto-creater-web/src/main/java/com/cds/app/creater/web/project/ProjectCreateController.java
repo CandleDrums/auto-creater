@@ -57,8 +57,18 @@ public class ProjectCreateController {
      * @description 首页
      * @return ModelAndView
      */
+    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        return this.projectIndex(null, request, response);
+    }
+
+    /**
+     * @description 首页
+     * @return ModelAndView
+     */
     @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView index(@RequestParam(value = "connectionConfigId", required = false) Integer connectionConfigId,
+    public ModelAndView projectIndex(
+        @RequestParam(value = "connectionConfigId", required = false) Integer connectionConfigId,
         HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
         ModelAndView view = new ModelAndView();
