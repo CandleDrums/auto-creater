@@ -12,10 +12,10 @@
 		<li class="layui-nav-item"><a href="">项目创建</a></li>
 	</ul>
 	<!-- 内容主体区域 -->
-	<div class="layui-container">
+	<div class="layui-container" style="width:800px;">
 		<fieldset class="layui-elem-field layui-field-title"
 			style="margin-top: 20px;">
-			<legend>第一步，选择数据库</legend>
+			<legend>第一步 选择数据库</legend>
 		</fieldset>
 		<form class="layui-form" action="${rc.contextPath}/index.htm"
 			method="post">
@@ -61,7 +61,7 @@
 			id="tableName" /> <input type="hidden" name="dbName" id="dbName" />
 		<fieldset class="layui-elem-field layui-field-title"
 			style="margin-top: 10px;">
-			<legend>第二步，填写项目信息</legend>
+			<legend>第二步 填写项目信息</legend>
 		</fieldset>
 		<form class="layui-form">
 			<input type="hidden" name="connectionConfigId"
