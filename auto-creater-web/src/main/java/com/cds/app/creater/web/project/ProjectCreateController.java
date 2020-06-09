@@ -120,7 +120,6 @@ public class ProjectCreateController {
         if (CheckUtils.isNotEmpty(params.getProjectName())) {
             projectName = params.getProjectName();
         }
-        projectName = projectName.replaceAll("_", "-");
         for (TableDetail tableDetail : allTablesMap.get(dbName)) {
             if (tableDetail.getDbName().equals(dbName) && tableDetail.getTableName().equals(tableName)) {
                 TableDetail td = databaseMetaDateManager.getTableDetail(databaseMetaData, dbName, tableName);

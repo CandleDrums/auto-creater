@@ -91,7 +91,7 @@
 						lay-verify="title" autocomplete="off" placeholder="默认不填写"
 						class="layui-input" value="${projectName}">
 				</div>
-				<div class="layui-form-mid layui-word-aux">*必填，默认与库名相同</div>
+				<div class="layui-form-mid layui-word-aux">默认与库名相同</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">作者</label>

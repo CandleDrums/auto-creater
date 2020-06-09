@@ -34,7 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProjectCreateUtil {
 
-    public static final char UNDERLINE = '_';
+    public static final char UNDER_LINE = '_';
+    public static final char MIDDLE_LINE = '-';
 
     /**
      * @description 获取要替换的内容
@@ -42,6 +43,7 @@ public class ProjectCreateUtil {
      */
     public static Map<String, String> getReplaceMap(TableDetail tableDetail, String projectName, String author,
         String port, ExampleProjectConfig exampleProjectConfig) {
+        projectName = underlineToCamel(projectName);
         String upcaseProjectName = upperFirstLatter(projectName);
         String tableName = tableDetail.getTableName();
         String remark = tableDetail.getRemark();
@@ -151,7 +153,7 @@ public class ProjectCreateUtil {
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
             char c = param.charAt(i);
-            if (c == UNDERLINE) {
+            if (c == UNDER_LINE || c == MIDDLE_LINE) {
                 if (++i < len) {
                     sb.append(Character.toUpperCase(param.charAt(i)));
                 }
