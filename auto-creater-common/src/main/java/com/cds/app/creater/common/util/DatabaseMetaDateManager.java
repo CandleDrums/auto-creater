@@ -49,7 +49,7 @@ public class DatabaseMetaDateManager {
         Properties props = new Properties();
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://" + host + ":" + port;
             props.setProperty("user", userName);
             props.setProperty("password", passwd);

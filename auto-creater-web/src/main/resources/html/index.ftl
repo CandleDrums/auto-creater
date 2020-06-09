@@ -8,7 +8,6 @@
 	media="all" />
 </head>
 <body class="layui-layout-body">
-
 	<ul class="layui-nav layui-bg-green" lay-filter="">
 		<li class="layui-nav-item"><a href="">项目创建</a></li>
 	</ul>
@@ -219,9 +218,10 @@
 				var progressLayer = layer.open({
 		    	    type: 0,
 		    	    title: false,
+					area : [ '480px', '312px' ],
 		    	    closeBtn: 0,
 		    	    btn: false,
-		    	    content: '<div class="layui-progress layui-progress-big" lay-filter="progress"><div class="layui-progress-bar"></div></div>'
+		    	    content: '<div class="layui-progress layui-progress-big" lay-filter="progress" lay-showPercent="true"><div class="layui-progress-bar layui-bg-blue"></div></div>'
 		    	});
 				//定义扫描时间
 				var scanTime = 1000;

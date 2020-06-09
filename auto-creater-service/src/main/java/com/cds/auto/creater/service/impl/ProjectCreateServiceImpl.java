@@ -52,14 +52,13 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
             return false;
         }
         // 开启进度条
-        progressListener.startProgress(1, 100);
-        progressListener.update(10);
+        progressListener.startProgress(20, 100);
+        progressListener.step();
         // clone模板项目
         Map<String, String> exampleProjectsPathMap = getExampleProjectsPathMap(params, exampleprojectsMap);
         if (CheckUtils.isEmpty(exampleProjectsPathMap)) {
             return false;
         }
-        progressListener.update(30);
         // 获取要创建的表信息
         TableDetail tableDetail = params.getTableDetail();
         if (CheckUtils.isEmpty(tableDetail)) {
@@ -71,7 +70,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
         if (CheckUtils.isEmpty(replaceMap)) {
             return false;
         }
-        progressListener.update(50);
+        progressListener.step();
         // 开始创建文件
         createFile(exampleProjectsPathMap, tableDetail, replaceMap);
         progressListener.finish();
@@ -115,6 +114,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
                 e.printStackTrace();
                 return null;
             }
+            progressListener.step();
         }
         return templatePathMap;
     }
@@ -142,7 +142,6 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
                 ProjectCreateUtil.writeFile(replaceMap, extraAttributes, absolutePath,
                     getOutputPath(absolutePath, replaceMap));
             }
-            progressListener.stepTimes(10);
         }
     }
 
