@@ -10,6 +10,7 @@ spring:
       name: auto-creater
    datasource:
       driver-class-name: org.sqlite.JDBC
+      #系统不同，如果使用:resource:可能会无法插入值
       url: jdbc:sqlite:/Users/liming/git_cds/auto-creater/auto-creater-web/src/main/resources/sqlite3.db
       username: null
       password: null、
