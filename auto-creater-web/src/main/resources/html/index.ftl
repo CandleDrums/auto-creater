@@ -218,13 +218,13 @@
 				var progressLayer = layer.open({
 		    	    type: 0,
 		    	    title: false,
-					area : [ '480px', '312px' ],
+					area : [ '480px' ],
 		    	    closeBtn: 0,
 		    	    btn: false,
 		    	    content: '<div class="layui-progress layui-progress-big" lay-filter="progress" lay-showPercent="true"><div class="layui-progress-bar layui-bg-blue"></div></div>'
 		    	});
 				//定义扫描时间
-				var scanTime = 1000;
+				var scanTime = 500;
 				//进度条方法查看进度
 				var timer = setInterval(function (){
 			    		$.ajax({
@@ -240,10 +240,12 @@
 				    						clearInterval(timer);
 				    						//关闭弹出层
 				                            layer.close(progressLayer); 
+											layer.alert("创建完成！",{icon: 1, title:'创建成功'});
+
 				    					}}
 			    			},
 			    			error: function (e) {
-			    				
+								layer.alert(e,{icon: 2, title:'创建失败'});
 			    			}
 			    		});
 			    	}, scanTime);
