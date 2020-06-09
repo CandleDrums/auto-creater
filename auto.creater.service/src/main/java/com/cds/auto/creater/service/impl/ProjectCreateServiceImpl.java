@@ -52,7 +52,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
             return false;
         }
         // 开启进度条
-        progressListener.startProgress(session, 1, 100);
+        progressListener.startProgress(1, 100);
         progressListener.update(10);
         // clone模板项目
         Map<String, String> exampleProjectsPathMap = getExampleProjectsPathMap(params, exampleprojectsMap);

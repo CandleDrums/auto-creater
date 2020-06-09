@@ -199,28 +199,55 @@
 	</script>
 	<script type="text/javascript">
 		$('#projectCreate').on('click', function() {
-			var selectValues=$("#tableSelect").val().split(",");
-			$.ajax({
-				url:"${rc.contextPath}/create.htm",
-				type:'post',
-				data:{connectionConfigId:$("#connectionConfigId").val(),
-					projectName:$("#projectName").val(),
-					dbName:selectValues[0],
-					tableName:selectValues[1],
-					pomCreate:$("#pomCreate").val(),
-					outputPath:$("#outputPath").val(),
-					port:$("#port").val(),
-					author:$("#author").val(),
-					 },
-				success:function(data){
-					if(data.result=='SUCCESS'){
-						layer.alert(data.message,{icon: 1, title:'创建成功'});
-					}else{
-						layer.alert(data.message,{icon: 2, title:'创建失败'});
+			layui.use('element', function(){
+			  var element = layui.element;
+				var selectValues=$("#tableSelect").val().split(",");
+				$.ajax({
+					url:"${rc.contextPath}/create.htm",
+					type:'post',
+					data:{connectionConfigId:$("#connectionConfigId").val(),
+						projectName:$("#projectName").val(),
+						dbName:selectValues[0],
+						tableName:selectValues[1],
+						pomCreate:$("#pomCreate").val(),
+						outputPath:$("#outputPath").val(),
+						port:$("#port").val(),
+						author:$("#author").val()
 					}
-					
-				}
-			})
+				})
+				
+				var progressLayer = layer.open({
+		    	    type: 0,
+		    	    title: false,
+		    	    closeBtn: 0,
+		    	    btn: false,
+		    	    content: '<div class="layui-progress layui-progress-big" lay-filter="progress"><div class="layui-progress-bar"></div></div>'
+		    	});
+				//定义扫描时间
+				var scanTime = 1000;
+				//进度条方法查看进度
+				var timer = setInterval(function (){
+			    		$.ajax({
+			    			url: "${rc.contextPath}/module/progress/detail.htm",
+			    			success: function (data) {
+			    					if(!jQuery.isEmptyObject(data)){
+					    				console.info(data);
+				    					var p=data.percent;
+				    					//动态设置百分比
+				    					element.progress('progress', p +'%')
+				    					if(p  == 100){
+				    						//进度到100%，注意关闭定时器
+				    						clearInterval(timer);
+				    						//关闭弹出层
+				                            layer.close(progressLayer); 
+				    					}}
+			    			},
+			    			error: function (e) {
+			    				
+			    			}
+			    		});
+			    	}, scanTime);
+			});
 		});
 	</script>
 </body>

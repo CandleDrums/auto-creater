@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @Description 启动
@@ -24,6 +25,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = "com.cds")
 @EnableAutoConfiguration
+@EnableAsync
 @MapperScan(basePackages = {"com.cds.app.creater.dal.dao"})
 public class Application {
 
