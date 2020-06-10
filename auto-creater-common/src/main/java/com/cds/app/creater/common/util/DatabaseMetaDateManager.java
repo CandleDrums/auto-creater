@@ -3,7 +3,7 @@
  * @Package com.vanilla.app.creater.common.util
  * @Class DBUtil2.java
  * @Date Apr 5, 2020 11:49:03 AM
- * @Copyright (c) 2020 CandleDrums.com All Right Reserved.
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
  */
 package com.cds.app.creater.common.util;
 

@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.common.model
  * @Class ExampleProjectConfig.java
  * @Date Apr 13, 2020 12:09:32 PM
- * @Copyright (c) 2020 CandleDrums.com All Right Reserved.
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
  */
 package com.cds.app.creater.common.model;
 
@@ -14,6 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Description 示例项目
@@ -22,16 +23,14 @@ import lombok.Data;
  * @Date Apr 13, 2020 12:09:32 PM
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Component
 @ConfigurationProperties(prefix = "example")
-public class ExampleProjectConfig {
-    private List<Map<String, String>> projects;
-    private String userName;
-    private String passwd;
-    private String outputPath;
+public class ExampleProjectConfig extends BaseParams {
+
+    private static final long serialVersionUID = 1L;
     private String prefix;
-    private String port;
-    private String author;
+    private List<Map<String, String>> projects;
     private List<String> ignore;
 
 }

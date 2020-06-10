@@ -3,7 +3,7 @@
  * @Package com.cds.config
  * @Class MVCConfig.java
  * @Date Apr 7, 2020 10:29:18 AM
- * @Copyright (c) 2020 CandleDrums.com All Right Reserved.
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
  */
 package com.cds.config;
 

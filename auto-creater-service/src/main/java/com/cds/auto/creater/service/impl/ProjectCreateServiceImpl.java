@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.service.impl
  * @Class ProjectCreateServiceImpl.java
  * @Date 2018年3月1日 下午4:44:48
- * @Copyright (c) 2019 CandleDrums.com All Right Reserved.
+ * @Copyright (c) 2019 CandleDrumS.com All Right Reserved
  */
 package com.cds.auto.creater.service.impl;
 
@@ -65,8 +65,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
             return false;
         }
         // 需要替换的相关内容，可以自己重写
-        Map<String, String> replaceMap = ProjectCreateUtil.getReplaceMap(tableDetail, params.getProjectName(),
-            params.getAuthor(), params.getPort(), exampleProjectConfig);
+        Map<String, String> replaceMap = ProjectCreateUtil.getReplaceMap(params, tableDetail, exampleProjectConfig);
         if (CheckUtils.isEmpty(replaceMap)) {
             return false;
         }

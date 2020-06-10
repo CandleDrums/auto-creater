@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.web.project
  * @Class DBConnectionController.java
  * @Date Jun 4, 2020 4:29:40 PM
- * @Copyright (c) 2020 CandleDrums.com All Right Reserved.
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
  */
 package com.cds.app.creater.web.project;
 

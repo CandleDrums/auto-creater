@@ -95,6 +95,15 @@
 				<div class="layui-form-mid layui-word-aux">当库名特殊时，可单独指定</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">基础包名</label>
+				<div class="layui-input-inline">
+					<input type="text" name="packageName" id="packageName" lay-verify="title"
+						autocomplete="off" placeholder="必须填写" class="layui-input"
+						value="${packageName}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">*必填，默认为:com.cds</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">作者</label>
 				<div class="layui-input-inline">
 					<input type="text" name="author" id="author" lay-verify="title"
@@ -219,7 +228,8 @@
 				
 				var progressLayer = layer.open({
 		    	    type: 0,
-		    	    title: false,
+					title : '开始创建相应项目文件',
+					anim : 0,
 					area : [ '480px' ],
 		    	    closeBtn: 0,
 		    	    btn: false,

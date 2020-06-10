@@ -3,7 +3,7 @@
  * @Package com.cds.starter.application
  * @Class Application.java
  * @Date 2018年2月28日 下午6:24:13
- * @Copyright (c) 2019 CandleDrums.com All Right Reserved.
+ * @Copyright (c) 2019 CandleDrumS.com All Right Reserved
  */
 package com.cds;
 

@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.common.util
  * @Class java
  * @Date 2018年3月2日 下午2:57:56
- * @Copyright (c) 2019 CandleDrums.com All Right Reserved.
+ * @Copyright (c) 2019 CandleDrumS.com All Right Reserved
  */
 package com.cds.app.creater.common.util;
 
@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cds.app.creater.common.model.ExampleProjectConfig;
+import com.cds.app.creater.common.model.ProjectCreateParams;
 import com.cds.app.creater.common.model.TableColumn;
 import com.cds.app.creater.common.model.TableDetail;
 import com.cds.base.util.bean.CheckUtils;
@@ -41,10 +42,10 @@ public class ProjectCreateUtil {
      * @description 获取要替换的内容
      * @return Map<String,String>
      */
-    public static Map<String, String> getReplaceMap(TableDetail tableDetail, String projectName, String author,
-        String port, ExampleProjectConfig exampleProjectConfig) {
-        projectName = underlineToCamel(projectName);
-        String upcaseProjectName = upperFirstLatter(projectName);
+    public static Map<String, String> getReplaceMap(ProjectCreateParams params, TableDetail tableDetail,
+        ExampleProjectConfig exampleProjectConfig) {
+        String projectName = underlineToCamel(params.getProjectName());
+        String upcaseProjectName = upperFirstLatter(params.getProjectName());
         String tableName = tableDetail.getTableName();
         String remark = tableDetail.getRemark();
         Map<String, String> map = new HashMap<String, String>();
@@ -54,21 +55,21 @@ public class ProjectCreateUtil {
         map.put("isGeneral", "true");
         map.put(exampleProjectConfig.getPrefix(), projectName);
         map.put(upperFirstLatter(exampleProjectConfig.getPrefix()), upcaseProjectName);
-        map.put("9999", port);
+        map.put("9999", params.getPort());
+        map.put("com.cds", params.getPackageName());
+        map.put("[name]", "");
+        map.put("[author]", "autoCreater");
+        map.put("[date]", DateUtils.getCurrentDate(DateUtils.YYYY_MM_DD_HH_MM_SS));
         if (remark != null) {
             int lastIndexOf = remark.lastIndexOf("表");
             if (lastIndexOf > 0) {
                 remark = remark.substring(0, remark.length() - 1);
             }
-        } else {
-            remark = "";
+            map.put("[name]", remark);
         }
-        map.put("[name]", remark);
-        map.put("[author]", "autoCreater");
-        map.put("[date]", DateUtils.getCurrentDate(DateUtils.YYYY_MM_DD_HH_MM_SS));
 
-        if (author != null) {
-            map.put("[author]", author);
+        if (params.getAuthor() != null) {
+            map.put("[author]", params.getAuthor());
         }
 
         return map;

@@ -3,13 +3,12 @@
  * @Package com.cds.app.creater.common.constants
  * @Class ProjectCreateParams.java
  * @Date 2018年4月16日 下午3:46:46
- * @Copyright (c) 2019 CandleDrums.com All Right Reserved.
+ * @Copyright (c) 2019 CandleDrumS.com All Right Reserved
  */
 package com.cds.app.creater.common.model;
 
-import javax.validation.constraints.NotNull;
-
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Description 项目创建参数
@@ -20,22 +19,15 @@ import lombok.Data;
  * @since JDK 1.8
  */
 @Data
-public class ProjectCreateParams {
-    @NotNull
+@EqualsAndHashCode(callSuper = false)
+public class ProjectCreateParams extends BaseParams {
+
+    private static final long serialVersionUID = 1L;
     private Integer connectionConfigId;
     private String projectName;
-    @NotNull
-    private String dbName;
-    @NotNull
-    private String tableName;
-    @NotNull
     private boolean pomCreate;
-    @NotNull
-    private String outputPath;
-    @NotNull
-    private String port;
-    @NotNull
-    private String author;
+    private String dbName;
+    private String tableName;
     private TableDetail tableDetail;
 
 }

@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.dal.dao
  * @Class DBConnectionDAO.java
  * @Date Jun 4, 2020 10:35:11 AM
- * @Copyright (c) 2020 CandleDrums.com All Right Reserved.
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
  */
 package com.cds.app.creater.dal.dao;
 
