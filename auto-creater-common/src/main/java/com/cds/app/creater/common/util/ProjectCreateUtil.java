@@ -48,6 +48,7 @@ public class ProjectCreateUtil {
         String upcaseProjectName = upperFirstLatter(params.getProjectName());
         String tableName = tableDetail.getTableName();
         String remark = tableDetail.getRemark();
+
         Map<String, String> map = new HashMap<String, String>();
         map.put("TableName", getModelStr(tableName));
         map.put("tableName", getModelLowcaseStr(tableName));
@@ -57,6 +58,7 @@ public class ProjectCreateUtil {
         map.put(upperFirstLatter(exampleProjectConfig.getPrefix()), upcaseProjectName);
         map.put("9999", params.getPort());
         map.put("com.cds", params.getPackageName());
+
         map.put("[name]", "");
         map.put("[author]", "autoCreater");
         map.put("[date]", DateUtils.getCurrentDate(DateUtils.YYYY_MM_DD_HH_MM_SS));
@@ -81,6 +83,9 @@ public class ProjectCreateUtil {
      */
     public static boolean writeFile(Map<String, String> map, List<String> extraAttributes, String sourcePath,
         String targetPath) {
+        log.info(sourcePath);
+        log.info(targetPath);
+
         List<String> lineList = FileUtils.readFileToList(sourcePath, FileUtils.CHARSET);
         List<String> contentList = new ArrayList<String>();
         for (String line : lineList) {

@@ -222,7 +222,8 @@
 						pomCreate:$("#pomCreate").val(),
 						outputPath:$("#outputPath").val(),
 						port:$("#port").val(),
-						author:$("#author").val()
+						author:$("#author").val(),
+						packageName:$("#packageName").val()
 					}
 				})
 				

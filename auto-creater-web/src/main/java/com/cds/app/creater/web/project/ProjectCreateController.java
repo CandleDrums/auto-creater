@@ -92,7 +92,7 @@ public class ProjectCreateController {
         view.addObject("outputPath", exampleProjectConfig.getOutputPath());
         view.addObject("author", exampleProjectConfig.getAuthor());
         view.addObject("port", exampleProjectConfig.getPort());
-        view.addObject("packageName", exampleProjectConfig.getPort());
+        view.addObject("packageName", exampleProjectConfig.getPackageName());
         view.setViewName("index");
         view.addObject("allTablesMap", allTablesMap);
         return view;

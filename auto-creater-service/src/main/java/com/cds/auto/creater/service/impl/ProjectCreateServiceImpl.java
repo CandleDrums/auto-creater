@@ -27,6 +27,7 @@ import com.cds.auto.creater.service.ProjectCreateService;
 import com.cds.base.module.progress.listener.ProgressListener;
 import com.cds.base.util.bean.CheckUtils;
 import com.cds.base.util.file.FileUtils;
+import com.cds.base.util.system.OSInfoUtils;
 
 /**
  * @Description 项目创建
@@ -52,7 +53,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
             return false;
         }
         // 开启进度条
-        progressListener.startProgress(20, 100);
+        progressListener.startProgress(30, 100);
         progressListener.step();
         // clone模板项目
         Map<String, String> exampleProjectsPathMap = getExampleProjectsPathMap(params, exampleprojectsMap);
@@ -71,7 +72,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
         }
         progressListener.step();
         // 开始创建文件
-        createFile(exampleProjectsPathMap, tableDetail, replaceMap);
+        createFile(exampleProjectsPathMap, tableDetail, replaceMap, params.getPackageName());
         progressListener.finish();
 
         return true;
@@ -122,10 +123,13 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
      * @description 创建文件
      * @return void
      */
-    private void createFile(Map<String, String> localPathMap, TableDetail tableDetail, Map<String, String> replaceMap) {
+    private void createFile(Map<String, String> localPathMap, TableDetail tableDetail, Map<String, String> replaceMap,
+        String packageName) {
         if (CheckUtils.isEmpty(localPathMap)) {
             return;
         }
+        String splitSlash = OSInfoUtils.getSplitSlash();
+        String packagePath = packageName.replaceAll("\\.", splitSlash);
         for (String name : localPathMap.keySet()) {
             String path = localPathMap.get(name);
             List<File> fileList = FileUtils.traverseFolder(path);
@@ -139,7 +143,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
                 List<String> extraAttributes = getExtraAttributes(tableDetail, file);
 
                 ProjectCreateUtil.writeFile(replaceMap, extraAttributes, absolutePath,
-                    getOutputPath(absolutePath, replaceMap));
+                    getOutputPath(absolutePath, replaceMap, packagePath, splitSlash));
             }
         }
     }
@@ -164,12 +168,14 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
      * @description 获取输出目录
      * @return String
      */
-    private String getOutputPath(String absolutePath, Map<String, String> replaceMap) {
+    private String getOutputPath(String absolutePath, Map<String, String> replaceMap, String packagePath,
+        String splitSlash) {
         String outputPath =
             absolutePath.replaceAll(exampleProjectConfig.getPrefix(), replaceMap.get(exampleProjectConfig.getPrefix()));
         outputPath = outputPath.replaceAll(ProjectCreateUtil.upperFirstLatter(exampleProjectConfig.getPrefix()),
             replaceMap.get(ProjectCreateUtil.upperFirstLatter(exampleProjectConfig.getPrefix())));
-        return outputPath.replaceAll("TableName", replaceMap.get("TableName"));
+        outputPath = outputPath.replaceAll("TableName", replaceMap.get("TableName"));
+        return outputPath.replaceAll("com" + splitSlash + "cds", packagePath);
     }
 
     /**
