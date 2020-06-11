@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.dal.model
  * @Class DBConnectionDO.java
  * @Date Jun 4, 2020 10:00:22 AM
- * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved.
  */
 package com.cds.app.creater.dal.model;
 

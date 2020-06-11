@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="${rc.contextPath}/layui/css/layui.css"
 	media="all" />
 </head>
-<body class="layui-layout-body">
+<body>
 	<ul class="layui-nav layui-bg-green" lay-filter="">
 		<li class="layui-nav-item"><a href="${rc.contextPath}/index.htm"><img
 				src="${rc.contextPath}/img/file.png" width="36px">项目创建</a></li>
@@ -58,10 +58,8 @@
 			</div>
 		</form>
 		<br />
-		<#if allTablesMap> <input type="hidden" name="tableName"
-			id="tableName" /> <input type="hidden" name="dbName" id="dbName" />
-		<fieldset class="layui-elem-field layui-field-title"
-			style="margin-top: 10px;">
+		<#if allTablesMap>
+		<fieldset class="layui-elem-field layui-field-title">
 			<legend>第二步 填写项目信息</legend>
 		</fieldset>
 		<form class="layui-form">

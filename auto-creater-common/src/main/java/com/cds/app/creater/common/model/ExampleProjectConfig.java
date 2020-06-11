@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.common.model
  * @Class ExampleProjectConfig.java
  * @Date Apr 13, 2020 12:09:32 PM
- * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved.
  */
 package com.cds.app.creater.common.model;
 

@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.common.model
  * @Class BaseParams.java
  * @Date Jun 10, 2020 10:22:42 AM
- * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved.
  */
 package com.cds.app.creater.common.model;
 

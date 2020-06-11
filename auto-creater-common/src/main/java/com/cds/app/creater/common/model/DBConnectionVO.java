@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.common.model
  * @Class DBConnectionVO.java
  * @Date Jun 4, 2020 10:49:18 AM
- * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved.
  */
 package com.cds.app.creater.common.model;
 

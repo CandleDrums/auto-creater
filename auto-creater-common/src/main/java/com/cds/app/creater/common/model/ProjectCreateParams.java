@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.common.constants
  * @Class ProjectCreateParams.java
  * @Date 2018年4月16日 下午3:46:46
- * @Copyright (c) 2019 CandleDrumS.com All Right Reserved
+ * @Copyright (c) 2019 CandleDrumS.com All Right Reserved.
  */
 package com.cds.app.creater.common.model;
 

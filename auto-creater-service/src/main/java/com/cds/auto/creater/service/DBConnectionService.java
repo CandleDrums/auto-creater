@@ -3,7 +3,7 @@
  * @Package com.cds.auto.creater.service
  * @Class DBConnectionService.java
  * @Date Jun 4, 2020 10:43:24 AM
- * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved.
  */
 package com.cds.auto.creater.service;
 

@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.common.model
  * @Class TableDetail.java
  * @Date Apr 6, 2020 10:20:34 AM
- * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved.
  */
 package com.cds.app.creater.common.model;
 

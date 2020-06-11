@@ -3,7 +3,7 @@
  * @Package com.vanilla.app.creater.common.model
  * @Class TableColumns.java
  * @Date Apr 5, 2020 4:35:05 PM
- * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved.
  */
 package com.cds.app.creater.common.model;
 

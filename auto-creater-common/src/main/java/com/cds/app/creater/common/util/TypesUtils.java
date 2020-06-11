@@ -3,7 +3,7 @@
  * @Package com.cds.app.creater.common.util
  * @Class TypesUtils.java
  * @Date May 29, 2020 3:35:21 PM
- * @Copyright (c) 2020 CandleDrumS.com All Right Reserved
+ * @Copyright (c) 2020 CandleDrumS.com All Right Reserved.
  */
 package com.cds.app.creater.common.util;
 
