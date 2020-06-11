@@ -1,102 +1,110 @@
 server:
 #配置启动端口
-   port: 80
-   max-http-header-size: 4048576
-   max-http-post-size: 4048576
-   tomcat:
-      max-http-post-size: 4048576
+    port: 80
+    max-http-header-size: 4048576
+    max-http-post-size: 4048576
+    tomcat:
+        max-http-post-size: 4048576
 spring:
-   application:
-      name: auto-creater
-   datasource:
-      driver-class-name: org.sqlite.JDBC
-      #系统不同，如果使用:resource:可能会无法插入值
-      url: jdbc:sqlite:/Users/liming/git_cds/auto-creater/auto-creater-web/src/main/resources/sqlite3.db
-      username: null
-      password: null
+    application:
+        name: auto-creater
+    datasource:
+        driver-class-name: org.sqlite.JDBC
+#系统不同，如果使用:resource:可能会无法插入值
+#*需修改*
+        url: jdbc:sqlite:/你的本地path/auto-creater/auto-creater-web/src/main/resources/sqlite3.db
+        username: null
+        password: null
 #freemarker配置
-   freemarker:
-      allow-request-override: false
-      allow-session-override: false
-      cache: false
-      charset: UTF-8
-      check-template-location: true
-      content-type: text/html
-      enabled: true
-      expose-request-attributes: false
-      expose-session-attributes: false
-      expose-spring-macro-helpers: true
-      prefer-file-system-access: true
-      settings:
-         classic_compatible: true
-         default_encoding: UTF-8
-         template_update_delay: 0
-      suffix: .ftl
-      template-loader-path: classpath:/html/
+    freemarker:
+        allow-request-override: false
+        allow-session-override: false
+        cache: false
+        charset: UTF-8
+        check-template-location: true
+        content-type: text/html
+        enabled: true
+        expose-request-attributes: false
+        expose-session-attributes: false
+        expose-spring-macro-helpers: true
+        prefer-file-system-access: true
+        settings:
+            classic_compatible: true
+            default_encoding: UTF-8
+            template_update_delay: 0
+        suffix: .ftl
+        template-loader-path: classpath:/static/
 #redis 配置
-   redis:
-      host: 127.0.0.1
-      port: 6613
-      database: 1
-      password: 123456
-      pool:
-         max-active: 8
-         max-idle: 8
-         max-wait: 10000
+    redis:
+#*需修改*
+        host: 127.0.0.1
+#*需修改*
+        port: 6613
+        database: 1
+#*需修改*
+        password: 1234qwer
+        pool:
+            max-active: 8
+            max-idle: 8
+            max-wait: 10000
 mybatis-plus:
-   mapper-locations: classpath:mapper/*.xml
-   typeAliasesPackage: com.cds.app.creater.dal.model
+    mapper-locations: classpath:mapper/*.xml
+    typeAliasesPackage: com.cds.app.creater.dal.model
 #数据库大写下划线转换
-   configuration:
-      map-underscore-to-camel-case: true
+    configuration:
+        map-underscore-to-camel-case: true
 #capital-mode: true
-      cache-enabled: true
+        cache-enabled: true
+#相关参数测默认值，可以根据实际情况自行修改
 example:
-   prefix: example
+    prefix: example
 #项目前缀，一般与数据库同名
-   projects:
-   -  example-dep: https://github.com/CandleDrums/${example.prefix}-dep.git
-   -  example-server: https://github.com/CandleDrums/${example.prefix}-server.git
-   -  example-api: https://github.com/CandleDrums/${example.prefix}-api.git
+    projects:
+    -   example-dep: https://github.com/CandleDrums/${example.prefix}-dep.git
+    -   example-server: https://github.com/CandleDrums/${example.prefix}-server.git
+    -   example-api: https://github.com/CandleDrums/${example.prefix}-api.git
 #输出目录
-   outputPath: /Users/liming/git_temp
-   port: 10000
-   author: 自动创建
+#*需修改*
+    outputPath: /你的输出默认输出目录
+    port: 10000
+    author: 自动创建
+    packageName: com.cds
+    copyright: (c) 2019 CandleDrumS.com All Right Reserved.
 #过滤无用文件
-   ignore:
+    ignore:
 # maven ignore
-   - target/
-   - .war
-   - .ear
-   - .zip
-   - .tar
-   - .tar.gz
+    - target/
+    - .war
+    - .ear
+    - .zip
+    - .tar
+    - .tar.gz
 # eclipse ignore
-   - .settings/
-   - .project
-   - .classpath
+    - .settings/
+    - .project
+    - .classpath
 # idea ignore
-   - .idea/
-   - .ipr
-   - .iml
-   - .iws
+    - .idea/
+    - .ipr
+    - .iml
+    - .iws
 # logs #
-   - logs
+    - logs
 # temp ignore
-   - .log
-   - .cache
-   - .diff
-   - .patch
-   - .tmp
-   - .java~
-   - .properties~
-   - .xml~
+    - .log
+    - .cache
+    - .diff
+    - .patch
+    - .tmp
+    - .java~
+    - .properties~
+    - .xml~
 # system ignore
-   - .DS_Store
-   - Thumbs.db
-   - Servers
-   - .metadata
+    - .DS_Store
+    - Thumbs.db
+    - Servers
+    - .metadata
 # other
-   - .sts4-cachee
+    - .sts4-cachee
 #git
-   - .git/
+    - .git/

@@ -62,9 +62,11 @@
 		<fieldset class="layui-elem-field layui-field-title">
 			<legend>第二步 填写项目信息</legend>
 		</fieldset>
-		<form class="layui-form">
-			<input type="hidden" name="connectionConfigId"
-				id="connectionConfigId" value="${connectionConfigId}">
+		<form class="layui-form" id="createForm">
+			<input type="hidden" name="tableName" id="tableName" /> <input
+				type="hidden" name="dbName" id="dbName" /> <input type="hidden"
+				name="connectionConfigId" id="connectionConfigId"
+				value="${connectionConfigId}">
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">选择表</label>
@@ -95,9 +97,9 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">基础包名</label>
 				<div class="layui-input-inline">
-					<input type="text" name="packageName" id="packageName" lay-verify="title"
-						autocomplete="off" placeholder="必须填写" class="layui-input"
-						value="${packageName}">
+					<input type="text" name="packageName" id="packageName"
+						lay-verify="title" autocomplete="off" placeholder="必须填写"
+						class="layui-input" value="${packageName}">
 				</div>
 				<div class="layui-form-mid layui-word-aux">*必填，默认为:com.cds</div>
 			</div>
@@ -122,7 +124,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">端口号</label>
 				<div class="layui-input-inline">
-					<input type="text" name="port" id="port" lay-verify="title"
+					<input type="text" name="port" id="port" lay-verify="number"
 						autocomplete="off" placeholder="必须填写" class="layui-input"
 						value="${port}">
 				</div>
