@@ -55,8 +55,8 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
             return false;
         }
         // 开启进度条
-        progressLocalCacheListener.startProgress(PROGRESS_NAME, 20, 100);
-        progressLocalCacheListener.step(PROGRESS_NAME);
+        progressLocalCacheListener.startProgress(PROGRESS_NAME, 15, 100);
+        progressLocalCacheListener.step(PROGRESS_NAME, "创建开始");
         // clone模板项目
         Map<String, String> exampleProjectsPathMap = getExampleProjectsPathMap(params, exampleprojectsMap);
         if (CheckUtils.isEmpty(exampleProjectsPathMap)) {
@@ -72,10 +72,10 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
         if (CheckUtils.isEmpty(replaceMap)) {
             return false;
         }
-        progressLocalCacheListener.step(PROGRESS_NAME);
+        progressLocalCacheListener.step(PROGRESS_NAME, "参数获取完成");
         // 开始创建文件
         createFile(exampleProjectsPathMap, tableDetail, replaceMap, params.getPackageName());
-        progressLocalCacheListener.finish(PROGRESS_NAME);
+        progressLocalCacheListener.finish(PROGRESS_NAME, "创建完成");
 
         return true;
     }
@@ -116,7 +116,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
                 e.printStackTrace();
                 return null;
             }
-            progressLocalCacheListener.step(PROGRESS_NAME);
+            progressLocalCacheListener.step(PROGRESS_NAME, "开始下载" + key + "项目");
         }
         return templatePathMap;
     }

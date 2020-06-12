@@ -234,7 +234,7 @@
 					area : [ '480px' ],
 		    	    closeBtn: 0,
 		    	    btn: false,
-		    	    content: '<div class="layui-progress layui-progress-big" lay-filter="progress" lay-showPercent="true"><div class="layui-progress-bar layui-bg-blue"></div></div>'
+		    	    content: '<div class="layui-progress layui-progress-big" lay-filter="progress" lay-showPercent="true"><div class="layui-progress-bar layui-bg-blue"><span id="progress_message"></span></div></div>'
 		    	});
 				//定义扫描时间
 				var scanTime = 500;
@@ -242,12 +242,18 @@
 				var timer = setInterval(function (){
 			    		$.ajax({
 			    			url: "${rc.contextPath}/module/progress/detail.htm",
+			    			data:{
+			    				name:"create_project_progress"
+			    			},
 			    			success: function (data) {
 			    					if(!jQuery.isEmptyObject(data)){
-					    				console.info(data);
 				    					var p=data.percent;
 				    					//动态设置百分比
 				    					element.progress('progress', p +'%')
+				    						console.info(data);
+				    					if(data.message!=""){
+				    					$("#progress_message").html(data.message)
+				    					}
 				    					if(p  == 100){
 				    						//进度到100%，注意关闭定时器
 				    						clearInterval(timer);
@@ -258,6 +264,8 @@
 				    					}}
 			    			},
 			    			error: function (e) {
+			    				clearInterval(timer);
+			 					layer.close(progressLayer); 
 								layer.alert(e,{icon: 2, title:'创建失败'});
 			    			}
 			    		});
