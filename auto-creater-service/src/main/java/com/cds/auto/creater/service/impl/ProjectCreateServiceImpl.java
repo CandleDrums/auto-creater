@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.eclipse.jgit.lib.Repository;
@@ -42,8 +43,9 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
     @Autowired
     private ExampleProjectConfig exampleProjectConfig;
 
-    @Autowired
-    private ProgressListener progressListener;
+    @Resource
+    private ProgressListener progressLocalCacheListener;
+    private static final String PROGRESS_NAME = "create_project_progress";
 
     @Override
     public boolean createPorject(ProjectCreateParams params, HttpSession session) {
@@ -53,8 +55,8 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
             return false;
         }
         // 开启进度条
-        progressListener.startProgress(30, 100);
-        progressListener.step();
+        progressLocalCacheListener.startProgress(PROGRESS_NAME, 20, 100);
+        progressLocalCacheListener.step(PROGRESS_NAME);
         // clone模板项目
         Map<String, String> exampleProjectsPathMap = getExampleProjectsPathMap(params, exampleprojectsMap);
         if (CheckUtils.isEmpty(exampleProjectsPathMap)) {
@@ -70,10 +72,10 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
         if (CheckUtils.isEmpty(replaceMap)) {
             return false;
         }
-        progressListener.step();
+        progressLocalCacheListener.step(PROGRESS_NAME);
         // 开始创建文件
         createFile(exampleProjectsPathMap, tableDetail, replaceMap, params.getPackageName());
-        progressListener.finish();
+        progressLocalCacheListener.finish(PROGRESS_NAME);
 
         return true;
     }
@@ -114,7 +116,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
                 e.printStackTrace();
                 return null;
             }
-            progressListener.step();
+            progressLocalCacheListener.step(PROGRESS_NAME);
         }
         return templatePathMap;
     }
