@@ -34,19 +34,7 @@ spring:
             template_update_delay: 0
         suffix: .ftl
         template-loader-path: classpath:/static/
-#redis 配置
-    redis:
-#*需修改*
-        host: 127.0.0.1
-#*需修改*
-        port: 6613
-        database: 1
-#*需修改*
-        password: 1234qwer
-        pool:
-            max-active: 8
-            max-idle: 8
-            max-wait: 10000
+
 mybatis-plus:
     mapper-locations: classpath:mapper/*.xml
     typeAliasesPackage: com.cds.app.creater.dal.model
