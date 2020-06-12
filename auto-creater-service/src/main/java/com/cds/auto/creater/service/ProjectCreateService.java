@@ -28,5 +28,5 @@ public interface ProjectCreateService {
      * @returnType boolean
      * @author ming.li
      */
-    boolean createPorject(ProjectCreateParams params, HttpSession session);
+    boolean createProject(ProjectCreateParams params);
 }

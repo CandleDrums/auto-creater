@@ -48,7 +48,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
     private static final String PROGRESS_NAME = "create_project_progress";
 
     @Override
-    public boolean createPorject(ProjectCreateParams params, HttpSession session) {
+    public boolean createProject(ProjectCreateParams params) {
         // 获取模板项目列表
         Map<String, String> exampleprojectsMap = getExampleProjectMap();
         if (CheckUtils.isEmpty(exampleprojectsMap)) {

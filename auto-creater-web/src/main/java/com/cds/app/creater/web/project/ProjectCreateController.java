@@ -140,7 +140,7 @@ public class ProjectCreateController {
         }
         params.setProjectName(projectName);
         try {
-            projectCreateService.createPorject(params, request.getSession());
+            projectCreateService.createProject(params);
         } catch (Exception e) {
             return ResponseResult.returnFail(false, e.getMessage());
         }
