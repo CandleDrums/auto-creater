@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.eclipse.jgit.lib.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +45,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
     @Resource
     private ProgressListener progressLocalCacheListener;
     private static final String PROGRESS_NAME = "create_project_progress";
+    private static final String MODEL_NAME = "TableName";
 
     @Override
     public boolean createProject(ProjectCreateParams params) {
@@ -176,7 +176,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
             absolutePath.replaceAll(exampleProjectConfig.getPrefix(), replaceMap.get(exampleProjectConfig.getPrefix()));
         outputPath = outputPath.replaceAll(ProjectCreateUtil.upperFirstLatter(exampleProjectConfig.getPrefix()),
             replaceMap.get(ProjectCreateUtil.upperFirstLatter(exampleProjectConfig.getPrefix())));
-        outputPath = outputPath.replaceAll("TableName", replaceMap.get("TableName"));
+        outputPath = outputPath.replaceAll(MODEL_NAME, replaceMap.get(MODEL_NAME));
         return outputPath.replaceAll("com" + splitSlash + "cds", packagePath);
     }
 
