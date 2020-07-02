@@ -55,7 +55,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
             return false;
         }
         // 开启进度条
-        progressLocalCacheListener.startProgress(PROGRESS_NAME, 15, 100);
+        progressLocalCacheListener.startProgress(PROGRESS_NAME, 20, 100);
         progressLocalCacheListener.step(PROGRESS_NAME, "创建开始");
         // clone模板项目
         Map<String, String> exampleProjectsPathMap = getExampleProjectsPathMap(params, exampleprojectsMap);
