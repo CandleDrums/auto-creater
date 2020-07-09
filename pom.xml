@@ -36,6 +36,7 @@
 		<starter.version>1.0.0-SNAPSHOT</starter.version>
 		<spring.boot.maven.plugin.version>2.2.6.RELEASE</spring.boot.maven.plugin.version>
 		<mybatis.plus.spring.boot.starter.verson>3.3.2</mybatis.plus.spring.boot.starter.verson>
+		<sqlite.jdbc.version>3.32.3</sqlite.jdbc.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -63,13 +64,6 @@
 			<dependency>
 				<groupId>com.candledrums.maven</groupId>
 				<artifactId>configure-maven-git</artifactId>
-				<version>${configure.maven.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.candledrums.maven</groupId>
-				<artifactId>configure-maven-sqlite</artifactId>
 				<version>${configure.maven.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
@@ -130,7 +124,12 @@
 				<artifactId>mybatis-plus-boot-starter</artifactId>
 				<version>${mybatis.plus.spring.boot.starter.verson}</version>
 			</dependency>
-
+			<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+			<dependency>
+				<groupId>org.xerial</groupId>
+				<artifactId>sqlite-jdbc</artifactId>
+				<version>${sqlite.jdbc.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>

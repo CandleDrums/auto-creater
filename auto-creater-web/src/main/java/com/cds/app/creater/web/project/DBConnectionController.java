@@ -44,7 +44,7 @@ public class DBConnectionController {
     @RequestMapping(value = "/toadd.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView add(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ModelAndView view = new ModelAndView();
-        view.setViewName("addConnection");
+        view.setViewName("html/addConnection");
         return view;
     }
 
