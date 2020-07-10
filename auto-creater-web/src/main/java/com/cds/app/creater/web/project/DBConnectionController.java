@@ -52,7 +52,7 @@ public class DBConnectionController {
     public ModelAndView add(DBConnectionVO connection, HttpServletRequest request, HttpServletResponse response)
         throws IOException {
         ModelAndView view = new ModelAndView();
-        view.setViewName("addConnection");
+        view.setViewName("html/addConnection");
         DBConnectionVO param = new DBConnectionVO();
         param.setHost(connection.getHost());
         param.setPort(connection.getPasswd());

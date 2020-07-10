@@ -1,8 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>首页</title>
+<link rel="stylesheet" href="${rc.contextPath}/layui/css/layui.css"	media="all" />
+<link rel="stylesheet" href="${rc.contextPath}/layui/css/admin.css"	media="all" />
+
+<script src="${rc.contextPath}/js/jquery-3.5.1.min.js"></script>
+</head>
+<body>
 <fieldset class="layui-elem-field layui-field-title"
 	style="margin-top: 20px;">
 	<legend>第一步 选择数据库</legend>
 </fieldset>
-<form class="layui-form" action="${rc.contextPath}/index.htm"
+<form class="layui-form" action="${rc.contextPath}/server/index.htm"
 	method="post">
 	<div class="layui-form-item">
 		<div class="layui-inline">
@@ -255,4 +267,6 @@
 		});
 	});
 </script>
-
+<script src="${rc.contextPath}/layui/layui.all.js" charset="utf-8"></script>
+</body>
+</html>

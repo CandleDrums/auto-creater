@@ -57,23 +57,14 @@ public class ProjectCreateController {
      * @description 首页
      * @return ModelAndView
      */
-    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return this.projectIndex(null, request, response);
-    }
-
-    /**
-     * @description 首页
-     * @return ModelAndView
-     */
-    @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/server/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView projectIndex(
         @RequestParam(value = "connectionConfigId", required = false) Integer connectionConfigId,
         HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
         ModelAndView view = new ModelAndView();
         view.addObject("connectionList", connectionList);
-        view.setViewName("index");
+        view.setViewName("html/modules/server/index");
         // 如果第一次进入
         if (CheckUtils.isEmpty(connectionConfigId)) {
             return view;
@@ -93,7 +84,7 @@ public class ProjectCreateController {
         view.addObject("author", exampleProjectConfig.getAuthor());
         view.addObject("port", exampleProjectConfig.getPort());
         view.addObject("packageName", exampleProjectConfig.getPackageName());
-        view.setViewName("index");
+        view.setViewName("html/modules/server/index");
         view.addObject("allTablesMap", allTablesMap);
         return view;
     }
