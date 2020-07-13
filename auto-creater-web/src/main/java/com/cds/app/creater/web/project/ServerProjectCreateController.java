@@ -131,7 +131,7 @@ public class ServerProjectCreateController {
         }
         params.setProjectName(projectName);
         try {
-            projectCreateService.createProject(params);
+            projectCreateService.createServerProject(params);
         } catch (Exception e) {
             return ResponseResult.returnFail(false, e.getMessage());
         }
