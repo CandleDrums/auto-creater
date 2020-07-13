@@ -28,6 +28,7 @@ import com.cds.base.util.bean.CheckUtils;
  */
 @Controller
 public class ForwardController {
+
     @RequestMapping(value = "/to.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView toPage(@RequestParam(value = "path", required = false) String path) {
         ModelAndView view = new ModelAndView();

@@ -16,7 +16,7 @@
 			style="margin-top: 20px;">
 			<legend>填写参数</legend>
 		</fieldset>
-		<form class="layui-form" action="${rc.contextPath}/server/index.htm"
+		<form class="layui-form" action="${rc.contextPath}/app/index.htm"
 			method="post">
 			<div class="layui-form-item">
 				<label class="layui-form-label">项目名</label>
@@ -27,6 +27,42 @@
 				</div>
 				<div class="layui-form-mid layui-word-aux">*必填</div>
 			</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">基础包名</label>
+			<div class="layui-input-inline">
+				<input type="text" name="packageName" id="packageName"
+					lay-verify="title" autocomplete="off" placeholder="必须填写"
+					class="layui-input" value="${packageName}">
+			</div>
+			<div class="layui-form-mid layui-word-aux">*必填，默认为:com.cds</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">作者</label>
+			<div class="layui-input-inline">
+				<input type="text" name="author" id="author" lay-verify="title"
+					autocomplete="off" placeholder="必须填写" class="layui-input"
+					value="${author}">
+			</div>
+			<div class="layui-form-mid layui-word-aux">*必填</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">生成路径</label>
+			<div class="layui-input-inline" style="width: 400px">
+				<input type="text" name="outputPath" id="outputPath"
+					lay-verify="title" autocomplete="off" placeholder="自定义生成路径"
+					class="layui-input" value="${outputPath}">
+			</div>
+			<div class="layui-form-mid layui-word-aux">*必填</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">端口号</label>
+			<div class="layui-input-inline">
+				<input type="text" name="port" id="port" lay-verify="number"
+					autocomplete="off" placeholder="必须填写" class="layui-input"
+					value="80">
+			</div>
+			<div class="layui-form-mid layui-word-aux">*必填</div>
+		</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">类型</label>
 				<div class="layui-input-block">
@@ -36,7 +72,7 @@
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button type="button" id="projectCreate" class="layui-btn"
+					<button type="submit" id="projectCreate" class="layui-btn"
 						lay-submit="">
 						<i class="layui-icon" style="font-size: 20px;">&#xe609;</i> 创建
 					</button>

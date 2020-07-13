@@ -94,7 +94,7 @@ public class ServerProjectCreateController {
      * @return ModelAndView
      */
     @ResponseBody
-    @RequestMapping(value = "/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/server/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseResult<Boolean> create(ProjectCreateParams params, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
         if (CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getConnectionConfigId())

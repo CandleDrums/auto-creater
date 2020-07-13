@@ -30,7 +30,8 @@ public class ExampleProjectConfig extends BaseParams {
 
     private static final long serialVersionUID = 1L;
     private String prefix;
-    private List<Map<String, String>> projects;
+    private List<Map<String, String>> serverProjects;
+    private List<Map<String, String>> appProjects;
     private List<String> ignore;
 
 }

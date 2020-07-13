@@ -50,7 +50,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
     @Override
     public boolean createServerProject(ProjectCreateParams params) {
         // 获取模板项目列表
-        Map<String, String> exampleprojectsMap = getExampleProjectMap();
+        Map<String, String> exampleprojectsMap = getExampleProjectMap(true);
         if (CheckUtils.isEmpty(exampleprojectsMap)) {
             return false;
         }
@@ -90,10 +90,13 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
      * @description 获取模板项目列表
      * @return void
      */
-    private Map<String, String> getExampleProjectMap() {
+    private Map<String, String> getExampleProjectMap(boolean isServer) {
         Map<String, String> projectsMap = new HashMap<String, String>();
 
-        List<Map<String, String>> projects = exampleProjectConfig.getProjects();
+        List<Map<String, String>> projects = exampleProjectConfig.getServerProjects();
+        if (!isServer) {
+            projects = exampleProjectConfig.getAppProjects();
+        }
         for (Map<String, String> map : projects) {
             for (String key : map.keySet()) {
                 projectsMap.put(key, map.get(key));
