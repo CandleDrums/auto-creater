@@ -42,7 +42,7 @@ import com.cds.base.util.bean.CheckUtils;
  * @since JDK 1.8
  */
 @Controller
-public class ProjectCreateController {
+public class ServerProjectCreateController {
 
     @Autowired
     private ProjectCreateService projectCreateService;

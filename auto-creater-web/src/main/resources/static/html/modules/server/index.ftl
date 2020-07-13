@@ -10,6 +10,7 @@
 <script src="${rc.contextPath}/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
+<div class="layui-container" style="width: 800px;">
 <fieldset class="layui-elem-field layui-field-title"
 	style="margin-top: 20px;">
 	<legend>第一步 选择数据库</legend>
@@ -144,6 +145,7 @@
 		</div>
 	</form>
 </#if>
+</div>
 <script type="text/javascript">
 	function sleep (time) {
 	  return new Promise((resolve) => setTimeout(resolve, time));
@@ -207,7 +209,7 @@
 		  var element = layui.element;
 			var selectValues=$("#tableSelect").val().split(",");
 			$.ajax({
-				url:"${rc.contextPath}/create.htm",
+				url:"${rc.contextPath}/server/create.htm",
 				type:'post',
 				data:{connectionConfigId:$("#connectionConfigId").val(),
 					projectName:$("#projectName").val(),

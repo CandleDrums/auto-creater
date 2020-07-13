@@ -48,7 +48,7 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
     private static final String MODEL_NAME = "TableName";
 
     @Override
-    public boolean createProject(ProjectCreateParams params) {
+    public boolean createServerProject(ProjectCreateParams params) {
         // 获取模板项目列表
         Map<String, String> exampleprojectsMap = getExampleProjectMap();
         if (CheckUtils.isEmpty(exampleprojectsMap)) {
@@ -78,6 +78,12 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
         progressLocalCacheListener.finish(PROGRESS_NAME, "创建完成");
 
         return true;
+    }
+
+    @Override
+    public boolean createAppProject(ProjectCreateParams params) {
+        // TODO Auto-generated method stub
+        return false;
     }
 
     /**
