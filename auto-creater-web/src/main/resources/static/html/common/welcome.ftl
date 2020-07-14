@@ -9,7 +9,7 @@
 			<#include "html/component/quick.ftl">
 		</div>
 		<div class="layui-col-md4">
-			<#include "html/component/list.ftl">
+			<#include "html/component/history.ftl">
 		</div>
 
 		<div class="layui-col-md4">

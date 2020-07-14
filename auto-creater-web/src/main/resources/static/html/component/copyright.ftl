@@ -9,7 +9,7 @@
 			<tbody>
 				<tr>
 					<td>当前版本</td>
-					<td>v1.3.1</td>
+					<td>v2.1.1</td>
 				</tr>
 				<tr>
 					<td>更新时间</td>
