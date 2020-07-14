@@ -77,7 +77,7 @@ public class TypesUtils {
         if ("Timestamp".equals(className)) {
             className = "Date";
         }
-        attributeList.add("private " + className + " " + ProjectCreateUtil.getModelLowcaseStr(columnName) + ";");
+        attributeList.add("private " + className + " " + ProjectCreateUtils.getModelLowcaseStr(columnName) + ";");
         return attributeList;
     }
 

@@ -1,18 +1,23 @@
 /**
  * @Project auto.creater.common
  * @Package com.cds.app.creater.common.util
- * @Class java
+ * @Class ProjectCreateUtils
  * @Date 2018年3月2日 下午2:57:56
  * @Copyright (c) 2019 CandleDrumS.com All Right Reserved.
  */
 package com.cds.app.creater.common.util;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.eclipse.jgit.lib.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.cds.app.creater.common.model.ExampleProjectConfig;
 import com.cds.app.creater.common.model.ProjectCreateParams;
@@ -21,6 +26,7 @@ import com.cds.app.creater.common.model.TableDetail;
 import com.cds.base.util.bean.CheckUtils;
 import com.cds.base.util.file.FileUtils;
 import com.cds.base.util.misc.DateUtils;
+import com.cds.base.util.system.OSInfoUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,10 +39,128 @@ import lombok.extern.slf4j.Slf4j;
  * @since JDK 1.8
  */
 @Slf4j
-public class ProjectCreateUtil {
+@Component
+public class ProjectCreateUtils {
 
     public static final char UNDER_LINE = '_';
     public static final char MIDDLE_LINE = '-';
+    private static final String MODEL_NAME = "TableName";
+
+    @Autowired
+    private ExampleProjectConfig exampleProjectConfig;
+
+    /**
+     * @description 获取模板项目列表
+     * @return void
+     */
+    public Map<String, String> getExampleProjectMap(boolean isServer) {
+        Map<String, String> projectsMap = new HashMap<String, String>();
+
+        List<Map<String, String>> projects = exampleProjectConfig.getServerProjects();
+        if (!isServer) {
+            projects = exampleProjectConfig.getAppProjects();
+        }
+        for (Map<String, String> map : projects) {
+            for (String key : map.keySet()) {
+                projectsMap.put(key, map.get(key));
+            }
+        }
+        return projectsMap;
+    }
+
+    /**
+     * @description 获取模板文件
+     * @return void
+     */
+    public Map<String, String> getExampleProjectsPathMap(ProjectCreateParams params, Map<String, String> projectsMap) {
+        if (CheckUtils.isEmpty(projectsMap)) {
+            return null;
+        }
+        Map<String, String> templatePathMap = new HashMap<String, String>();
+        for (String key : projectsMap.keySet()) {
+            try {
+                Repository repository =
+                    GitUtils.cloneRepository(projectsMap.get(key), params.getOutputPath() + "/" + key,
+                        exampleProjectConfig.getUserName(), exampleProjectConfig.getPasswd());
+                File workTree = repository.getWorkTree();
+                templatePathMap.put(key, workTree.getPath());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return templatePathMap;
+    }
+
+    /**
+     * @description 创建文件
+     * @return void
+     */
+    public void createFile(Map<String, String> localPathMap, TableDetail tableDetail, Map<String, String> replaceMap,
+        String packageName) {
+        if (CheckUtils.isEmpty(localPathMap)) {
+            return;
+        }
+        String splitSlash = OSInfoUtils.getSplitSlash();
+        String packagePath = packageName.replaceAll("\\.", splitSlash);
+        for (String name : localPathMap.keySet()) {
+            String path = localPathMap.get(name);
+            List<File> fileList = FileUtils.traverseFolder(path);
+            for (File file : fileList) {
+                String absolutePath = file.getAbsolutePath();
+                // 过滤无用文件
+                if (isIgnore(absolutePath)) {
+                    continue;
+                }
+                // 如果为JavaBean，是否有要额外添加的动态成员变量，可以根据情况自行修改
+                List<String> extraAttributes = getExtraAttributes(tableDetail, file);
+
+                writeFile(replaceMap, extraAttributes, absolutePath,
+                    getOutputPath(absolutePath, replaceMap, packagePath, splitSlash));
+            }
+        }
+    }
+
+    /**
+     * @description 获取要额外添加的成员变量
+     * @return List<String>
+     */
+    private List<String> getExtraAttributes(TableDetail tableDetail, File file) {
+        List<String> extraAttributes = null;
+        if ("TableNameDO.java".equals(file.getName())) {
+            extraAttributes = getExtraAttributeList(tableDetail, getDOExcludeList());
+        } else if ("TableNameVO.java".equals(file.getName())) {
+            extraAttributes = getExtraAttributeList(tableDetail, getVOExcludeList());
+        }
+        return extraAttributes;
+    }
+
+    /**
+     * @description 获取输出目录
+     * @return String
+     */
+    private String getOutputPath(String absolutePath, Map<String, String> replaceMap, String packagePath,
+        String splitSlash) {
+        String outputPath =
+            absolutePath.replaceAll(exampleProjectConfig.getPrefix(), replaceMap.get(exampleProjectConfig.getPrefix()));
+        outputPath = outputPath.replaceAll(upperFirstLatter(exampleProjectConfig.getPrefix()),
+            replaceMap.get(upperFirstLatter(exampleProjectConfig.getPrefix())));
+        outputPath = outputPath.replaceAll(MODEL_NAME, replaceMap.get(MODEL_NAME));
+        return outputPath.replaceAll("com" + splitSlash + "cds", packagePath);
+    }
+
+    /**
+     * @description 过滤无用文件
+     * @return boolean
+     */
+    private boolean isIgnore(String absolutePath) {
+        for (String igFile : exampleProjectConfig.getIgnore()) {
+            if (absolutePath.contains(igFile)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * @description 获取要替换的内容
