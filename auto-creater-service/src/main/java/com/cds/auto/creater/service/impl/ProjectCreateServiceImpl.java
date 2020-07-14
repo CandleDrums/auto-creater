@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import com.cds.app.creater.common.model.ExampleProjectConfig;
 import com.cds.app.creater.common.model.ProjectCreateParams;
-import com.cds.app.creater.common.model.TableDetail;
 import com.cds.app.creater.common.util.ProjectCreateUtils;
 import com.cds.auto.creater.service.ProjectCreateService;
 import com.cds.base.module.progress.listener.ProgressListener;
@@ -66,19 +65,16 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
         if (CheckUtils.isEmpty(exampleProjectsPathMap)) {
             return false;
         }
-        // 获取要创建的表信息
-        TableDetail tableDetail = params.getTableDetail();
-        if (CheckUtils.isEmpty(tableDetail)) {
-            return false;
-        }
+
         // 需要替换的相关内容，可以自己重写
-        Map<String, String> replaceMap = ProjectCreateUtils.getReplaceMap(params, tableDetail, exampleProjectConfig);
+        Map<String, String> replaceMap = ProjectCreateUtils.getReplaceMap(params, exampleProjectConfig, isServer);
         if (CheckUtils.isEmpty(replaceMap)) {
             return false;
         }
         progressLocalCacheListener.step(PROGRESS_NAME, "参数获取完成");
         // 开始创建文件
-        projectCreateUtils.createFile(exampleProjectsPathMap, tableDetail, replaceMap, params.getPackageName());
+        projectCreateUtils.createFile(exampleProjectsPathMap, params.getTableDetail(), replaceMap,
+            params.getPackageName());
         progressLocalCacheListener.finish(PROGRESS_NAME, "创建完成");
 
         return true;

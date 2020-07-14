@@ -112,13 +112,16 @@ public class ProjectCreateUtils {
                 if (isIgnore(absolutePath)) {
                     continue;
                 }
-                // 如果为JavaBean，是否有要额外添加的动态成员变量，可以根据情况自行修改
-                List<String> extraAttributes = getExtraAttributes(tableDetail, file);
-
+                List<String> extraAttributes = null;
+                if (tableDetail != null) {
+                    // 如果为JavaBean，是否有要额外添加的动态成员变量，可以根据情况自行修改
+                    extraAttributes = getExtraAttributes(tableDetail, file);
+                }
                 writeFile(replaceMap, extraAttributes, absolutePath,
                     getOutputPath(absolutePath, replaceMap, packagePath, splitSlash));
             }
         }
+
     }
 
     /**
@@ -166,38 +169,42 @@ public class ProjectCreateUtils {
      * @description 获取要替换的内容
      * @return Map<String,String>
      */
-    public static Map<String, String> getReplaceMap(ProjectCreateParams params, TableDetail tableDetail,
-        ExampleProjectConfig exampleProjectConfig) {
+    public static Map<String, String> getReplaceMap(ProjectCreateParams params,
+        ExampleProjectConfig exampleProjectConfig, boolean isServer) {
         String projectName = underlineToCamel(params.getProjectName());
         String upcaseProjectName = upperFirstLatter(params.getProjectName());
-        String tableName = tableDetail.getTableName();
-        String remark = tableDetail.getRemark();
-
         Map<String, String> map = new HashMap<String, String>();
-        map.put("TableName", getModelStr(tableName));
-        map.put("tableName", getModelLowcaseStr(tableName));
-        map.put("table_name", tableName);
+        TableDetail tableDetail = null;
         map.put("isGeneral", "true");
         map.put(exampleProjectConfig.getPrefix(), projectName);
         map.put(upperFirstLatter(exampleProjectConfig.getPrefix()), upcaseProjectName);
         map.put("9999", params.getPort());
         map.put("com.cds", params.getPackageName());
-
         map.put("[name]", "");
         map.put("[author]", "autoCreater");
         map.put("[date]", DateUtils.getCurrentDate(DateUtils.YYYY_MM_DD_HH_MM_SS));
-        if (remark != null) {
-            int lastIndexOf = remark.lastIndexOf("表");
-            if (lastIndexOf > 0) {
-                remark = remark.substring(0, remark.length() - 1);
-            }
-            map.put("[name]", remark);
-        }
-
         if (params.getAuthor() != null) {
             map.put("[author]", params.getAuthor());
         }
-
+        if (isServer) {
+            // 获取要创建的表信息
+            tableDetail = params.getTableDetail();
+            if (CheckUtils.isEmpty(tableDetail)) {
+                return null;
+            }
+            String tableName = tableDetail.getTableName();
+            String remark = tableDetail.getRemark();
+            map.put("TableName", getModelStr(tableName));
+            map.put("tableName", getModelLowcaseStr(tableName));
+            map.put("table_name", tableName);
+            if (remark != null) {
+                int lastIndexOf = remark.lastIndexOf("表");
+                if (lastIndexOf > 0) {
+                    remark = remark.substring(0, remark.length() - 1);
+                }
+                map.put("[name]", remark);
+            }
+        }
         return map;
     }
 
