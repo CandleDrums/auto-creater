@@ -205,6 +205,9 @@ public class ProjectCreateUtils {
                 map.put("[name]", remark);
             }
         }
+        if (!isServer) {
+            map.put("example-rest-app", projectName);
+        }
         return map;
     }
 
