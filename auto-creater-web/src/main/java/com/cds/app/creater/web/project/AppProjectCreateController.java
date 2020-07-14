@@ -16,8 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cds.app.creater.common.model.ExampleProjectConfig;
 import com.cds.app.creater.common.model.ProjectCreateParams;
 import com.cds.auto.creater.service.ProjectCreateService;
 import com.cds.base.common.result.ResponseResult;
@@ -33,6 +35,8 @@ public class AppProjectCreateController {
 
     @Autowired
     private ProjectCreateService projectCreateService;
+    @Autowired
+    private ExampleProjectConfig exampleProjectConfig;
 
     /**
      * @description 首页
@@ -42,9 +46,14 @@ public class AppProjectCreateController {
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ModelAndView view = new ModelAndView();
         view.setViewName("html/modules/app/index");
+        view.addObject("outputPath", exampleProjectConfig.getOutputPath());
+        view.addObject("author", exampleProjectConfig.getAuthor());
+        view.addObject("port", exampleProjectConfig.getPort());
+        view.addObject("packageName", exampleProjectConfig.getPackageName());
         return view;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/app/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseResult<Boolean> create(ProjectCreateParams params, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
@@ -53,6 +62,7 @@ public class AppProjectCreateController {
         try {
             projectCreateService.createAppProject(params);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseResult.returnFail(false, e.getMessage());
         }
 

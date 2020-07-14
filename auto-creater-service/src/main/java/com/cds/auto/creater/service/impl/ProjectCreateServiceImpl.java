@@ -34,6 +34,7 @@ import com.cds.base.util.bean.CheckUtils;
 public class ProjectCreateServiceImpl implements ProjectCreateService {
     @Autowired
     private ExampleProjectConfig exampleProjectConfig;
+    @Autowired
     private ProjectCreateUtils projectCreateUtils;
 
     @Resource
@@ -42,42 +43,17 @@ public class ProjectCreateServiceImpl implements ProjectCreateService {
 
     @Override
     public boolean createServerProject(ProjectCreateParams params) {
-        // 获取模板项目列表
-        Map<String, String> exampleProjectsMap = projectCreateUtils.getExampleProjectMap(true);
-        if (CheckUtils.isEmpty(exampleProjectsMap)) {
-            return false;
-        }
-        // 开启进度条
-        progressLocalCacheListener.startProgress(PROGRESS_NAME, 20, 100);
-        progressLocalCacheListener.step(PROGRESS_NAME, "创建开始");
-        // clone模板项目
-        Map<String, String> exampleProjectsPathMap =
-            projectCreateUtils.getExampleProjectsPathMap(params, exampleProjectsMap);
-        if (CheckUtils.isEmpty(exampleProjectsPathMap)) {
-            return false;
-        }
-        // 获取要创建的表信息
-        TableDetail tableDetail = params.getTableDetail();
-        if (CheckUtils.isEmpty(tableDetail)) {
-            return false;
-        }
-        // 需要替换的相关内容，可以自己重写
-        Map<String, String> replaceMap = ProjectCreateUtils.getReplaceMap(params, tableDetail, exampleProjectConfig);
-        if (CheckUtils.isEmpty(replaceMap)) {
-            return false;
-        }
-        progressLocalCacheListener.step(PROGRESS_NAME, "参数获取完成");
-        // 开始创建文件
-        projectCreateUtils.createFile(exampleProjectsPathMap, tableDetail, replaceMap, params.getPackageName());
-        progressLocalCacheListener.finish(PROGRESS_NAME, "创建完成");
-
-        return true;
+        return this.create(params, true);
     }
 
     @Override
     public boolean createAppProject(ProjectCreateParams params) {
+        return this.create(params, false);
+    }
+
+    private boolean create(ProjectCreateParams params, boolean isServer) {
         // 获取模板项目列表
-        Map<String, String> exampleProjectsMap = projectCreateUtils.getExampleProjectMap(false);
+        Map<String, String> exampleProjectsMap = projectCreateUtils.getExampleProjectMap(isServer);
         if (CheckUtils.isEmpty(exampleProjectsMap)) {
             return false;
         }

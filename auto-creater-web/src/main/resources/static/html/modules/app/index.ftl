@@ -16,8 +16,7 @@
 			style="margin-top: 20px;">
 			<legend>填写参数</legend>
 		</fieldset>
-		<form class="layui-form" action="${rc.contextPath}/app/index.htm"
-			method="post">
+		<form class="layui-form" id="createForm">
 			<div class="layui-form-item">
 				<label class="layui-form-label">项目名</label>
 				<div class="layui-input-inline">
@@ -27,42 +26,42 @@
 				</div>
 				<div class="layui-form-mid layui-word-aux">*必填</div>
 			</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">基础包名</label>
-			<div class="layui-input-inline">
-				<input type="text" name="packageName" id="packageName"
-					lay-verify="title" autocomplete="off" placeholder="必须填写"
-					class="layui-input" value="${packageName}">
+			<div class="layui-form-item">
+				<label class="layui-form-label">基础包名</label>
+				<div class="layui-input-inline">
+					<input type="text" name="packageName" id="packageName"
+						lay-verify="title" autocomplete="off" placeholder="必须填写"
+						class="layui-input" value="${packageName}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">*必填，默认为:com.cds</div>
 			</div>
-			<div class="layui-form-mid layui-word-aux">*必填，默认为:com.cds</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">作者</label>
-			<div class="layui-input-inline">
-				<input type="text" name="author" id="author" lay-verify="title"
-					autocomplete="off" placeholder="必须填写" class="layui-input"
-					value="${author}">
+			<div class="layui-form-item">
+				<label class="layui-form-label">作者</label>
+				<div class="layui-input-inline">
+					<input type="text" name="author" id="author" lay-verify="title"
+						autocomplete="off" placeholder="必须填写" class="layui-input"
+						value="${author}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">*必填</div>
 			</div>
-			<div class="layui-form-mid layui-word-aux">*必填</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">生成路径</label>
-			<div class="layui-input-inline" style="width: 400px">
-				<input type="text" name="outputPath" id="outputPath"
-					lay-verify="title" autocomplete="off" placeholder="自定义生成路径"
-					class="layui-input" value="${outputPath}">
+			<div class="layui-form-item">
+				<label class="layui-form-label">生成路径</label>
+				<div class="layui-input-inline" style="width: 400px">
+					<input type="text" name="outputPath" id="outputPath"
+						lay-verify="title" autocomplete="off" placeholder="自定义生成路径"
+						class="layui-input" value="${outputPath}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">*必填</div>
 			</div>
-			<div class="layui-form-mid layui-word-aux">*必填</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">端口号</label>
-			<div class="layui-input-inline">
-				<input type="text" name="port" id="port" lay-verify="number"
-					autocomplete="off" placeholder="必须填写" class="layui-input"
-					value="80">
+			<div class="layui-form-item">
+				<label class="layui-form-label">端口号</label>
+				<div class="layui-input-inline">
+					<input type="text" name="port" id="port" lay-verify="number"
+						autocomplete="off" placeholder="必须填写" class="layui-input"
+						value="80">
+				</div>
+				<div class="layui-form-mid layui-word-aux">*必填</div>
 			</div>
-			<div class="layui-form-mid layui-word-aux">*必填</div>
-		</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">类型</label>
 				<div class="layui-input-block">
@@ -72,7 +71,7 @@
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button type="submit" id="projectCreate" class="layui-btn"
+					<button type="button" id="projectCreate" class="layui-btn"
 						lay-submit="">
 						<i class="layui-icon" style="font-size: 20px;">&#xe609;</i> 创建
 					</button>
@@ -80,6 +79,72 @@
 			</div>
 		</form>
 	</div>
+<script type="text/javascript">
+	function sleep (time) {
+	  return new Promise((resolve) => setTimeout(resolve, time));
+	}
+</script>
+<script type="text/javascript">
+	$('#projectCreate').on('click', function() {
+		layui.use('element', function(){
+		  var element = layui.element;
+			$.ajax({
+				url:"${rc.contextPath}/app/create.htm",
+				type:'post',
+				data:{
+					projectName:$("#projectName").val(),
+					outputPath:$("#outputPath").val(),
+					port:$("#port").val(),
+					author:$("#author").val(),
+					packageName:$("#packageName").val()
+				}
+			})
+			
+			var progressLayer = layer.open({
+	    	    type: 0,
+				title : '开始创建相应项目文件',
+				anim : 0,
+				area : [ '480px' ],
+	    	    closeBtn: 0,
+	    	    btn: false,
+	    	    content: '<div class="layui-progress layui-progress-big" lay-filter="progress" lay-showPercent="true"><div class="layui-progress-bar layui-bg-blue"><span id="progress_message"></span></div></div>'
+	    	});
+			//定义扫描时间
+			var scanTime = 500;
+			//进度条方法查看进度
+			var timer = setInterval(function (){
+		    		$.ajax({
+		    			url: "${rc.contextPath}/module/progress/detail.htm",
+		    			data:{
+		    				name:"create_project_progress"
+		    			},
+		    			success: function (data) {
+	    					if(!jQuery.isEmptyObject(data)){
+		    					var p=data.percent;
+		    					//动态设置百分比
+		    					element.progress('progress', p +'%')
+		    						console.info(data);
+		    					if(data.message!=""){
+		    					$("#progress_message").html(data.message)
+		    					}
+		    					if(p  == 100){
+		    						//进度到100%，注意关闭定时器
+		    						clearInterval(timer);
+		    						//关闭弹出层
+		                            layer.close(progressLayer); 
+									layer.alert("创建完成！",{icon: 1, title:'创建成功'});
+		    					}}
+		    			},
+		    			error: function (e) {
+		    				clearInterval(timer);
+		 					layer.close(progressLayer); 
+							layer.alert(e,{icon: 2, title:'创建失败'});
+		    			}
+		    		});
+		    	}, scanTime);
+		});
+	});
+</script>
 	<script src="${rc.contextPath}/layui/layui.all.js" charset="utf-8"></script>
 </body>
 </html>
