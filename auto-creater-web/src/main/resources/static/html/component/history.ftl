@@ -11,6 +11,10 @@
 			      <h3 class="layui-timeline-title">2020年7月</h3>
 			      <p>Auto Creater2.0初步完成，它有一下特点：</p>
 			      <ul>
+			      	<li>开箱即用，没有学习成本，而且代码都是测试可用</li>
+			      	<li>附带很多实用配置与代码工具</li>
+			      	<li>默认实用spring，spring boot，spring cloud生态</li>
+			      	<li>默认集成了Apollo，甚至可精简成0配置文件</li>
 			        <li>根据表生成相关dep项目</li>
 			        <li>根据表生成相关server项目</li>
 			        <li>生成相关web/rest项目</li>
@@ -18,6 +22,7 @@
 			        <li>可以自定义项目模板，只需在配置文件中替换即可</li>
 			        <li>扩展性更强，规范性更好</li>
 			        <li>完全免费</li>
+			     	<li>........</li>
 			      </ul>
 			    </div>
 			  </li>
