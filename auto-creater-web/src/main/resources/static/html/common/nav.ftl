@@ -44,8 +44,8 @@
 		closeBtn : 1,
 		shade : 0,
 		shadeClose : true,
-		area : [ '480px', '312px' ],
-		shadeClose : true, //点击遮罩关闭
+		area : [ '480px', '285px' ],
+		shadeClose : false, //点击遮罩关闭
 		content : '${rc.contextPath}/to.htm?path=html/component/contact',
 		cancel : function(index, layero) {
 			layer.close(index);
