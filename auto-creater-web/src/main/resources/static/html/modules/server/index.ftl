@@ -6,7 +6,6 @@
 <title>首页</title>
 <link rel="stylesheet" href="${rc.contextPath}/layui/css/layui.css"	media="all" />
 <link rel="stylesheet" href="${rc.contextPath}/layui/css/admin.css"	media="all" />
-
 <script src="${rc.contextPath}/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>

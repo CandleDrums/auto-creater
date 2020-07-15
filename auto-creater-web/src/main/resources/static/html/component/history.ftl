@@ -9,7 +9,7 @@
 			    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 			    <div class="layui-timeline-content layui-text">
 			      <h3 class="layui-timeline-title">2020年7月</h3>
-			      <p>Auto Creater2.0初步完成，它有一下特点：</p>
+			      <p>Auto Creater2.0初步完成，它有以下特点：</p>
 			      <ul>
 			      	<li>开箱即用，没有学习成本，而且代码都是测试可用</li>
 			      	<li>附带很多实用配置与代码工具</li>
