@@ -9,6 +9,7 @@ package com.cds.app.creater.web.project;
 
 import java.io.IOException;
 import java.sql.DatabaseMetaData;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,10 +42,20 @@ public class DBConnectionController {
     @Autowired
     private DatabaseMetaDateManager databaseMetaDateManager;
 
+    @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("html/modules/db/index");
+        List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
+        view.addObject("connectionList", connectionList);
+
+        return view;
+    }
+
     @RequestMapping(value = "/toadd.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView add(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ModelAndView view = new ModelAndView();
-        view.setViewName("html/modules/server/addConnection");
+        view.setViewName("html/modules/db/addConnection");
         return view;
     }
 
@@ -52,7 +63,7 @@ public class DBConnectionController {
     public ModelAndView add(DBConnectionVO connection, HttpServletRequest request, HttpServletResponse response)
         throws IOException {
         ModelAndView view = new ModelAndView();
-        view.setViewName("html/modules/server/addConnection");
+        view.setViewName("html/modules/db/addConnection");
         DBConnectionVO param = new DBConnectionVO();
         param.setHost(connection.getHost());
         param.setPort(connection.getPasswd());

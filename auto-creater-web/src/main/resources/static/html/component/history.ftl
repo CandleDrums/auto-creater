@@ -51,7 +51,7 @@
 		    <div class="layui-timeline-content layui-text">
 		      <h3 class="layui-timeline-title">2018年3月</h3>
 		      <p>
-		        Auto Creater初步构思，当时还只是一个idea而已，并没有去实现。
+		        Auto Creater demo完成，初版功能与设计都比较简陋，实现方式是直接利用输入输出流“拼接”源文件，稍微一点改动就会出现问题。
 		      </p>
 		    </div>
 		  </li>

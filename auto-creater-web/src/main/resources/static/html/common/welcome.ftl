@@ -2,6 +2,7 @@
 	media="all" />
 <link rel="stylesheet" href="${rc.contextPath}/layui/css/admin.css"
 	media="all" />
+
 <div class="layui-fluid">
 	<div class="layui-row layui-col-space15">
 
