@@ -48,7 +48,7 @@
 		shadeClose : true, //点击遮罩关闭
 		content : '${rc.contextPath}/to.htm?path=html/component/contact',
 		cancel : function(index, layero) {
-		    return false;
+			layer.close(index);
 		}
 	    });
 	});
