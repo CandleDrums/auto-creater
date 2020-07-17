@@ -25,12 +25,13 @@ import com.cds.auto.creater.service.ProjectCreateService;
 import com.cds.base.common.result.ResponseResult;
 
 /**
- * @Description TODO 填写描述信息
+ * @Description web端项目创建
  * @Notes 未填写备注
  * @author liming
  * @Date Jul 10, 2020 4:05:50 PM
  */
 @Controller
+@RequestMapping("/app")
 public class AppProjectCreateController {
 
     @Autowired
@@ -42,7 +43,7 @@ public class AppProjectCreateController {
      * @description 首页
      * @return ModelAndView
      */
-    @RequestMapping(value = "/app/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ModelAndView view = new ModelAndView();
         view.setViewName("html/modules/app/index");
@@ -54,7 +55,7 @@ public class AppProjectCreateController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/app/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseResult<Boolean> create(ProjectCreateParams params, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
         ModelAndView view = new ModelAndView();

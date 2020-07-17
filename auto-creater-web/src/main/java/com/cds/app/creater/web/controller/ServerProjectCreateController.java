@@ -42,6 +42,7 @@ import com.cds.base.util.bean.CheckUtils;
  * @since JDK 1.8
  */
 @Controller
+@RequestMapping("/server")
 public class ServerProjectCreateController {
 
     @Autowired
@@ -57,7 +58,7 @@ public class ServerProjectCreateController {
      * @description 首页
      * @return ModelAndView
      */
-    @RequestMapping(value = "/server/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView projectIndex(
         @RequestParam(value = "connectionConfigId", required = false) Integer connectionConfigId,
         HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -94,7 +95,7 @@ public class ServerProjectCreateController {
      * @return ModelAndView
      */
     @ResponseBody
-    @RequestMapping(value = "/server/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/create.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseResult<Boolean> create(ProjectCreateParams params, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
         if (CheckUtils.isEmpty(params) || CheckUtils.isEmpty(params.getConnectionConfigId())
