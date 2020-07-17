@@ -13,7 +13,6 @@
 	<div class="layui-card">
 		<div class="layui-card-header">任务列表</div>
 		<div class="layui-card-body">
-
 			<table class="layui-table">
 				<tbody>
 					<tr>
@@ -25,7 +24,7 @@
 					</tr>
 					<tr>
 						<td width="36px;" style="text-align: center"><img
-							src="${rc.contextPath}/img/clock.png" width="36px"></td>
+							src="${rc.contextPath}/img/rate.png" width="36px"></td>
 						<td>Maven垃圾文件清理</td>
 						<td width="48px;" style="text-align: center"><span style="color: #FFB800;">进行中</span></td>
 					</tr>
