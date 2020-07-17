@@ -18,9 +18,9 @@
 		</fieldset>
 		<form class="layui-form" id="createForm">
 			<div class="layui-form-item">
-				<label class="layui-form-label">Maven库目录</label>
+				<label class="layui-form-label">Maven仓库</label>
 				<div class="layui-input-inline">
-					<input type="text" name="path" id="path"
+					<input type="text" name="repPath" id="repPath"
 						lay-verify="title" autocomplete="off"
 						placeholder="Maven Repository位置" class="layui-input"
 						value="${projectName}">
@@ -32,6 +32,9 @@
 				<div class="layui-input-block">
 					<button type="submit" class="layui-btn" lay-submit="">
 						<i class="layui-icon" style="font-size: 20px;">&#xe615;</i> 扫描
+					</button>
+					<button type="submit" class="layui-btn layui-btn-danger" lay-submit="">
+						<i class="layui-icon" style="font-size: 20px;">&#xe640;</i> 清理
 					</button>
 					&nbsp;&nbsp;<font color="#FF5722">${error}</font>
 				</div>

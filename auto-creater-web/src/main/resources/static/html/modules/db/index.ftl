@@ -14,9 +14,9 @@
 	<div class="layui-container layui-fluid" style="width: 800px;">
 		<div class="layui-card">
 			<div class="layui-card-body">
-				<button type="button" class="layui-btn layui-btn-normal"
-					href="javascript:;" id="addConnection">
-					<i class="layui-icon layui-icon-add-1" style="font-size: 16px;"></i>
+				<button type="button" id="addConnection" class="layui-btn"
+					lay-submit="">
+					<i class="layui-icon" style="font-size: 20px;">&#xe654;</i> 添加
 				</button>
 				<table cellspacing="0" cellpadding="0" border="0"
 					class="layui-table">

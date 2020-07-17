@@ -8,7 +8,7 @@
 	media="all" />
 <link rel="stylesheet" href="${rc.contextPath}/layui/css/admin.css"
 	media="all" />
-
+<link rel="shortcut icon" href="${rc.contextPath}/favicon.ico" />
 </head>
 <body>
 	<#include "html/common/nav.ftl"> 
