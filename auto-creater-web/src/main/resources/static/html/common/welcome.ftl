@@ -8,7 +8,7 @@
 
 		<div class="layui-col-md4">
 			<#include "html/component/quick.ftl">
-			<#include "html/component/list.ftl">
+			<#include "html/component/task.ftl">
 		</div>
 		<div class="layui-col-md4">
 			<#include "html/component/history.ftl">
