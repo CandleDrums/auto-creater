@@ -58,10 +58,12 @@ public class MavenCleanController {
         @RequestParam(value = "junkList", required = false) List<String> junkList, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
         if (CheckUtils.isEmpty(repPath) && CheckUtils.isEmpty(junkList)) {
-            mavenCleanService.clean(repPath, junkList);
             return ResponseResult.returnFail(false);
         }
-        return ResponseResult.returnSuccess(true);
-
+        boolean result = mavenCleanService.clean(repPath, junkList);
+        if (result) {
+            return ResponseResult.returnSuccess(result);
+        }
+        return ResponseResult.returnFail(false);
     }
 }

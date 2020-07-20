@@ -17,6 +17,8 @@ import com.cds.auto.creater.service.MavenCleanService;
 import com.cds.base.util.bean.CheckUtils;
 import com.cds.base.util.file.FileUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @Description Maven清理Service实现
  * @Notes 未填写备注
@@ -24,6 +26,7 @@ import com.cds.base.util.file.FileUtils;
  * @Date Jul 17, 2020 5:54:10 PM
  */
 @Service
+@Slf4j
 public class MavenCleanServiceImpl implements MavenCleanService {
 
     @Override
@@ -45,14 +48,20 @@ public class MavenCleanServiceImpl implements MavenCleanService {
     }
 
     @Override
-    public void clean(String path, List<String> junkList) {
-        List<File> fileList = this.getFileList(path, junkList);
-        for (File file : fileList) {
-            // 防止误删
-            if (file.isFile()) {
-                file.delete();
+    public boolean clean(String path, List<String> junkList) {
+        try {
+            List<File> fileList = this.getFileList(path, junkList);
+            for (File file : fileList) {
+                // 防止误删
+                if (file.isFile()) {
+                    file.delete();
+                }
             }
+            return true;
+        } catch (Exception e) {
+            log.error("出现错误", e);
         }
+        return false;
     }
 
 }

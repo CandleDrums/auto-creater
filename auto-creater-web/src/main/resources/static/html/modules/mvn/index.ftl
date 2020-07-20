@@ -20,12 +20,13 @@
 				</fieldset>
 				<form class="layui-form" id="createForm" method="post"
 					action="${rc.contextPath}/mvn/index.htm">
+					<input type="hidden" value="${repPath}" id="repPathValue">
 					<div class="layui-form-item">
 						<label class="layui-form-label">目录位置</label>
 						<div class="layui-input-inline" style="width: 400px">
 							<input type="text" name="repPath" id="repPath" lay-verify="title"
 								autocomplete="off" placeholder="要清理的文件夹位置" class="layui-input"
-								value="${repPath}">
+								value="${repPath}" lay-verify="title">
 						</div>
 						<div class="layui-form-mid layui-word-aux">*必填</div>
 					</div>
@@ -44,11 +45,12 @@
 							<button type="submit" class="layui-btn" lay-submit="">
 								<i class="layui-icon" style="font-size: 20px;">&#xe615;</i> 扫描
 							</button>
+							<#if repPath>
 							<button type="button" class="layui-btn layui-btn-danger"
 								id="clear" lay-submit="">
 								<i class="layui-icon" style="font-size: 20px;">&#xe640;</i> 清理
 							</button>
-							&nbsp;&nbsp;<font color="#FF5722">${error}</font>
+							</#if>
 						</div>
 					</div>
 				</form>
@@ -66,7 +68,7 @@
 				type:'post',
 				data:{
 				    junkList:$("#junkList").val(),
-				    repPath:$("#repPath").val()
+				    repPath:$("#repPathValue").val()
 				},
 				success : function(data) {
 					if(data.result=='SUCCESS'){

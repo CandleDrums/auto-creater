@@ -31,7 +31,7 @@
 					<tr>
 						<td width="36px;" style="text-align: center"><img
 							src="${rc.contextPath}/img/alarm.png" width="36px"></td>
-						<td>数据库链接信息单独配置与展示</td>
+						<td>所有页面增加数据校验</td>
 						<td width="48px;" style="text-align: center"><span>未开始</span></td>
 					</tr>
 				</tbody>

@@ -27,6 +27,6 @@ public interface MavenCleanService {
      * @description 清理
      * @return void
      */
-    void clean(String path, List<String> junkList);
+    boolean clean(String path, List<String> junkList);
 
 }

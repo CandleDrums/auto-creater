@@ -23,7 +23,7 @@
 						<label class="layui-form-label">项目名</label>
 						<div class="layui-input-inline">
 							<input type="text" name="projectName" id="projectName"
-								lay-verify="title" autocomplete="off" placeholder="填写项目名称"
+								required  lay-verify="required" autocomplete="off" placeholder="填写项目名称"
 								class="layui-input" value="${projectName}">
 						</div>
 						<div class="layui-form-mid layui-word-aux">*必填</div>
@@ -32,7 +32,7 @@
 						<label class="layui-form-label">基础包名</label>
 						<div class="layui-input-inline">
 							<input type="text" name="packageName" id="packageName"
-								lay-verify="title" autocomplete="off" placeholder="必须填写"
+								required  lay-verify="required" autocomplete="off" placeholder="必须填写"
 								class="layui-input" value="${packageName}">
 						</div>
 						<div class="layui-form-mid layui-word-aux">*必填，默认为:com.cds</div>
@@ -40,7 +40,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">作者</label>
 						<div class="layui-input-inline">
-							<input type="text" name="author" id="author" lay-verify="title"
+							<input type="text" name="author" id="author" required  lay-verify="required"
 								autocomplete="off" placeholder="必须填写" class="layui-input"
 								value="${author}">
 						</div>
@@ -50,7 +50,7 @@
 						<label class="layui-form-label">生成路径</label>
 						<div class="layui-input-inline" style="width: 400px">
 							<input type="text" name="outputPath" id="outputPath"
-								lay-verify="title" autocomplete="off" placeholder="自定义生成路径"
+								required  lay-verify="required" autocomplete="off" placeholder="自定义生成路径"
 								class="layui-input" value="${outputPath}">
 						</div>
 						<div class="layui-form-mid layui-word-aux">*必填</div>
@@ -58,7 +58,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">端口号</label>
 						<div class="layui-input-inline">
-							<input type="text" name="port" id="port" lay-verify="number"
+							<input type="text" name="port" id="port" lay-verify="number" required
 								autocomplete="off" placeholder="必须填写" class="layui-input"
 								value="80">
 						</div>
