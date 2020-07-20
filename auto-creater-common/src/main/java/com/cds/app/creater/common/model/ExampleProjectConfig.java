@@ -33,5 +33,6 @@ public class ExampleProjectConfig extends BaseParams {
     private List<Map<String, String>> serverProjects;
     private List<Map<String, String>> appProjects;
     private List<String> ignore;
+    private List<String> maven;
 
 }
