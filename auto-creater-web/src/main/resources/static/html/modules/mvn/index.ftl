@@ -16,7 +16,7 @@
 			<div class="layui-card-body">
 				<fieldset class="layui-elem-field layui-field-title"
 					style="margin-top: 20px;">
-					<legend>选择Maven参数</legend>
+					<legend>填写参数</legend>
 				</fieldset>
 				<form class="layui-form" id="createForm" method="post"
 					action="${rc.contextPath}/mvn/index.htm">
@@ -39,13 +39,30 @@
 								lay-skin="primary" checked value="lastUpdated.properties">
 						</div>
 					</div>
-
+					<div id="custom-div">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">自定义类型</label>
+								<div class="layui-input-inline">
+									<input type="text" name="customList" id="customList"
+									 autocomplete="off" placeholder="自定义文件类型"
+										class="layui-input">
+								</div>
+								<div class="layui-input-inline">
+									<button type="button" class="layui-btn layui-btn-normal" id="add"
+										href="javascript:;">
+										<i class="layui-icon layui-icon-add-1" style="font-size: 20px;"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
 							<button type="submit" class="layui-btn" lay-submit="">
 								<i class="layui-icon" style="font-size: 20px;">&#xe615;</i> 扫描
 							</button>
-							<#if repPath>
+							<#if fileList>
 							<button type="button" class="layui-btn layui-btn-danger"
 								id="clear" lay-submit="">
 								<i class="layui-icon" style="font-size: 20px;">&#xe640;</i> 清理
@@ -63,11 +80,15 @@
 	<script type="text/javascript">
 	$('#clear').on('click', function() {
 	    layer.confirm('是否确认清除？', {icon: 2, title:'删除'}, function(index){
+		  var junkList ="";//定义一个数组    
+	            $('input[name="junkList"]:checked').each(function(){//遍历每一个名字为interest的复选框，其中选中的执行函数    
+	        	junkList=junkList+$(this).val()+",";
+	            });
 			$.ajax({
 				url:"${rc.contextPath}/mvn/clean.htm",
 				type:'post',
 				data:{
-				    junkList:$("#junkList").val(),
+				    junkList:junkList,
 				    repPath:$("#repPathValue").val()
 				},
 				success : function(data) {
@@ -82,8 +103,32 @@
 				}
 			});
 			layer.close(index);
+			window.location.reload();
 		});
 	});
+	</script>
+	<script type="text/javascript">
+	    var html = "";
+		html += '<div class="layui-form-item">';
+		html += '<div class="layui-inline">';
+		html += '<label class="layui-form-label">自定义类型</label>';
+		html += '<div class="layui-input-inline">';
+		html += '<input type="text" name="customList" id="customList" autocomplete="off" placeholder="自定义文件类型" class="layui-input">';
+		html += '</div>';
+		html += '<div class="layui-input-inline">';
+		html += '<button type="button" class="layui-btn layui-btn-danger remove" href="javascript:;">';
+		html += '<i class="layui-icon layui-icon-delete" style="font-size: 20px;"></i>';
+		html += '</button>';
+		html += '</div>';
+		html += '</div>';
+		html += '</div>';
+		$('#add').on('click', function() {
+		    $("#custom-div").append(html);
+		});
+		$("body").on('click','.remove',function () {
+		    //获取当前点击的元素的父级的父级进行删除
+		    $(this).parent().parent().parent().remove();
+		})
 	</script>
 	<script src="${rc.contextPath}/layui/layui.all.js" charset="utf-8"></script>
 

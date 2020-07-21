@@ -34,6 +34,12 @@
 						<td>所有页面增加数据校验</td>
 						<td width="48px;" style="text-align: center"><span>未开始</span></td>
 					</tr>
+					<tr>
+						<td width="36px;" style="text-align: center"><img
+							src="${rc.contextPath}/img/alarm.png" width="36px"></td>
+						<td>Maven Rep库位置自动搜索</td>
+						<td width="48px;" style="text-align: center"><span>未开始</span></td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

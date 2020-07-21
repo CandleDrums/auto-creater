@@ -54,8 +54,8 @@ public class MavenCleanController {
 
     @ResponseBody
     @RequestMapping(value = "/clean.htm", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseResult<Boolean> create(@RequestParam(value = "repPath", required = false) String repPath,
-        @RequestParam(value = "junkList", required = false) List<String> junkList, HttpServletRequest request,
+    public ResponseResult<Boolean> create(@RequestParam(value = "repPath", required = true) String repPath,
+        @RequestParam(value = "junkList", required = true) List<String> junkList, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
         if (CheckUtils.isEmpty(repPath) && CheckUtils.isEmpty(junkList)) {
             return ResponseResult.returnFail(false);
