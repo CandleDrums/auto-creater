@@ -18,8 +18,8 @@
 					style="margin-top: 20px;">
 					<legend>填写参数</legend>
 				</fieldset>
-				<form class="layui-form" id="createForm" method="post"
-					action="${rc.contextPath}/mvn/index.htm">
+				<form class="layui-form" id="cleanForm" method="post"
+					action="${rc.contextPath}/clean/index.htm">
 					<input type="hidden" value="${repPath}" id="repPathValue">
 					<div class="layui-form-item">
 						<label class="layui-form-label">目录位置</label>
@@ -39,12 +39,25 @@
 								lay-skin="primary" checked value="lastUpdated.properties">
 						</div>
 					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">日志垃圾</label>
+						<div class="layui-input-block">
+							<input type="checkbox" name="junkList" title="*.log"
+								lay-skin="primary" value=".log">
+							<input type="checkbox" name="junkList" title="*.log-2019*"
+								lay-skin="primary" value=".log-2019">
+							<input type="checkbox" name="junkList" title="*.log-2020*"
+								lay-skin="primary" value=".log-2020">
+							<input type="checkbox" name="junkList" title="*.log.gz"
+								lay-skin="primary" value=".log.gz">
+						</div>
+					</div>
 					<div id="custom-div">
 						<div class="layui-form-item">
 							<div class="layui-inline">
 								<label class="layui-form-label">自定义类型</label>
 								<div class="layui-input-inline">
-									<input type="text" name="customList" id="customList"
+									<input type="text" name="junkList"
 									 autocomplete="off" placeholder="自定义文件类型"
 										class="layui-input">
 								</div>
@@ -77,33 +90,35 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript">
 	$('#clear').on('click', function() {
 	    layer.confirm('是否确认清除？', {icon: 2, title:'删除'}, function(index){
-		  var junkList ="";//定义一个数组    
-	            $('input[name="junkList"]:checked').each(function(){//遍历每一个名字为interest的复选框，其中选中的执行函数    
-	        	junkList=junkList+$(this).val()+",";
-	            });
-			$.ajax({
-				url:"${rc.contextPath}/mvn/clean.htm",
-				type:'post',
-				data:{
-				    junkList:junkList,
-				    repPath:$("#repPathValue").val()
-				},
-				success : function(data) {
+		
+		 var data = new FormData($("#cleanForm")[0]);
+		      $.ajax({
+		        type: 'POST',
+		        dataType: 'json',
+		        processData: false, // 告诉jquery不要处理数据
+		        contentType: false, // 告诉jquery不要设置contentType
+		        data: data,
+		        url: '${rc.contextPath}/clean/clean.htm',
+		        success : function(data) {
 					if(data.result=='SUCCESS'){
+						layer.close(index);
 						layer.alert(data.message,{icon: 1, title:'删除成功'});
-						sleep(1000).then(() => {
+						sleep(2000).then(() => {
 							window.location.reload();
 						})
+						
 					}else{
 						layer.alert(data.message,{icon: 2, title:'删除失败'});
 					}
 				}
-			});
-			layer.close(index);
-			window.location.reload();
+		      })
+		
+		
+
 		});
 	});
 	</script>
@@ -113,7 +128,7 @@
 		html += '<div class="layui-inline">';
 		html += '<label class="layui-form-label">自定义类型</label>';
 		html += '<div class="layui-input-inline">';
-		html += '<input type="text" name="customList" id="customList" autocomplete="off" placeholder="自定义文件类型" class="layui-input">';
+		html += '<input type="text" name="junkList" id="customList" autocomplete="off" placeholder="自定义文件类型" class="layui-input">';
 		html += '</div>';
 		html += '<div class="layui-input-inline">';
 		html += '<button type="button" class="layui-btn layui-btn-danger remove" href="javascript:;">';

@@ -22,30 +22,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cds.auto.creater.service.MavenCleanService;
+import com.cds.auto.creater.service.CleanService;
 import com.cds.base.common.result.ResponseResult;
 import com.cds.base.util.bean.CheckUtils;
 
 /**
- * @Description TODO 填写描述信息
+ * @Description 清理
  * @Notes 未填写备注
  * @author liming
  * @Date Jul 17, 2020 11:17:37 AM
  */
 @Controller
-@RequestMapping("/mvn")
-public class MavenCleanController {
+@RequestMapping("/clean")
+public class CleanController {
     @Autowired
-    private MavenCleanService mavenCleanService;
+    private CleanService cleanService;
 
     @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView index(@RequestParam(value = "repPath", required = false) String repPath,
         @RequestParam(value = "junkList", required = false) List<String> junkList, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
         ModelAndView view = new ModelAndView();
-        view.setViewName("html/modules/mvn/index");
+        view.setViewName("html/modules/clean/index");
         if (CheckUtils.isNotEmpty(repPath) && CheckUtils.isNotEmpty(junkList)) {
-            List<File> fileList = mavenCleanService.getFileList(repPath, junkList);
+            List<File> fileList = cleanService.getFileList(repPath, junkList);
             view.addObject("fileList", fileList);
             view.addObject("repPath", repPath);
         }
@@ -53,14 +53,15 @@ public class MavenCleanController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/clean.htm", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseResult<Boolean> create(@RequestParam(value = "repPath", required = true) String repPath,
+    @RequestMapping(value = "/clean.htm", method = RequestMethod.POST)
+    public ResponseResult<Boolean> clean(@RequestParam(value = "repPath", required = true) String repPath,
         @RequestParam(value = "junkList", required = true) List<String> junkList, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
+
         if (CheckUtils.isEmpty(repPath) && CheckUtils.isEmpty(junkList)) {
             return ResponseResult.returnFail(false);
         }
-        boolean result = mavenCleanService.clean(repPath, junkList);
+        boolean result = cleanService.clean(repPath, junkList);
         if (result) {
             return ResponseResult.returnSuccess(result);
         }

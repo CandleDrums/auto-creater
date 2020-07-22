@@ -13,21 +13,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.cds.auto.creater.service.MavenCleanService;
+import com.cds.auto.creater.service.CleanService;
 import com.cds.base.util.bean.CheckUtils;
 import com.cds.base.util.file.FileUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @Description Maven清理Service实现
+ * @Description 清理Service实现
  * @Notes 未填写备注
  * @author liming
  * @Date Jul 17, 2020 5:54:10 PM
  */
 @Service
 @Slf4j
-public class MavenCleanServiceImpl implements MavenCleanService {
+public class CleanServiceImpl implements CleanService {
 
     @Override
     public List<File> getFileList(String path, List<String> junkList) {

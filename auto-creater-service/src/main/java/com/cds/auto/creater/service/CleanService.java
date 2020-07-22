@@ -16,7 +16,7 @@ import java.util.List;
  * @author liming
  * @Date Jul 17, 2020 4:15:40 PM
  */
-public interface MavenCleanService {
+public interface CleanService {
     /**
      * @description 加载文件
      * @return List<File>
