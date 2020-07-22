@@ -18,8 +18,7 @@
 					style="margin-top: 20px;">
 					<legend>填写参数</legend>
 				</fieldset>
-				<form class="layui-form" id="cleanForm" method="post"
-					action="${rc.contextPath}/clean/index.htm">
+				<form class="layui-form" id="cleanForm">
 					<input type="hidden" value="${repPath}" id="repPathValue">
 					<div class="layui-form-item">
 						<label class="layui-form-label">目录位置</label>
@@ -57,7 +56,7 @@
 							<div class="layui-inline">
 								<label class="layui-form-label">自定义类型</label>
 								<div class="layui-input-inline">
-									<input type="text" name="junkList"
+									<input type="text" name="customList"
 									 autocomplete="off" placeholder="自定义文件类型"
 										class="layui-input">
 								</div>
@@ -72,7 +71,7 @@
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button type="submit" class="layui-btn" lay-submit="">
+							<button type="button" class="layui-btn" id="scan" lay-submit="">
 								<i class="layui-icon" style="font-size: 20px;">&#xe615;</i> 扫描
 							</button>
 							<#if fileList>
@@ -84,12 +83,38 @@
 						</div>
 					</div>
 				</form>
-				<#if fileList>
-				<pre class="layui-code layui-box layui-code-view" lay-height="200px"><ol class="layui-code-ol" style="max-height: 200px;"><#list fileList as detail><li>${detail}</li></#list></ol></pre>
-				</#if>
+				<div id="file-list-div"></div>
 			</div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+	$('#scan').on('click', function() {
+		 var data = new FormData($("#cleanForm")[0]);
+		      $.ajax({
+		        type: 'POST',
+		        dataType: 'json',
+		        processData: false, // 告诉jquery不要处理数据
+		        contentType: false, // 告诉jquery不要设置contentType
+		        data: data,
+		        url: '${rc.contextPath}/clean/scan.htm',
+		        success : function(data) {
+					if(data.result=='SUCCESS'){
+					    $("#file-list-div").empty();
+					    var html = "";
+						html += '<pre class="layui-code layui-box layui-code-view" lay-height="200px"><ol class="layui-code-ol" style="max-height: 200px;">';
+						html += data.data;
+						html += '</ol></pre>';
+						 $("#file-list-div").append(html);
+					}else{
+						layer.alert(data.message,{icon: 2, title:'搜索结果'});
+					    $("#file-list-div").empty();
+					}
+				}
+		      })
+
+	});
+	</script>
 
 	<script type="text/javascript">
 	$('#clear').on('click', function() {
@@ -116,9 +141,6 @@
 					}
 				}
 		      })
-		
-		
-
 		});
 	});
 	</script>
@@ -128,7 +150,7 @@
 		html += '<div class="layui-inline">';
 		html += '<label class="layui-form-label">自定义类型</label>';
 		html += '<div class="layui-input-inline">';
-		html += '<input type="text" name="junkList" id="customList" autocomplete="off" placeholder="自定义文件类型" class="layui-input">';
+		html += '<input type="text" name="customList" id="customList" autocomplete="off" placeholder="自定义文件类型" class="layui-input">';
 		html += '</div>';
 		html += '<div class="layui-input-inline">';
 		html += '<button type="button" class="layui-btn layui-btn-danger remove" href="javascript:;">';

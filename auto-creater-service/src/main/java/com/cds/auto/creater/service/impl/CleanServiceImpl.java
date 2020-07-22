@@ -39,6 +39,9 @@ public class CleanServiceImpl implements CleanService {
         for (File file : fileList) {
             String name = file.getName();
             for (String junk : junkList) {
+                if (CheckUtils.isEmpty(junk)) {
+                    continue;
+                }
                 if (name.lastIndexOf(junk) > 0) {
                     resultList.add(file);
                 }

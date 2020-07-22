@@ -25,7 +25,7 @@
 			href="${rc.contextPath}/app/index.htm" target="content_frame"><img
 				src="${rc.contextPath}/img/mobile_device.png" width="36px">web应用创建</a></li>
 		<li class="layui-nav-item"><a
-			href="${rc.contextPath}/mvn/index.htm" target="content_frame"><img
+			href="${rc.contextPath}/clean/index.htm" target="content_frame"><img
 				src="${rc.contextPath}/img/scan_virus.png" width="36px">垃圾清理</a></li>
 	</ul>
 	<ul class="layui-nav layui-layout-right layui-bg-green"

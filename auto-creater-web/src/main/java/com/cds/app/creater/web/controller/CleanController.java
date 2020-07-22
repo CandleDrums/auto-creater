@@ -9,6 +9,7 @@ package com.cds.app.creater.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,17 +40,29 @@ public class CleanController {
     private CleanService cleanService;
 
     @RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView index(@RequestParam(value = "repPath", required = false) String repPath,
-        @RequestParam(value = "junkList", required = false) List<String> junkList, HttpServletRequest request,
-        HttpServletResponse response) throws IOException {
+    public ModelAndView index() throws IOException {
         ModelAndView view = new ModelAndView();
         view.setViewName("html/modules/clean/index");
-        if (CheckUtils.isNotEmpty(repPath) && CheckUtils.isNotEmpty(junkList)) {
-            List<File> fileList = cleanService.getFileList(repPath, junkList);
-            view.addObject("fileList", fileList);
-            view.addObject("repPath", repPath);
-        }
         return view;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/scan.htm", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseResult<List<String>> scan(@RequestParam(value = "repPath", required = false) String repPath,
+        @RequestParam(value = "junkList", required = false) List<String> junkList,
+        @RequestParam(value = "customList", required = false) List<String> customList, HttpServletRequest request,
+        HttpServletResponse response) throws IOException {
+
+        addToList(junkList, customList);
+        if (CheckUtils.isEmpty(repPath) || CheckUtils.isEmpty(junkList)) {
+            return ResponseResult.returnFail(null, "未搜索到相关结果");
+        }
+        List<File> fileList = cleanService.getFileList(repPath, junkList);
+        List<String> filePathList = getFilePathList(fileList);
+        if (CheckUtils.isEmpty(filePathList)) {
+            return ResponseResult.returnFail(null, "未搜索到相关结果");
+        }
+        return ResponseResult.returnSuccess(filePathList);
     }
 
     @ResponseBody
@@ -66,5 +79,32 @@ public class CleanController {
             return ResponseResult.returnSuccess(result);
         }
         return ResponseResult.returnFail(false);
+    }
+
+    private List<String> getFilePathList(List<File> fileList) {
+        if (CheckUtils.isEmpty(fileList)) {
+            return null;
+        }
+        List<String> result = new ArrayList<String>();
+        for (File file : fileList) {
+            result.add("<li>" + file.getAbsolutePath() + "</li>");
+        }
+        return result;
+
+    }
+
+    private void addToList(List<String> junkList, List<String> valueList) {
+        if (CheckUtils.isEmpty(valueList)) {
+            return;
+        }
+        if (junkList == null) {
+            junkList = new ArrayList<String>();
+        }
+        for (String value : valueList) {
+            if (CheckUtils.isEmpty(value)) {
+                continue;
+            }
+            junkList.add(value);
+        }
     }
 }
