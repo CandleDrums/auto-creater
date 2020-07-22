@@ -74,12 +74,10 @@
 							<button type="button" class="layui-btn" id="scan" lay-submit="">
 								<i class="layui-icon" style="font-size: 20px;">&#xe615;</i> 扫描
 							</button>
-							<#if fileList>
-							<button type="button" class="layui-btn layui-btn-danger"
-								id="clear" lay-submit="">
+							<button type="button" class="layui-btn layui-btn-danger" disabled="disabled"
+								id="clear-btn" lay-submit="">
 								<i class="layui-icon" style="font-size: 20px;">&#xe640;</i> 清理
 							</button>
-							</#if>
 						</div>
 					</div>
 				</form>
@@ -87,7 +85,11 @@
 			</div>
 		</div>
 	</div>
-	
+	<script type="text/javascript">
+		function sleep (time) {
+		  return new Promise((resolve) => setTimeout(resolve, time));
+		}
+	</script>
 	<script type="text/javascript">
 	$('#scan').on('click', function() {
 		 var data = new FormData($("#cleanForm")[0]);
@@ -106,7 +108,9 @@
 						html += data.data;
 						html += '</ol></pre>';
 						 $("#file-list-div").append(html);
+						 $("#clear-btn").removeAttr("disabled");//将按钮可用
 					}else{
+					    $("#clear-btn").attr({"disabled":"disabled"});
 						layer.alert(data.message,{icon: 2, title:'搜索结果'});
 					    $("#file-list-div").empty();
 					}
@@ -117,7 +121,7 @@
 	</script>
 
 	<script type="text/javascript">
-	$('#clear').on('click', function() {
+	$('#clear-btn').on('click', function() {
 	    layer.confirm('是否确认清除？', {icon: 2, title:'删除'}, function(index){
 		
 		 var data = new FormData($("#cleanForm")[0]);

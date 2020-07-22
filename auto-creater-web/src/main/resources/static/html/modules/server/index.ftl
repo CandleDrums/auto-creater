@@ -153,10 +153,10 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	function sleep (time) {
-	  return new Promise((resolve) => setTimeout(resolve, time));
-	}
-</script>
+		function sleep (time) {
+		  return new Promise((resolve) => setTimeout(resolve, time));
+		}
+	</script>
 	<script type="text/javascript">
 	$('#addConnection').on('click', function() {
 		$('#addConnection').attr("disabled",true); 
