@@ -68,7 +68,8 @@ public class CleanController {
     @ResponseBody
     @RequestMapping(value = "/clean.htm", method = RequestMethod.POST)
     public ResponseResult<Boolean> clean(@RequestParam(value = "repPath", required = true) String repPath,
-        @RequestParam(value = "junkList", required = true) List<String> junkList, HttpServletRequest request,
+        @RequestParam(value = "junkList", required = true) List<String> junkList,
+        @RequestParam(value = "customList", required = false) List<String> customList, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
 
         if (CheckUtils.isEmpty(repPath) && CheckUtils.isEmpty(junkList)) {

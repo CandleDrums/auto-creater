@@ -14,7 +14,11 @@
 					</a></li>
 					<li class="layui-col-xs3"><a
 						lay-href="component/layer/list.html"> <i
-							class="layui-icon layui-icon-template-1"></i> <cite>web项目生成</cite>
+							class="layui-icon layui-icon-app"></i> <cite>web项目生成</cite>
+					</a></li>
+										<li class="layui-col-xs3"><a
+						lay-href="component/layer/list.html"> <i
+							class="layui-icon layui-icon-app"></i> <cite>垃圾清理</cite>
 					</a></li>
 				</ul>
 			</div>

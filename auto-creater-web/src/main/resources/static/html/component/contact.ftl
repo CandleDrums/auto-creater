@@ -17,7 +17,7 @@
 		</colgroup>
 		<tbody>
 			<tr>
-				<td><img src="${rc.contextPath}/img/thumbsup.png" width="36px">主页</td>
+				<td><img src="${rc.contextPath}/img/git.png" width="36px">主页</td>
 				<td><a href="https://github.com/CandleDrums/auto-creater"
 					target="_blank">项目主页</td>
 			</tr>

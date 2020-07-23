@@ -51,6 +51,13 @@
 								lay-skin="primary" value=".log.gz">
 						</div>
 					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">tmp垃圾</label>
+						<div class="layui-input-block">
+							<input type="checkbox" name="junkList" title="*.tmp"
+								lay-skin="primary" value=".tmp">
+						</div>
+					</div>
 					<div id="custom-div">
 						<div class="layui-form-item">
 							<div class="layui-inline">
@@ -92,15 +99,19 @@
 	</script>
 	<script type="text/javascript">
 	$('#scan').on('click', function() {
-		 var data = new FormData($("#cleanForm")[0]);
-		      $.ajax({
-		        type: 'POST',
-		        dataType: 'json',
-		        processData: false, // 告诉jquery不要处理数据
-		        contentType: false, // 告诉jquery不要设置contentType
-		        data: data,
-		        url: '${rc.contextPath}/clean/scan.htm',
-		        success : function(data) {
+	    var value = $("#repPath").val();
+		if (value == '') {
+			layer.alert('请输入要清理的目录位置！',{icon: 5, title:'扫描'});
+		} else {
+			var data = new FormData($("#cleanForm")[0]);
+			$.ajax({
+			     type: 'POST',
+			     dataType: 'json',
+			     processData: false, // 告诉jquery不要处理数据
+			     contentType: false, // 告诉jquery不要设置contentType
+			     data: data,
+			     url: '${rc.contextPath}/clean/scan.htm',
+			     success : function(data) {
 					if(data.result=='SUCCESS'){
 					    $("#file-list-div").empty();
 					    var html = "";
@@ -114,9 +125,9 @@
 						layer.alert(data.message,{icon: 2, title:'搜索结果'});
 					    $("#file-list-div").empty();
 					}
-				}
-		      })
-
+			}
+			})
+		}
 	});
 	</script>
 
