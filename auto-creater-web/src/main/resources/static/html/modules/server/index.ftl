@@ -29,8 +29,7 @@
 									<option selected="selected" value="">请选择</option>
 									<#list connectionList as detail>
 									<optgroup label="${detail.name}">
-										<option value="${detail.id}"<#if
-												connectionConfigId?? && connectionConfigId== detail.id>selected="selected"</#if>>${detail.host}:${detail.port}
+										<option value="${detail.id}" <#if connectionConfigId?? && connectionConfigId== detail.id>selected="selected"</#if>>${detail.host}:${detail.port}
 										</option>
 									</optgroup>
 									</#list>

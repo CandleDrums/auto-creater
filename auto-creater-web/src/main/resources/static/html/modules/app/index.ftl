@@ -90,6 +90,12 @@
 </script>
 	<script type="text/javascript">
 	$('#projectCreate').on('click', function() {
+		var value = $("#projectName").val();
+
+		if (value == '') {
+			layer.alert('请输入项目名！',{icon: 5, title:'删除'});
+			return false;
+		}
 		layui.use('element', function(){
 		  var element = layui.element;
 			$.ajax({

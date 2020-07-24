@@ -14,10 +14,16 @@
 	<div class="layui-container layui-fluid" style="width: 800px;">
 		<div class="layui-card">
 			<div class="layui-card-body">
-				<button type="button" id="addConnection" class="layui-btn"
-					lay-submit="">
-					<i class="layui-icon" style="font-size: 20px;">&#xe654;</i> 添加
-				</button>
+				<fieldset class="layui-elem-field layui-field-title"
+					style="margin-top: 20px;">
+					<legend>数据库列表</legend>
+				</fieldset>
+				<div  style="float:right;padding-bottom: 5px;">
+					<button type="button" id="addConnection" class="layui-btn layui-btn-normal"
+						lay-submit="">
+						<i class="layui-icon" style="font-size: 20px;">&#xe654;</i>添加
+					</button>
+				</div>
 				<table cellspacing="0" cellpadding="0" border="0"
 					class="layui-table">
 					<thead>
