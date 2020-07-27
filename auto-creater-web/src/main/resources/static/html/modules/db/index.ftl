@@ -16,7 +16,7 @@
 			<div class="layui-card-body">
 				<fieldset class="layui-elem-field layui-field-title"
 					style="margin-top: 20px;">
-					<legend>数据库列表</legend>
+					<legend>数据库信息</legend>
 				</fieldset>
 				<div  style="float:right;padding-bottom: 5px;">
 					<button type="button" id="addConnection" class="layui-btn layui-btn-normal"

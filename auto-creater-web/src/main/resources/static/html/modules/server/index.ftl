@@ -175,7 +175,7 @@
 			}
 		});
 	});
-</script>
+	</script>
 	<script type="text/javascript">
 	$('#deleteConnection').on('click', function() {
 		var value = $("#connectionConfigId").val();
@@ -206,7 +206,7 @@
 			});
 		}
 	});
-</script>
+	</script>
 	<script type="text/javascript">
 	$('#projectCreate').on('click', function() {
 		layui.use('element', function(){
@@ -272,7 +272,7 @@
 		    	}, scanTime);
 		});
 	});
-</script>
+	</script>
 	<script src="${rc.contextPath}/layui/layui.all.js" charset="utf-8"></script>
 </body>
 </html>
