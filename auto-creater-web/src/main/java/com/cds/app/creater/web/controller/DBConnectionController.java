@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cds.app.creater.common.model.DBConnectionVO;
 import com.cds.app.creater.common.util.DatabaseMetaDateManager;
 import com.cds.auto.creater.service.DBConnectionService;
 import com.cds.base.common.result.ResponseResult;
+import com.cds.base.generator.mybatis.config.DBConnectionConfig;
 
 /**
  * @Description 数据库连接
@@ -46,7 +46,7 @@ public class DBConnectionController {
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ModelAndView view = new ModelAndView();
         view.setViewName("html/modules/db/index");
-        List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
+        List<DBConnectionConfig> connectionList = dbConnectionService.queryAll(new DBConnectionConfig());
         view.addObject("connectionList", connectionList);
 
         return view;
@@ -60,11 +60,11 @@ public class DBConnectionController {
     }
 
     @PostMapping(value = "/add.htm")
-    public ModelAndView add(DBConnectionVO connection, HttpServletRequest request, HttpServletResponse response)
+    public ModelAndView add(DBConnectionConfig connection, HttpServletRequest request, HttpServletResponse response)
         throws IOException {
         ModelAndView view = new ModelAndView();
         view.setViewName("html/modules/db/addConnection");
-        DBConnectionVO param = new DBConnectionVO();
+        DBConnectionConfig param = new DBConnectionConfig();
         param.setHost(connection.getHost());
         param.setPort(connection.getPasswd());
         param.setUserName(connection.getUserName());
@@ -81,7 +81,7 @@ public class DBConnectionController {
 
     @PostMapping(value = "/test.htm")
     @ResponseBody
-    public ResponseResult<Boolean> test(DBConnectionVO connection, HttpServletRequest request,
+    public ResponseResult<Boolean> test(DBConnectionConfig connection, HttpServletRequest request,
         HttpServletResponse response) throws IOException {
 
         DatabaseMetaData databaseMetaData = databaseMetaDateManager.getDatabaseMetaData(connection);

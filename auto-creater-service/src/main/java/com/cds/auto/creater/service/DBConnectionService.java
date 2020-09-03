@@ -7,9 +7,9 @@
  */
 package com.cds.auto.creater.service;
 
-import com.cds.app.creater.common.model.DBConnectionVO;
 import com.cds.app.creater.dal.model.DBConnectionDO;
 import com.cds.base.biz.service.BasicService;
+import com.cds.base.generator.mybatis.config.DBConnectionConfig;
 
 /**
  * @Description 数据库连接信息Service
@@ -17,6 +17,6 @@ import com.cds.base.biz.service.BasicService;
  * @author liming
  * @Date Jun 4, 2020 10:43:24 AM
  */
-public interface DBConnectionService extends BasicService<DBConnectionVO, DBConnectionDO> {
+public interface DBConnectionService extends BasicService<DBConnectionConfig, DBConnectionDO> {
 
 }

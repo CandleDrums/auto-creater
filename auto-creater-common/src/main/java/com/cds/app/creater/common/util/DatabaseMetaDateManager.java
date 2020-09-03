@@ -24,9 +24,9 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.cds.app.creater.common.model.DBConnectionVO;
 import com.cds.app.creater.common.model.TableColumn;
 import com.cds.app.creater.common.model.TableDetail;
+import com.cds.base.generator.mybatis.config.DBConnectionConfig;
 import com.cds.base.util.bean.CheckUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class DatabaseMetaDateManager {
 
-    public DatabaseMetaData getDatabaseMetaData(DBConnectionVO config) {
+    public DatabaseMetaData getDatabaseMetaData(DBConnectionConfig config) {
         return this.initDatabaseMetaData(config.getHost(), config.getPort(), config.getUserName(), config.getPasswd());
     }
 

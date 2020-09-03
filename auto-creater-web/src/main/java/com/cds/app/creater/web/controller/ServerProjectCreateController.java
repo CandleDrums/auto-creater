@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cds.app.creater.common.model.DBConnectionVO;
 import com.cds.app.creater.common.model.ExampleProjectConfig;
 import com.cds.app.creater.common.model.ProjectCreateParams;
 import com.cds.app.creater.common.model.TableDetail;
@@ -31,6 +30,7 @@ import com.cds.app.creater.common.util.DatabaseMetaDateManager;
 import com.cds.auto.creater.service.DBConnectionService;
 import com.cds.auto.creater.service.ProjectCreateService;
 import com.cds.base.common.result.ResponseResult;
+import com.cds.base.generator.mybatis.config.DBConnectionConfig;
 import com.cds.base.util.bean.CheckUtils;
 
 /**
@@ -62,7 +62,7 @@ public class ServerProjectCreateController {
     public ModelAndView projectIndex(
         @RequestParam(value = "connectionConfigId", required = false) Integer connectionConfigId,
         HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<DBConnectionVO> connectionList = dbConnectionService.queryAll(new DBConnectionVO());
+        List<DBConnectionConfig> connectionList = dbConnectionService.queryAll(new DBConnectionConfig());
         ModelAndView view = new ModelAndView();
         view.addObject("connectionList", connectionList);
         view.setViewName("html/modules/server/index");
@@ -70,7 +70,7 @@ public class ServerProjectCreateController {
         if (CheckUtils.isEmpty(connectionConfigId)) {
             return view;
         }
-        DBConnectionVO connectionConfig = dbConnectionService.detail(connectionConfigId);
+        DBConnectionConfig connectionConfig = dbConnectionService.detail(connectionConfigId);
         if (connectionConfig == null) {
             return view;
         }
@@ -103,7 +103,7 @@ public class ServerProjectCreateController {
             || CheckUtils.isEmpty(params.getTableName())) {
             return ResponseResult.returnFail(false, "必填项必须填写！");
         }
-        DBConnectionVO connectionConfig = dbConnectionService.detail(params.getConnectionConfigId());
+        DBConnectionConfig connectionConfig = dbConnectionService.detail(params.getConnectionConfigId());
         if (CheckUtils.isEmpty(params)) {
             return ResponseResult.returnFail(false, "数据库连接失败，请重试！");
         }

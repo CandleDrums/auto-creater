@@ -62,7 +62,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-						<dependency>
+			<dependency>
 				<groupId>com.candledrums.maven</groupId>
 				<artifactId>configure-maven-mybatis</artifactId>
 				<version>${configure.maven.version}</version>
@@ -119,6 +119,11 @@
 			<dependency>
 				<groupId>com.candledrums.base</groupId>
 				<artifactId>base-module</artifactId>
+				<version>${base.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.candledrums.base</groupId>
+				<artifactId>base-generator</artifactId>
 				<version>${base.version}</version>
 			</dependency>
 			<dependency>

@@ -19,6 +19,10 @@
 			<artifactId>base-util</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.candledrums.base</groupId>
+			<artifactId>base-generator</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
