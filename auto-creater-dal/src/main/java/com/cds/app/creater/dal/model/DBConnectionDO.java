@@ -7,9 +7,6 @@
  */
 package com.cds.app.creater.dal.model;
 
-import com.cds.base.util.generator.mybatis.MybatisMapperGenerator;
-import com.cds.base.util.generator.mybatis.annotaion.TableAnnotation;
-
 import lombok.Data;
 import lombok.ToString;
 
@@ -21,7 +18,6 @@ import lombok.ToString;
  */
 @Data
 @ToString(callSuper = true)
-@TableAnnotation(value = "db_connection")
 public class DBConnectionDO {
 
     private Integer id;
@@ -31,7 +27,4 @@ public class DBConnectionDO {
     private String passwd;
     private String port;
 
-    public static void main(String[] args) {
-        MybatisMapperGenerator.build(DBConnectionDO.class);
-    }
 }
