@@ -1,3 +1,1 @@
-# Auto Creater
-1
-http://localhost/project/index.htm
+# 项目文件自动创建

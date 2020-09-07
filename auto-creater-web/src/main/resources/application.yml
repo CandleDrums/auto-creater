@@ -2,15 +2,14 @@ server:
 #配置启动端口
     port: 80
     max-http-header-size: 4048576
-    max-http-post-size: 4048576
     tomcat:
-        max-http-post-size: 4048576
+      max-http-form-post-size: 4048576
 spring:
     application:
         name: auto-creater
     datasource:
         driver-class-name: org.sqlite.JDBC
-#系统不同，如果使用:resource:可能会无法插入值
+#因为系统不同，如果直接使用“:resource:”可能会无法插入值
 #*需修改*
         url: jdbc:sqlite:/你的本地path/auto-creater/auto-creater-web/src/main/resources/sqlite3.db
         username: null
