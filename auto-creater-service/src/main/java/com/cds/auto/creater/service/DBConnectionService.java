@@ -7,7 +7,6 @@
  */
 package com.cds.auto.creater.service;
 
-import com.cds.app.creater.dal.model.DBConnectionDO;
 import com.cds.base.biz.service.BasicService;
 import com.cds.base.generator.mybatis.config.DBConnectionConfig;
 
@@ -17,6 +16,6 @@ import com.cds.base.generator.mybatis.config.DBConnectionConfig;
  * @author liming
  * @Date Jun 4, 2020 10:43:24 AM
  */
-public interface DBConnectionService extends BasicService<DBConnectionConfig, DBConnectionDO> {
+public interface DBConnectionService extends BasicService<DBConnectionConfig> {
 
 }

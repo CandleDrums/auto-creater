@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import com.cds.app.creater.dal.dao.DBConnectionDAO;
 import com.cds.app.creater.dal.model.DBConnectionDO;
 import com.cds.auto.creater.service.DBConnectionService;
-import com.cds.base.biz.service.impl.BasicServiceImpl;
-import com.cds.base.dal.dao.BasicDAO;
+import com.cds.base.biz.service.custom.impl.BasicServiceImpl;
+import com.cds.base.dal.custom.dao.BasicDAO;
 import com.cds.base.generator.mybatis.config.DBConnectionConfig;
 
 /**

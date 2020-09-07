@@ -8,7 +8,7 @@
 package com.cds.app.creater.dal.dao;
 
 import com.cds.app.creater.dal.model.DBConnectionDO;
-import com.cds.base.dal.dao.BasicDAO;
+import com.cds.base.dal.custom.dao.BasicDAO;
 
 /**
  * @Description 数据库连接信息DAO
