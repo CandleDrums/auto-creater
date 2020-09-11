@@ -8,6 +8,13 @@
 			<li class="layui-timeline-item">
 			    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
 			    <div class="layui-timeline-content layui-text">
+			      <h3 class="layui-timeline-title">2020年9月</h3>
+			      <p>考虑到大多数项目均采用mybatis-generator生成相关文件，所以基础dal层也引入了官方版的模板文件，用户可以自行选择</p>
+			    </div>
+			  </li>
+			<li class="layui-timeline-item">
+			    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+			    <div class="layui-timeline-content layui-text">
 			      <h3 class="layui-timeline-title">2020年7月</h3>
 			      <p>Auto Creater2.0初步完成，它有以下特点：</p>
 			      <ul>

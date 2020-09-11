@@ -23,6 +23,9 @@ import com.cds.app.creater.common.model.ExampleProjectConfig;
 import com.cds.app.creater.common.model.ProjectCreateParams;
 import com.cds.app.creater.common.model.TableColumn;
 import com.cds.app.creater.common.model.TableDetail;
+import com.cds.base.generator.mybatis.common.MybatisOfficialGeneratorAdapter;
+import com.cds.base.generator.mybatis.config.DBConnectionConfig;
+import com.cds.base.generator.mybatis.config.GeneratorConfig;
 import com.cds.base.util.bean.CheckUtils;
 import com.cds.base.util.file.FileUtils;
 import com.cds.base.util.misc.DateUtils;
@@ -97,7 +100,7 @@ public class ProjectCreateUtils {
      * @return void
      */
     public void createFile(Map<String, String> localPathMap, TableDetail tableDetail, Map<String, String> replaceMap,
-        String packageName) {
+        String packageName, ProjectCreateParams params) {
         if (CheckUtils.isEmpty(localPathMap)) {
             return;
         }
@@ -114,7 +117,6 @@ public class ProjectCreateUtils {
                 }
                 List<String> extraAttributes = null;
                 if (tableDetail != null) {
-                    // 如果为JavaBean，是否有要额外添加的动态成员变量，可以根据情况自行修改
                     extraAttributes = getExtraAttributes(tableDetail, file);
                 }
                 writeFile(replaceMap, extraAttributes, absolutePath,
@@ -122,6 +124,59 @@ public class ProjectCreateUtils {
             }
         }
 
+        String modelName = replaceMap.get("TableName");
+        String projectName = replaceMap.get("projectName");
+        // 创建mybatis文件
+        createMappers(params, modelName, projectName);
+
+    }
+
+    /**
+     * @description 创建Mapper文件
+     * @return void
+     */
+    private void createMappers(ProjectCreateParams params, String modelName, String projectName) {
+        String dbName = params.getDbName();
+        String tableName = params.getTableName();
+        String doName = modelName + "DO";
+        String daoName = modelName + "DAO";
+        DBConnectionConfig connectionConfig = params.getConnectionConfig();
+        MybatisOfficialGeneratorAdapter mybatisOfficialGeneratorAdapter = new MybatisOfficialGeneratorAdapter();
+        GeneratorConfig generatorConfig = new GeneratorConfig();
+        generatorConfig.setAnnotation(false);
+        generatorConfig.setAnnotationDAO(false);
+        generatorConfig.setComment(true);
+        generatorConfig.setProjectName(projectName);
+        generatorConfig.setDaoPackage("com.cds." + projectName + ".dep.dal.dao");
+        generatorConfig.setDaoTargetFolder("src/main/java");
+        generatorConfig.setDomainObjectName(doName);
+        generatorConfig.setEncoding("UTF-8");
+        generatorConfig.setJsr310Support(false);
+        generatorConfig.setMapperName(daoName);
+        generatorConfig.setMappingXMLPackage("mapper.base");
+        generatorConfig.setMappingXMLTargetFolder("src/main/resources");
+        generatorConfig.setModelPackage("com.cds." + projectName + ".dep.dal.model");
+        generatorConfig.setModelPackageTargetFolder("src/main/java");
+        generatorConfig.setNeedForUpdate(false);
+        generatorConfig.setNeedToStringHashcodeEquals(true);
+        generatorConfig.setOffsetLimit(true);
+        generatorConfig.setOverrideXML(true);
+        generatorConfig.setProjectFolder(params.getOutputPath());
+        generatorConfig.setTableName(tableName);
+        generatorConfig.setUseActualColumnNames(false);
+        generatorConfig.setUseDAOExtendStyle(true);
+        generatorConfig.setUseExample(true);
+        generatorConfig.setUseLombokPlugin(true);
+        generatorConfig.setUseSchemaPrefix(false);
+        generatorConfig.setUseTableNameAlias(false);
+        connectionConfig.setEncoding("utf8");
+        connectionConfig.setDbType("MySQL");
+        connectionConfig.setSchema(dbName);
+        try {
+            mybatisOfficialGeneratorAdapter.generate(generatorConfig, connectionConfig);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -130,9 +185,10 @@ public class ProjectCreateUtils {
      */
     private List<String> getExtraAttributes(TableDetail tableDetail, File file) {
         List<String> extraAttributes = null;
-        if ("TableNameDO.java".equals(file.getName())) {
-            extraAttributes = getExtraAttributeList(tableDetail, getDOExcludeList());
-        } else if ("TableNameVO.java".equals(file.getName())) {
+        // if ("TableNameDO.java".equals(file.getName())) {
+        // extraAttributes = getExtraAttributeList(tableDetail, getDOExcludeList());
+        // } else
+        if ("TableNameVO.java".equals(file.getName())) {
             extraAttributes = getExtraAttributeList(tableDetail, getVOExcludeList());
         }
         return extraAttributes;
@@ -177,6 +233,8 @@ public class ProjectCreateUtils {
         TableDetail tableDetail = null;
         map.put("isGeneral", "true");
         map.put(exampleProjectConfig.getPrefix(), projectName);
+        map.put("projectName", projectName);
+
         map.put(upperFirstLatter(exampleProjectConfig.getPrefix()), upcaseProjectName);
         map.put("9999", params.getPort());
         map.put("com.cds", params.getPackageName());

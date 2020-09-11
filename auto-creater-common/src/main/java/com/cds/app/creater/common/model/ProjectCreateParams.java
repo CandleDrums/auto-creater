@@ -7,6 +7,8 @@
  */
 package com.cds.app.creater.common.model;
 
+import com.cds.base.generator.mybatis.config.DBConnectionConfig;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -29,5 +31,6 @@ public class ProjectCreateParams extends BaseParams {
     private String dbName;
     private String tableName;
     private TableDetail tableDetail;
+    private DBConnectionConfig connectionConfig;
 
 }

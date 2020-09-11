@@ -33,12 +33,13 @@
 						<td width="36px;" style="text-align: center"><img
 							src="${rc.contextPath}/img/alarm.png" width="36px"></td>
 						<td>所有页面增加数据校验</td>
-						<td width="48px;" style="text-align: center"><span style="color: #FFB800;">进行中</span></td>					</tr>
+						<td width="48px;" style="text-align: center"><span style="color: #FFB800;">进行中</span></td>
+					</tr>
 					<tr>
 						<td width="36px;" style="text-align: center"><img
 							src="${rc.contextPath}/img/alarm.png" width="36px"></td>
 						<td>基础DAO基于Mybatis实现</td>
-						<td width="48px;" style="text-align: center"><span>未开始</span></td>
+						<td width="48px;" style="text-align: center"><span style="color: #FFB800;">进行中</span></td>
 					</tr>
 				</tbody>
 			</table>

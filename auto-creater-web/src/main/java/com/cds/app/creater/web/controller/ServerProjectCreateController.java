@@ -115,6 +115,7 @@ public class ServerProjectCreateController {
         if (CheckUtils.isEmpty(allTablesMap)) {
             return ResponseResult.returnFail(false, "数据库连接失败，请重试！");
         }
+        params.setConnectionConfig(connectionConfig);
         String dbName = params.getDbName();
         String tableName = params.getTableName();
         // 默认与数据库名相同
@@ -133,11 +134,13 @@ public class ServerProjectCreateController {
         params.setProjectName(projectName);
         try {
             projectCreateService.createServerProject(params);
+            return ResponseResult.returnSuccess(true);
+
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseResult.returnFail(false, e.getMessage());
         }
 
-        return ResponseResult.returnSuccess(true);
     }
 
 }
