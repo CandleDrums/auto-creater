@@ -27,6 +27,7 @@ import com.cds.app.creater.common.util.DatabaseMetaDateManager;
 import com.cds.auto.creater.service.DBConnectionService;
 import com.cds.base.common.result.ResponseResult;
 import com.cds.base.generator.mybatis.config.DBConnectionConfig;
+import com.cds.base.util.bean.CheckUtils;
 
 /**
  * @Description 数据库连接
@@ -68,8 +69,8 @@ public class DBConnectionController {
         param.setHost(connection.getHost());
         param.setPort(connection.getPasswd());
         param.setUserName(connection.getUserName());
-        boolean contains = dbConnectionService.contains(param);
-        if (contains) {
+        List<DBConnectionConfig> contains = dbConnectionService.queryAll(param);
+        if (CheckUtils.isNotEmpty(contains)) {
             view.addObject("error", "该配置已存在，请确认");
             view.addObject("connection", connection);
             return view;

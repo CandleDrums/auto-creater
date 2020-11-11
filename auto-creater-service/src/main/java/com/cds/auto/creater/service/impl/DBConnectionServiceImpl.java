@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import com.cds.app.creater.dal.dao.DBConnectionDAO;
 import com.cds.app.creater.dal.model.DBConnectionDO;
 import com.cds.auto.creater.service.DBConnectionService;
-import com.cds.base.biz.service.impl.custom.BasicServiceImpl;
-import com.cds.base.dal.custom.dao.BasicDAO;
+import com.cds.base.biz.service.impl.custom.CustomBaseSeerviceImpl;
+import com.cds.base.dal.custom.dao.CustomBaseDAO;
 import com.cds.base.generator.mybatis.config.DBConnectionConfig;
 
 /**
@@ -24,13 +24,13 @@ import com.cds.base.generator.mybatis.config.DBConnectionConfig;
  * @Date Jun 4, 2020 10:51:26 AM
  */
 @Service
-public class DBConnectionServiceImpl extends BasicServiceImpl<DBConnectionConfig, DBConnectionDO>
+public class DBConnectionServiceImpl extends CustomBaseSeerviceImpl<DBConnectionConfig, DBConnectionDO>
     implements DBConnectionService {
     @Autowired
     private DBConnectionDAO dbConnectionDAO;
 
     @Override
-    protected BasicDAO<DBConnectionDO> getDAO() {
+    protected CustomBaseDAO<DBConnectionDO> getDAO() {
         return dbConnectionDAO;
     }
 
