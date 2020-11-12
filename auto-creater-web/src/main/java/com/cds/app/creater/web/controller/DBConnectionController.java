@@ -69,7 +69,7 @@ public class DBConnectionController {
         param.setHost(connection.getHost());
         param.setPort(connection.getPasswd());
         param.setUserName(connection.getUserName());
-        List<DBConnectionConfig> contains = dbConnectionService.queryAll(param);
+        DBConnectionConfig contains = dbConnectionService.detail(param);
         if (CheckUtils.isNotEmpty(contains)) {
             view.addObject("error", "该配置已存在，请确认");
             view.addObject("connection", connection);
