@@ -124,10 +124,10 @@ public class ProjectCreateUtils {
             }
         }
 
-        String modelName = replaceMap.get("TableName");
-        String projectName = replaceMap.get("projectName");
-        // 创建mybatis文件
-        createMappers(params, modelName, projectName);
+        // String modelName = replaceMap.get("TableName");
+        // String projectName = replaceMap.get("projectName");
+        // 创建mybatis文件,不需要了
+        // createMappers(params, modelName, projectName);
 
     }
 
@@ -185,10 +185,9 @@ public class ProjectCreateUtils {
      */
     private List<String> getExtraAttributes(TableDetail tableDetail, File file) {
         List<String> extraAttributes = null;
-        // if ("TableNameDO.java".equals(file.getName())) {
-        // extraAttributes = getExtraAttributeList(tableDetail, getDOExcludeList());
-        // } else
-        if ("TableNameVO.java".equals(file.getName())) {
+        if ("TableNameDO.java".equals(file.getName())) {
+            extraAttributes = getExtraAttributeList(tableDetail, getDOExcludeList());
+        } else if ("TableNameVO.java".equals(file.getName())) {
             extraAttributes = getExtraAttributeList(tableDetail, getVOExcludeList());
         }
         return extraAttributes;
@@ -279,7 +278,7 @@ public class ProjectCreateUtils {
         log.info(targetPath);
 
         List<String> lineList = FileUtils.readFileToList(sourcePath, FileUtils.CHARSET);
-        List<String> contentList = new ArrayList<String>();
+        List<String> contentList = new ArrayList<>();
         for (String line : lineList) {
             String replacedLine = replaceLine(line, map);
             // log.info(replacedLine);

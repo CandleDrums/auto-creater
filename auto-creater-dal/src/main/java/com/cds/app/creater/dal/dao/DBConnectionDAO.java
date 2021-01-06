@@ -8,7 +8,7 @@
 package com.cds.app.creater.dal.dao;
 
 import com.cds.app.creater.dal.model.DBConnectionDO;
-import com.cds.base.dal.dao.BaseDAO;
+import com.cds.base.dal.custom.dao.CustomBaseDAO;
 
 /**
  * @Description 数据库连接信息DAO
@@ -16,6 +16,6 @@ import com.cds.base.dal.dao.BaseDAO;
  * @author liming
  * @Date Jun 4, 2020 10:35:11 AM
  */
-public interface DBConnectionDAO extends BaseDAO<DBConnectionDO> {
+public interface DBConnectionDAO extends CustomBaseDAO<DBConnectionDO> {
 
 }
