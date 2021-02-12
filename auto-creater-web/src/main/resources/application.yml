@@ -11,7 +11,7 @@ spring:
         driver-class-name: org.sqlite.JDBC
 #因为系统不同，如果直接使用“:resource:”可能会无法插入值
 #*需修改*
-        url: jdbc:sqlite:/Users/liming/git/auto-creater/auto-creater-web/src/main/resources/sqlite3.db
+        url: jdbc:sqlite:/Users/liming/git_cds/auto-creater/auto-creater-web/src/main/resources/sqlite3.db
         username: null
         password: null
 #freemarker配置
@@ -49,10 +49,9 @@ example:
     prefix: example
 #项目前缀，一般与数据库同名
     serverProjects:
-#    -   example-dep: https://github.com/CandleDrums/${example.prefix}-dep.git
+    -   example-dep: https://github.com/CandleDrums/${example.prefix}-dep.git
     -   example-server: https://github.com/CandleDrums/${example.prefix}-server.git
     -   example-api: https://github.com/CandleDrums/${example.prefix}-api.git
-    -   example-dep: https://github.com/CandleDrums/example-dep-mybatisplus.git
     appProjects:
     -   example-rest-app: https://github.com/CandleDrums/example-rest-app.git
 #输出目录
