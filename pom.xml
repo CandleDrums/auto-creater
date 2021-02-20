@@ -32,7 +32,7 @@
 		<package.name>auto-creater</package.name>
 		<configure.maven.version>1.0.0-SNAPSHOT</configure.maven.version>
 		<base.version>1.0.0-SNAPSHOT</base.version>
-		<mysql.connector.java.version>8.0.12</mysql.connector.java.version>
+		<mysql.connector.java.version>8.0.16</mysql.connector.java.version>
 		<starter.version>1.0.0-SNAPSHOT</starter.version>
 		<spring.boot.maven.plugin.version>2.2.6.RELEASE</spring.boot.maven.plugin.version>
 		<mybatis.plus.spring.boot.starter.verson>3.3.2</mybatis.plus.spring.boot.starter.verson>
