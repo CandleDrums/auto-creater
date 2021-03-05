@@ -34,14 +34,11 @@ spring:
         suffix: .ftl
         template-loader-path: classpath:/static/
 
-mybatis-plus:
-    mapper-locations: classpath:mapper/*.xml
-    typeAliasesPackage: com.cds.app.creater.dal.model
-#数据库大写下划线转换
-    configuration:
-        map-underscore-to-camel-case: true
-#capital-mode: true
-        cache-enabled: true
+#mapper配置
+mapper:
+  identity: JDBC
+  mappers: com.cds.base.dal.dao.BaseDAO
+  not-empty: false
 logging:
   config: classpath:logback-spring.xml
 #相关参数测默认值，可以根据实际情况自行修改

@@ -7,12 +7,14 @@
  */
 package com.cds;
 
-import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
+
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * @Description 启动
@@ -30,6 +32,11 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class Application {
 
     public static void main(String[] args) {
+        SpringApplication springApplication = new SpringApplication(Application.class);
+        // 关闭banner
+        springApplication.setBannerMode(Banner.Mode.OFF);
+        // 允许类名重复
+        springApplication.setAllowBeanDefinitionOverriding(true);
         SpringApplication.run(Application.class, args);
     }
 

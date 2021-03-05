@@ -7,7 +7,12 @@
  */
 package com.cds.app.creater.dal.model;
 
+import javax.persistence.Table;
+
+import com.cds.base.dal.model.BasicModel;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -18,9 +23,11 @@ import lombok.ToString;
  */
 @Data
 @ToString(callSuper = true)
-public class DBConnectionDO {
+@EqualsAndHashCode(callSuper = true)
+@Table(name = "db_connection")
+public class DBConnectionDO extends BasicModel {
 
-    private Integer id;
+    private static final long serialVersionUID = 1L;
     private String name;
     private String host;
     private String userName;
