@@ -36,7 +36,7 @@
 		<starter.version>1.0.0-SNAPSHOT</starter.version>
 		<spring.boot.maven.plugin.version>2.2.6.RELEASE</spring.boot.maven.plugin.version>
 		<mybatis.plus.spring.boot.starter.verson>3.3.2</mybatis.plus.spring.boot.starter.verson>
-		<sqlite.jdbc.version>3.32.3</sqlite.jdbc.version>
+		<sqlite.jdbc.version>3.41.2.2</sqlite.jdbc.version>
 		<maven.invoker.version>3.0.1</maven.invoker.version>
 	</properties>
 	<dependencyManagement>
